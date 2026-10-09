@@ -99,8 +99,8 @@ export function CallButton({
   source?: string;
 }) {
   const styles = {
-    outline: 'border border-navy-800/30 bg-white/40 text-navy-800 backdrop-blur hover:border-navy-800',
-    light: 'border border-white/35 bg-white/5 text-white backdrop-blur hover:border-white',
+    outline: 'border border-navy-800/30 bg-white/50 text-navy-800 hover:border-navy-800',
+    light: 'border border-white/35 bg-white/10 text-white hover:border-white',
     navy: 'bg-navy-800 text-white hover:bg-navy-900',
   }[variant];
   return (

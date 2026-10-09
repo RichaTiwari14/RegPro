@@ -7,6 +7,7 @@ import { LogoMark } from '@/components/Logo';
 import { WhatsAppGlyph } from '@/components/ui';
 import { site, whatsappLink } from '@/config/site';
 import { trackConversion } from '@/lib/analytics';
+import { lockScroll, scrollToTarget } from '@/lib/smoothScroll';
 
 const VIDEO_SRC =
   'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260821_114821_a8ca298f-be2c-4613-a4dd-51b69e16bbde.mp4';
@@ -65,10 +66,9 @@ function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => void }) 
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
+    if (!open) return;
+    lockScroll(true);
+    return () => lockScroll(false);
   }, [open]);
 
   if (!mounted) return null;
@@ -240,7 +240,7 @@ export function ScrollScene() {
 
   const scrollPastScene = () => {
     const el = containerRef.current;
-    if (el) window.scrollTo({ top: el.offsetTop + el.offsetHeight, behavior: 'smooth' });
+    if (el) scrollToTarget(el.offsetTop + el.offsetHeight);
   };
 
   return (
@@ -331,7 +331,7 @@ export function ScrollScene() {
               <Stagger visible={s2Visible} delay={500} className="mt-2">
                 <button
                   type="button"
-                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  onClick={() => scrollToTarget(0)}
                   aria-label="Scroll to top"
                   className={`flex h-10 w-10 items-center justify-center rounded-full border transition-opacity hover:opacity-70 ${
                     s2Visible ? 'pointer-events-auto' : ''

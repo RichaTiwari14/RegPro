@@ -4,19 +4,22 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { FloatingCTA } from '@/components/FloatingCTA';
 import { initAnalytics, trackPageView } from '@/lib/analytics';
+import { initSmoothScroll, scrollToTarget } from '@/lib/smoothScroll';
 
 export function Layout() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
     initAnalytics();
+    initSmoothScroll();
   }, []);
 
   useEffect(() => {
     if (hash) {
-      document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const el = document.getElementById(hash.slice(1));
+      if (el) scrollToTarget(el);
     } else {
-      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+      scrollToTarget(0, { immediate: true });
     }
     trackPageView(pathname);
   }, [pathname, hash]);

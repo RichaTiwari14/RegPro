@@ -9,6 +9,7 @@ import { offer } from '@/data/offers';
 import { site, whatsappLink } from '@/config/site';
 import { usePastScene } from '@/lib/usePastScene';
 import { trackConversion } from '@/lib/analytics';
+import { lockScroll } from '@/lib/smoothScroll';
 
 const EASE = 'cubic-bezier(0.16,1,0.3,1)';
 
@@ -32,6 +33,7 @@ function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => void }) 
       aria-hidden={!open}
     >
       <div
+        data-lenis-prevent
         className={`flex h-full flex-col overflow-y-auto transition-transform duration-500 ${open ? 'translate-y-0' : '-translate-y-8'}`}
         style={{ transitionTimingFunction: 'cubic-bezier(0.4,0,0.2,1)' }}
       >
@@ -125,10 +127,9 @@ export function Header({ overlay = false }: { overlay?: boolean }) {
   }, [location.pathname]);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
+    if (!menuOpen) return;
+    lockScroll(true);
+    return () => lockScroll(false);
   }, [menuOpen]);
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>

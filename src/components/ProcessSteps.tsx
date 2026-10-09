@@ -10,7 +10,7 @@ export function ProcessSteps({ steps, light = false }: { steps: { title: string;
       {steps.map((s, i) => (
         <Reveal key={s.title} delay={i * 140} className="relative">
           <div
-            className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full border text-sm tracking-[0.1em] backdrop-blur ${
+            className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full border text-sm tracking-[0.1em] ${
               light ? 'border-gold-400/70 bg-navy-900/60 text-gold-300' : 'border-navy-800/30 bg-mist-100/80 text-navy-800'
             }`}
           >

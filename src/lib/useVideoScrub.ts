@@ -262,7 +262,7 @@ export function useVideoScrub(videoSrc: string) {
       last = now;
 
       const p = getProgress();
-      setScrollProgress(p);
+      setScrollProgress(Math.round(p * 2000) / 2000);
 
       if (state.dur > 0) {
         state.target = p * state.dur;

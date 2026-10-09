@@ -256,7 +256,7 @@ function TrackerMock() {
   const steps = ['Documents received', 'Expert review complete', 'Application filed — ARN generated', 'GSTIN approved'];
   return (
     <div className="relative">
-      <div className="pointer-events-none absolute -inset-10 rounded-full bg-gold-300/25 blur-3xl" />
+      <div className="pointer-events-none absolute -inset-16" style={{ background: 'radial-gradient(closest-side, rgba(237,198,85,0.22), rgba(237,198,85,0))' }} />
       <div className="glass relative rounded-[2rem] p-7 sm:p-9">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">

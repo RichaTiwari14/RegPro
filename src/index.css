@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Lenis smooth scrolling */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+html.lenis {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -20,10 +35,10 @@
 @layer components {
   /* Frosted glass panel — reads like cloud cover over the sky backgrounds */
   .glass {
-    @apply border border-white/70 bg-white/55 shadow-[0_20px_60px_-30px_rgba(11,42,91,0.35)] backdrop-blur-xl;
+    @apply border border-white/70 bg-white/70 shadow-[0_20px_60px_-30px_rgba(11,42,91,0.35)];
   }
   .glass-dark {
-    @apply border border-white/10 bg-white/[0.06] backdrop-blur-xl;
+    @apply border border-white/10 bg-white/[0.07];
   }
   /* Sky gradient — matches the pale cloud frames of the landing video */
   .sky {
@@ -54,6 +69,14 @@
 
 .marquee-mask {
   mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+/* Mist drifts only while its section is on screen (see components/Atmosphere.tsx) */
+.mist-on .mist-a { animation: drift 28s ease-in-out infinite alternate; }
+.mist-on .mist-b { animation: drift 40s ease-in-out infinite alternate-reverse; }
+@keyframes drift {
+  from { transform: translate3d(-6%, 0, 0); }
+  to { transform: translate3d(6%, -3%, 0); }
 }
 
 /* ── Scroll reveal (only hides content when JS is running) ── */

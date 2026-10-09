@@ -6,13 +6,25 @@ import { useEffect, useRef } from 'react';
  */
 
 export function Mist({ tone = 'light', className = '' }: { tone?: 'light' | 'dark'; className?: string }) {
-  const blob = tone === 'light' ? 'bg-white' : 'bg-navy-300';
-  const op = tone === 'light' ? 'opacity-70' : 'opacity-[0.08]';
+  // Soft blobs drawn with radial gradients (no CSS blur filter). They only drift while on screen,
+  // so off-screen sections don't hold animated layers that slow scrolling down.
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(([e]) => el.classList.toggle('mist-on', e.isIntersecting), { rootMargin: '100px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const c = tone === 'light' ? '255,255,255' : '127,157,204';
+  const a = tone === 'light' ? 0.75 : 0.09;
+  const blob = (strength: number) => ({ background: `radial-gradient(closest-side, rgba(${c},${a * strength}), rgba(${c},0))` });
   return (
-    <div className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
-      <div className={`absolute -left-[10%] top-[8%] h-[45%] w-[55%] animate-drift rounded-full blur-3xl ${blob} ${op}`} />
-      <div className={`absolute right-[-15%] top-[30%] h-[40%] w-[60%] animate-drift-slow rounded-full blur-3xl ${blob} ${op}`} />
-      <div className={`absolute bottom-[5%] left-[20%] h-[35%] w-[50%] animate-drift rounded-full blur-3xl ${blob} ${op}`} style={{ animationDelay: '-12s' }} />
+    <div ref={ref} className={`mist pointer-events-none absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
+      <div className="mist-a absolute -left-[15%] top-0 h-[60%] w-[70%]" style={blob(1)} />
+      <div className="mist-b absolute right-[-20%] top-[22%] h-[55%] w-[75%]" style={blob(0.9)} />
+      <div className="mist-a absolute bottom-0 left-[12%] h-[50%] w-[65%]" style={{ ...blob(0.8), animationDelay: '-12s' }} />
     </div>
   );
 }
