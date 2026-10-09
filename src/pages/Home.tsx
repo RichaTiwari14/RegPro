@@ -581,37 +581,39 @@ function FaqSection() {
 
 function Enquiry() {
   return (
-    // clip-path confines the fixed backdrop to this section, so the image stays still while the page slides over it.
-    <section id="enquiry" className="relative overflow-hidden pb-[clamp(170px,18vw,260px)] pt-36 text-white [clip-path:inset(0)] sm:pt-44">
-      <div className="fixed inset-0 z-0" aria-hidden="true">
-        <img src="/images/enquiry-backdrop.jpg" alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-950/30 via-navy-950/10 to-navy-950/50" />
-      </div>
-      {/* Mist from the section above melting into the night sky */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-48 bg-gradient-to-b from-mist-100 via-mist-100/60 to-transparent" aria-hidden="true" />
-      <div className={`${wrap} grid items-center gap-14 lg:grid-cols-2`}>
-        <Reveal>
-          <SectionHeading
-            light
-            eyebrow="Get started today"
-            title="Let’s get your business registered"
-            text="Share a few details and an expert will reach out with the right plan and a clear quote. Prefer chatting? We’re on WhatsApp."
-          />
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <WhatsAppButton size="lg" source="enquiry" />
-            <CallButton size="lg" variant="light" label={site.phone} source="enquiry" />
+    <section id="enquiry" className="relative py-20 sm:py-28">
+      <div className={wrap}>
+        {/* Boxed backdrop: clip-path confines the fixed image to this rounded box, so it stays still while the page scrolls past */}
+        <div className="relative overflow-hidden rounded-[2rem] px-6 py-14 text-white [clip-path:inset(0_round_2rem)] sm:px-10 sm:py-16 lg:px-16 lg:py-20">
+          <div className="fixed inset-0 z-0" aria-hidden="true">
+            <img src="/images/enquiry-backdrop.jpg" alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+            <div className="absolute inset-0 bg-navy-950/25" />
           </div>
-          <ul className="mt-9 grid gap-3 text-sm text-white/75 sm:grid-cols-2">
-            {['Free consultation', 'Response within working hours', 'Fixed, transparent quote', 'Pan-India service'].map((t) => (
-              <li key={t} className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-gold-400" /> {t}
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-        <Reveal delay={150}>
-          <LeadForm />
-        </Reveal>
+          <div className="relative z-10 grid items-center gap-12 lg:grid-cols-2 lg:gap-14">
+            <Reveal>
+              <SectionHeading
+                light
+                eyebrow="Get started today"
+                title="Let’s get your business registered"
+                text="Share a few details and an expert will reach out with the right plan and a clear quote. Prefer chatting? We’re on WhatsApp."
+              />
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <WhatsAppButton size="lg" source="enquiry" />
+                <CallButton size="lg" variant="light" label={site.phone} source="enquiry" />
+              </div>
+              <ul className="mt-9 grid gap-3 text-sm text-white/75 sm:grid-cols-2">
+                {['Free consultation', 'Response within working hours', 'Fixed, transparent quote', 'Pan-India service'].map((t) => (
+                  <li key={t} className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-gold-400" /> {t}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+            <Reveal delay={150}>
+              <LeadForm />
+            </Reveal>
+          </div>
+        </div>
       </div>
     </section>
   );
