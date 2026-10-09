@@ -223,3 +223,6 @@ __marimo__/
 node_modules/
 *.local
 dist-ssr/
+
+# Python template above ignores lib/ — keep the app source folder
+!src/lib/
