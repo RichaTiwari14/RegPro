@@ -7,6 +7,7 @@ import { Container, WhatsAppButton } from '@/components/ui';
 import { categories, servicesByCategory, formatPrice } from '@/data/services';
 import { offer } from '@/data/offers';
 import { site, whatsappLink } from '@/config/site';
+import { usePastScene } from '@/lib/usePastScene';
 
 const links = [
   { to: '/about', label: 'About' },
@@ -16,8 +17,10 @@ const links = [
   { to: '/contact', label: 'Contact' },
 ];
 
-export function Header() {
+export function Header({ overlay = false }: { overlay?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
+  // On the home page the header stays hidden over the cinematic scene and slides in after it.
+  const pastScene = usePastScene(overlay);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileServices, setMobileServices] = useState(false);
@@ -49,6 +52,13 @@ export function Header() {
 
   return (
     <>
+      <div
+        className={
+          overlay
+            ? `fixed inset-x-0 top-0 z-40 transition-[transform,visibility] duration-500 ${pastScene ? 'visible translate-y-0' : 'invisible -translate-y-full'}`
+            : 'contents'
+        }
+      >
       {offer.active && (
         <div className="relative z-50 bg-navy-900 text-white">
           <Container className="flex items-center justify-center gap-3 py-2 text-center text-xs sm:text-sm">
@@ -67,7 +77,7 @@ export function Header() {
       )}
 
       <header
-        className={`sticky top-0 z-40 transition-all duration-300 ${
+        className={`${overlay ? 'relative' : 'sticky top-0'} z-40 transition-all duration-300 ${
           scrolled ? 'bg-white/85 shadow-[0_8px_30px_-12px_rgba(11,42,91,0.18)] backdrop-blur-xl' : 'bg-white'
         }`}
       >
@@ -167,6 +177,7 @@ export function Header() {
           </button>
         </Container>
       </header>
+      </div>
 
       {/* Mobile drawer */}
       <div

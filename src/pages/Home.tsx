@@ -20,9 +20,9 @@ import { Seo, organizationLd, faqLd } from '@/lib/seo';
 import { site } from '@/config/site';
 import { categories, services, servicesByCategory, popularServices, formatPrice, type CategoryId } from '@/data/services';
 import { generalFaqs } from '@/data/faqs';
-import { Container, Eyebrow, SectionHeading, WhatsAppButton, CallButton, FeeNote } from '@/components/ui';
+import { Container, SectionHeading, WhatsAppButton, CallButton, FeeNote } from '@/components/ui';
 import { Reveal } from '@/components/Reveal';
-import { LogoMark } from '@/components/Logo';
+import { ScrollScene } from '@/components/ScrollScene';
 import { LeadForm } from '@/components/LeadForm';
 import { ServiceCard } from '@/components/ServiceCard';
 import { ServiceIcon } from '@/components/ServiceIcon';
@@ -31,99 +31,6 @@ import { Testimonials } from '@/components/Testimonials';
 import { FaqList } from '@/components/FaqList';
 
 const minPrice = Math.min(...services.map((s) => s.price));
-
-// ───────────────────────── Hero ─────────────────────────
-
-function Hero() {
-  return (
-    <section className="relative overflow-hidden bg-navy-900 text-white">
-      <div className="grid-pattern pointer-events-none absolute inset-0 opacity-50" />
-      <div className="pointer-events-none absolute -left-32 top-10 h-[28rem] w-[28rem] rounded-full bg-navy-500/30 blur-3xl" />
-      <div className="orb pointer-events-none absolute -right-20 -top-20 h-[26rem] w-[26rem] rounded-full bg-gold-500/20 blur-3xl" />
-
-      {/* Rising bars skyline — echoes the logo mark */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex h-48 items-end justify-center gap-3 opacity-[0.07] sm:gap-5" aria-hidden="true">
-        {[30, 45, 38, 60, 52, 75, 64, 88, 72, 100, 82, 95, 70, 58, 80, 66, 50, 40].map((h, i) => (
-          <span key={i} className="skyline-bar w-6 rounded-t-md bg-white sm:w-10" style={{ height: `${h}%`, animationDelay: `${i * 60}ms` }} />
-        ))}
-      </div>
-
-      <Container className="relative grid items-center gap-12 pb-20 pt-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:pb-28 lg:pt-20">
-        <div>
-          <div className="hero-in">
-            <Eyebrow light>Business registration & compliance, made simple</Eyebrow>
-          </div>
-          <h1 className="hero-in mt-6 font-display text-[2.6rem] font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.2rem]" style={{ animationDelay: '0.1s' }}>
-            Register.
-            <br />
-            Comply.{' '}
-            <span className="relative inline-block text-gold-400">
-              Grow.
-              <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M2 9 C 50 2, 120 2, 198 7" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="underline-draw" />
-              </svg>
-            </span>
-          </h1>
-          <p className="hero-in mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg" style={{ animationDelay: '0.2s' }}>
-            From company incorporation to GST, MSME, FSSAI and trademark — Regpro’s experts handle the paperwork while you focus on
-            building your business. 100% online, with transparent pricing.
-          </p>
-
-          <div className="hero-in mt-8 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: '0.3s' }}>
-            <WhatsAppButton size="lg" label="Chat on WhatsApp" source="hero" />
-            <Link
-              to="/services"
-              className="group inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-6 py-3.5 font-semibold text-white backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10"
-            >
-              Explore services
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </div>
-
-          <ul className="hero-in mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/75" style={{ animationDelay: '0.4s' }}>
-            {['Expert-assisted filing', 'No hidden charges', 'Live updates on WhatsApp'].map((t) => (
-              <li key={t} className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-gold-400" /> {t}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="hero-in relative" style={{ animationDelay: '0.25s' }}>
-          {/* floating status chips */}
-          <div className="float-a absolute -left-4 -top-6 z-20 hidden items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 text-navy-900 shadow-2xl shadow-navy-950/40 backdrop-blur sm:flex lg:-left-10">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50">
-              <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-            </span>
-            <span>
-              <span className="block text-[11px] text-ink/50">Status update</span>
-              <span className="block text-sm font-semibold">GSTIN approved</span>
-            </span>
-          </div>
-          <div className="float-b absolute -bottom-6 -right-2 z-20 hidden items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 text-navy-900 shadow-2xl shadow-navy-950/40 backdrop-blur sm:flex lg:-right-8">
-            <LogoMark className="h-8 w-auto" />
-            <span>
-              <span className="block text-[11px] text-ink/50">Starting at just</span>
-              <span className="block text-sm font-semibold">{formatPrice(minPrice)}*</span>
-            </span>
-          </div>
-
-          <div className="relative">
-            <div className="absolute -inset-1 rounded-[1.7rem] bg-gradient-to-br from-gold-400/60 via-white/10 to-navy-400/40 blur-sm" />
-            <LeadForm
-              compact
-              title="Get a free consultation"
-              subtitle="Tell us what you need — we’ll call you back with the right plan and a clear quote."
-              className="relative"
-            />
-          </div>
-        </div>
-      </Container>
-
-      <StatsStrip />
-    </section>
-  );
-}
 
 function useCountUp(target: number, duration = 1400) {
   const [value, setValue] = useState(target);
@@ -169,7 +76,7 @@ function Stat({ value, prefix = '', suffix = '', label }: { value: number; prefi
 
 function StatsStrip() {
   return (
-    <div className="relative border-t border-white/10 bg-navy-950/40 backdrop-blur">
+    <div className="relative bg-navy-900">
       <Container className="grid grid-cols-2 divide-white/10 lg:grid-cols-4 lg:divide-x">
         <Stat value={services.length} suffix="+" label="Services offered" />
         <Stat value={100} suffix="%" label="Online process" />
@@ -687,7 +594,8 @@ export default function Home() {
         path="/"
         jsonLd={[organizationLd(), faqLd(generalFaqs)]}
       />
-      <Hero />
+      <ScrollScene />
+      <StatsStrip />
       <ServiceMarquee />
       <WhatWeDo />
       <ServicesSection />

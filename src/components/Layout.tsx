@@ -23,12 +23,12 @@ export function Layout() {
 
   return (
     <div className="flex min-h-screen flex-col overflow-x-clip">
-      <Header />
+      <Header overlay={pathname === '/'} />
       <main className="flex-1">
         <Outlet />
       </main>
       <Footer />
-      <FloatingCTA />
+      <FloatingCTA overlay={pathname === '/'} />
     </div>
   );
 }

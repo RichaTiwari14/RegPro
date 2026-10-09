@@ -3,9 +3,12 @@ import { Phone, FileText } from 'lucide-react';
 import { site, whatsappLink } from '@/config/site';
 import { trackConversion } from '@/lib/analytics';
 import { WhatsAppGlyph } from '@/components/ui';
+import { usePastScene } from '@/lib/usePastScene';
 
 /** Desktop: floating WhatsApp bubble. Mobile: sticky bottom bar with Call / WhatsApp / Enquire. */
-export function FloatingCTA() {
+export function FloatingCTA({ overlay = false }: { overlay?: boolean }) {
+  // On the home page the desktop bubble waits until the cinematic scene is over (the scene nav has its own WhatsApp link).
+  const pastScene = usePastScene(overlay);
   return (
     <>
       <a
@@ -14,7 +17,9 @@ export function FloatingCTA() {
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
         onClick={() => trackConversion('contact', 'whatsapp:floating')}
-        className="group fixed bottom-6 right-6 z-40 hidden items-center lg:flex"
+        className={`group fixed bottom-6 right-6 z-40 hidden items-center transition-all duration-500 lg:flex ${
+          pastScene ? '' : 'pointer-events-none translate-y-4 opacity-0'
+        }`}
       >
         <span className="mr-3 translate-x-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-navy-900 opacity-0 shadow-lg transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
           Need help? Chat with us
