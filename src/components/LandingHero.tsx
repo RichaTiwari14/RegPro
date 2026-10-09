@@ -5,8 +5,12 @@ import { whatsappLink } from '@/config/site';
 import { offer } from '@/data/offers';
 import { trackConversion } from '@/lib/analytics';
 
-const VIDEO_SRC =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260601_110537_3a579fa0-7bbc-4d94-9d25-0e816c7840f5.mp4';
+/**
+ * Self-hosted, scrub-optimised encode of the hero clip (1920px, every frame a keyframe, no audio, faststart)
+ * so mouse scrubbing can seek to any frame instantly. Original 4K source:
+ * https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260601_110537_3a579fa0-7bbc-4d94-9d25-0e816c7840f5.mp4
+ */
+const VIDEO_SRC = '/videos/hero.mp4';
 
 const HEADLINE = "let's get your\nbusiness registered.";
 
@@ -115,6 +119,9 @@ export function LandingHero() {
           preload="auto"
           className="h-full w-full object-cover object-right lg:object-right-bottom"
         />
+        {/* Desktop only: soften the clip behind the copy and melt its lavender backdrop into the white page below */}
+        <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(255,255,255,0.85)_0%,rgba(255,255,255,0.4)_32%,rgba(255,255,255,0)_55%)] lg:block" />
+        <div className="absolute inset-x-0 bottom-0 hidden h-[38%] bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.08)_30%,rgba(255,255,255,0.35)_55%,rgba(255,255,255,0.75)_78%,#fff_100%)] lg:block" />
       </div>
 
       {/* Content */}
