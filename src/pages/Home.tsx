@@ -577,28 +577,34 @@ function FaqSection() {
   );
 }
 
-// ───────────────────────── Enquiry — last light before the footer ridge ─────────────────────────
+// ───────────────────────── Enquiry — fixed night-landscape backdrop the page scrolls over ─────────────────────────
 
 function Enquiry() {
   return (
-    <section id="enquiry" className="relative overflow-hidden py-20 sm:py-28">
-      <Mist />
-      <div className="pointer-events-none absolute left-1/2 top-1/3 h-[28rem] w-[50rem] -translate-x-1/2 rounded-full bg-gold-200/40 blur-3xl" />
+    // clip-path confines the fixed backdrop to this section, so the image stays still while the page slides over it.
+    <section id="enquiry" className="relative overflow-hidden pb-[clamp(170px,18vw,260px)] pt-36 text-white [clip-path:inset(0)] sm:pt-44">
+      <div className="fixed inset-0 z-0" aria-hidden="true">
+        <img src="/images/enquiry-backdrop.jpg" alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-950/30 via-navy-950/10 to-navy-950/50" />
+      </div>
+      {/* Mist from the section above melting into the night sky */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-48 bg-gradient-to-b from-mist-100 via-mist-100/60 to-transparent" aria-hidden="true" />
       <div className={`${wrap} grid items-center gap-14 lg:grid-cols-2`}>
         <Reveal>
           <SectionHeading
+            light
             eyebrow="Get started today"
             title="Let’s get your business registered"
             text="Share a few details and an expert will reach out with the right plan and a clear quote. Prefer chatting? We’re on WhatsApp."
           />
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <WhatsAppButton size="lg" source="enquiry" />
-            <CallButton size="lg" label={site.phone} source="enquiry" />
+            <CallButton size="lg" variant="light" label={site.phone} source="enquiry" />
           </div>
-          <ul className="mt-9 grid gap-3 text-sm text-ink/65 sm:grid-cols-2">
+          <ul className="mt-9 grid gap-3 text-sm text-white/75 sm:grid-cols-2">
             {['Free consultation', 'Response within working hours', 'Fixed, transparent quote', 'Pan-India service'].map((t) => (
               <li key={t} className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-gold-600" /> {t}
+                <CheckCircle2 className="h-4 w-4 text-gold-400" /> {t}
               </li>
             ))}
           </ul>

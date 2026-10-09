@@ -8,10 +8,11 @@ import { site, whatsappLink } from '@/config/site';
 
 const RIDGE = 'M0 120 L110 84 L210 104 L330 34 L450 88 L560 52 L690 0 L815 56 L935 18 L1060 74 L1180 6 L1300 64 L1440 24 L1440 160 L0 160Z';
 
-export function Footer() {
+/** `overlap` pulls the ridge up over the section above (used on home, where that section is the dark backdrop). */
+export function Footer({ overlap = false }: { overlap?: boolean }) {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative text-white">
+    <footer className={`relative z-10 text-white ${overlap ? '-mt-[clamp(60px,10vw,140px)]' : ''}`}>
       {/* Ridge silhouette rising out of the page into the night-navy footer */}
       <svg viewBox="0 0 1440 160" preserveAspectRatio="none" className="block h-[clamp(60px,10vw,140px)] w-full" aria-hidden="true">
         <path d={RIDGE} fill="#0B2A5B" />
