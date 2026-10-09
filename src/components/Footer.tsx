@@ -2,30 +2,22 @@ import { Link } from 'react-router-dom';
 import { Clock, Mail, MapPin, Phone } from 'lucide-react';
 import { LogoMark } from '@/components/Logo';
 import { WhatsAppGlyph } from '@/components/ui';
-import { GoldGlow, Mist } from '@/components/Atmosphere';
 import { categories, servicesByCategory } from '@/data/services';
 import { site, whatsappLink } from '@/config/site';
 
-const RIDGE = 'M0 120 L110 84 L210 104 L330 34 L450 88 L560 52 L690 0 L815 56 L935 18 L1060 74 L1180 6 L1300 64 L1440 24 L1440 160 L0 160Z';
 
 /** `overlap` pulls the ridge up over the section above (used on home, where that section is the dark backdrop). */
 export function Footer({ overlap = false }: { overlap?: boolean }) {
   const year = new Date().getFullYear();
   return (
     <footer className={`relative z-10 text-white ${overlap ? '-mt-[clamp(60px,10vw,140px)]' : ''}`}>
-      {/* Ridge silhouette rising out of the page into the night-navy footer */}
-      <svg viewBox="0 0 1440 160" preserveAspectRatio="none" className="block h-[clamp(60px,10vw,140px)] w-full" aria-hidden="true">
-        <path d={RIDGE} fill="#0B2A5B" />
-      </svg>
-      <div className="dusk relative -mt-px overflow-hidden">
-        <Mist tone="dark" />
-        <GoldGlow className="opacity-70" />
+      <div className="dusk relative overflow-hidden">
         <div className="relative mx-auto max-w-7xl px-6 pb-28 pt-12 sm:px-8 md:px-12 lg:pb-12">
           <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1.1fr]">
             <div>
               <Link to="/" aria-label={`${site.name} home`} className="flex items-center gap-2">
                 <LogoMark light className="h-8 w-auto" />
-                <span className="text-sm font-medium tracking-[0.3em]">REGPRO</span>
+                <span className="text-xl font-medium tracking-tight">Regpro&reg;</span>
               </Link>
               <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/55">
                 Business registration, government documentation and compliance assistance for startups and small businesses across India.
@@ -35,7 +27,7 @@ export function Footer({ overlap = false }: { overlap?: boolean }) {
                 href={whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-white"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-medium text-white"
               >
                 <WhatsAppGlyph className="h-4 w-4" /> WhatsApp us
               </a>
@@ -104,7 +96,7 @@ export function Footer({ overlap = false }: { overlap?: boolean }) {
               Disclaimer: {site.name} is a private professional services firm and is not affiliated with any government department.
               Prices shown are professional fees; {site.feeNote.toLowerCase()}
             </p>
-            <div className="mt-4 flex flex-col gap-3 text-[11px] uppercase tracking-[0.15em] text-white/45 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-4 flex flex-col gap-3 text-[11px] tracking-tight text-white/45 sm:flex-row sm:items-center sm:justify-between">
               <p>© {year} {site.legalName}. All rights reserved.</p>
               <div className="flex gap-6">
                 <Link to="/privacy-policy" className="hover:text-white">Privacy Policy</Link>

@@ -16,7 +16,7 @@ export function ProcessSteps({ steps, light = false }: { steps: { title: string;
           >
             {String(i + 1).padStart(2, '0')}
           </div>
-          <h3 className={`mt-6 text-sm font-medium uppercase tracking-[0.14em] ${light ? 'text-white' : 'text-navy-800'}`}>{s.title}</h3>
+          <h3 className={`mt-6 text-lg font-medium tracking-tight ${light ? 'text-white' : 'text-navy-800'}`}>{s.title}</h3>
           <p className={`mt-3 text-sm leading-relaxed ${light ? 'text-white/60' : 'text-ink/65'}`}>{s.text}</p>
         </Reveal>
       ))}

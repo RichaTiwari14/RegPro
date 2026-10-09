@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Eyebrow } from '@/components/ui';
-import { Mist, Mountains } from '@/components/Atmosphere';
 
 /** Inner-page hero: the landing video's pale sky, drifting mist and ridges flowing into the page. */
 export function PageHero({
@@ -18,9 +17,7 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="sky relative -mt-[76px] overflow-hidden pb-[clamp(140px,20vw,280px)] pt-[calc(76px+3.5rem)] sm:pt-[calc(76px+5rem)]">
-      <Mist />
-      <Mountains to="#EDF1F5" />
+    <section className="relative overflow-hidden border-b border-mist-200 bg-white pb-16 pt-[calc(76px+3rem)] sm:pb-20 sm:pt-[calc(80px+4.5rem)]">
       <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 md:px-12">
         <nav aria-label="Breadcrumb" className="label-cine mb-10 flex flex-wrap items-center gap-2 text-navy-800/50">
           {crumbs.map((c, i) => (

@@ -3,12 +3,9 @@ import { Phone, FileText } from 'lucide-react';
 import { site, whatsappLink } from '@/config/site';
 import { trackConversion } from '@/lib/analytics';
 import { WhatsAppGlyph } from '@/components/ui';
-import { usePastScene } from '@/lib/usePastScene';
 
 /** Desktop: floating WhatsApp bubble. Mobile: sticky bottom bar with Call / WhatsApp / Enquire. */
-export function FloatingCTA({ overlay = false }: { overlay?: boolean }) {
-  // On the home page the desktop bubble waits until the cinematic scene is over (the scene nav has its own WhatsApp link).
-  const pastScene = usePastScene(overlay);
+export function FloatingCTA() {
   return (
     <>
       <a
@@ -17,9 +14,7 @@ export function FloatingCTA({ overlay = false }: { overlay?: boolean }) {
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
         onClick={() => trackConversion('contact', 'whatsapp:floating')}
-        className={`group fixed bottom-6 right-6 z-40 hidden items-center transition-all duration-500 lg:flex ${
-          pastScene ? '' : 'pointer-events-none translate-y-4 opacity-0'
-        }`}
+        className="group fixed bottom-6 right-6 z-40 hidden items-center lg:flex"
       >
         <span className="mr-3 translate-x-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-navy-900 opacity-0 shadow-lg transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
           Need help? Chat with us
@@ -30,12 +25,12 @@ export function FloatingCTA({ overlay = false }: { overlay?: boolean }) {
         </span>
       </a>
 
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/70 bg-mist-100/80 backdrop-blur-xl px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-8px_30px_-12px_rgba(11,42,91,0.25)] lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-mist-200 bg-white/95 backdrop-blur px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-8px_30px_-12px_rgba(11,42,91,0.25)] lg:hidden">
         <div className="grid grid-cols-3 gap-2">
           <a
             href={site.phoneHref}
             onClick={() => trackConversion('contact', 'call:mobile-bar')}
-            className="flex items-center justify-center gap-1.5 rounded-full border border-navy-800/30 py-3 text-[11px] font-medium uppercase tracking-[0.14em] text-navy-800"
+            className="flex items-center justify-center gap-1.5 rounded-full border border-navy-800/30 py-3 text-sm font-medium text-navy-800"
           >
             <Phone className="h-4 w-4" /> Call
           </a>
@@ -44,13 +39,13 @@ export function FloatingCTA({ overlay = false }: { overlay?: boolean }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackConversion('contact', 'whatsapp:mobile-bar')}
-            className="flex items-center justify-center gap-1.5 rounded-full bg-[#25D366] py-3 text-[11px] font-medium uppercase tracking-[0.14em] text-white"
+            className="flex items-center justify-center gap-1.5 rounded-full bg-[#25D366] py-3 text-sm font-medium text-white"
           >
             <WhatsAppGlyph className="h-4 w-4" /> WhatsApp
           </a>
           <Link
             to="/contact#enquiry"
-            className="flex items-center justify-center gap-1.5 rounded-full bg-navy-800 py-3 text-[11px] font-medium uppercase tracking-[0.14em] text-white"
+            className="flex items-center justify-center gap-1.5 rounded-full bg-navy-800 py-3 text-sm font-medium text-white"
           >
             <FileText className="h-4 w-4" /> Enquire
           </Link>

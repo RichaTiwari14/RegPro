@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -22,91 +22,15 @@ import { categories, services, servicesByCategory, popularServices, formatPrice,
 import { generalFaqs } from '@/data/faqs';
 import { SectionHeading, WhatsAppButton, CallButton, FeeNote, CircleArrow } from '@/components/ui';
 import { Reveal } from '@/components/Reveal';
-import { ScrollScene } from '@/components/ScrollScene';
+import { LandingHero } from '@/components/LandingHero';
 import { LeadForm } from '@/components/LeadForm';
 import { ServiceCard } from '@/components/ServiceCard';
 import { ServiceIcon } from '@/components/ServiceIcon';
 import { ProcessSteps } from '@/components/ProcessSteps';
 import { Testimonials } from '@/components/Testimonials';
 import { FaqList } from '@/components/FaqList';
-import { GoldGlow, Horizon, Mist, Mountains } from '@/components/Atmosphere';
 
-const minPrice = Math.min(...services.map((s) => s.price));
-const wrap = 'relative z-10 mx-auto max-w-7xl px-6 sm:px-8 md:px-12';
-
-// ───────────────────────── Stats — the scene fades into dusk navy ─────────────────────────
-
-function useCountUp(target: number, duration = 1600) {
-  const [value, setValue] = useState(target);
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    setValue(0);
-    let raf = 0;
-    const io = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting) return;
-      io.disconnect();
-      const start = performance.now();
-      const tick = (now: number) => {
-        const t = Math.min(1, (now - start) / duration);
-        setValue(Math.round(target * (1 - Math.pow(1 - t, 3))));
-        if (t < 1) raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-    });
-    io.observe(el);
-    return () => {
-      io.disconnect();
-      cancelAnimationFrame(raf);
-    };
-  }, [target, duration]);
-  return { value, ref };
-}
-
-function Stat({ value, prefix = '', suffix = '', label }: { value: number; prefix?: string; suffix?: string; label: string }) {
-  const c = useCountUp(value);
-  return (
-    <div ref={c.ref} className="px-4 py-8 text-center">
-      <p className="text-4xl font-light text-white sm:text-5xl">
-        {prefix}
-        {c.value.toLocaleString('en-IN')}
-        <span className="text-gold-400">{suffix}</span>
-      </p>
-      <p className="label-cine mt-3 text-white/50">{label}</p>
-    </div>
-  );
-}
-
-function StatsDusk() {
-  return (
-    <section className="relative z-10 -mt-[35vh]">
-      {/* Fade from the last (dark) video frames into navy */}
-      <div className="h-[35vh] bg-gradient-to-b from-transparent via-navy-900/70 to-navy-800" aria-hidden="true" />
-      <div className="relative overflow-hidden bg-navy-800 pb-[clamp(140px,20vw,280px)]">
-        <Mist tone="dark" />
-        <GoldGlow />
-        <div className={`${wrap} pt-6`}>
-          <Reveal className="text-center">
-            <p className="label-cine text-gold-400">Regpro at a glance</p>
-            <h2 className="heading-cine mx-auto mt-5 max-w-3xl text-white" style={{ fontSize: 'clamp(1.6rem,3vw,2.6rem)' }}>
-              From first form to final certificate — one partner, fully online
-            </h2>
-          </Reveal>
-          <Horizon className="mt-12" />
-          <div className="grid grid-cols-2 lg:grid-cols-4">
-            <Stat value={services.length} suffix="+" label="Services offered" />
-            <Stat value={100} suffix="%" label="Online process" />
-            <Stat value={minPrice} prefix="₹" label="Starting price" />
-            <Stat value={6} suffix=" days" label="Expert support / week" />
-          </div>
-          <Horizon />
-        </div>
-        <Mountains tone="dark" to="#EDF1F5" />
-      </div>
-    </section>
-  );
-}
+const wrap = 'relative mx-auto max-w-7xl px-6 sm:px-8 md:px-12';
 
 // ───────────────────────── Marquee ─────────────────────────
 
@@ -116,7 +40,7 @@ function ServiceMarquee() {
     <div className="marquee-mask overflow-hidden py-8">
       <div className="flex w-max animate-marquee-slow">
         {[...items, ...items].map((name, i) => (
-          <span key={i} className="flex items-center gap-8 pr-8 text-xl font-light uppercase tracking-[0.18em] text-navy-800/60 sm:text-2xl">
+          <span key={i} className="flex items-center gap-8 pr-8 text-xl font-light tracking-tight text-navy-800/60 sm:text-2xl">
             {name}
             <span className="h-1.5 w-1.5 rotate-45 bg-gold-500" />
           </span>
@@ -133,7 +57,6 @@ const categoryIcons: Record<CategoryId, typeof Rocket> = { business: Briefcase, 
 function WhatWeDo() {
   return (
     <section className="relative overflow-hidden py-20 sm:py-28">
-      <Mist />
       <div className={wrap}>
         <div className="grid items-end gap-10 lg:grid-cols-2">
           <Reveal>
@@ -158,7 +81,7 @@ function WhatWeDo() {
                   <span className="flex h-14 w-14 items-center justify-center rounded-full border border-navy-800/20 text-navy-800 transition-all duration-500 group-hover:border-navy-800 group-hover:bg-navy-800 group-hover:text-gold-400">
                     <Icon className="h-6 w-6" strokeWidth={1.5} />
                   </span>
-                  <h3 className="mt-7 text-sm font-medium uppercase tracking-[0.16em] text-navy-800">{cat.title}</h3>
+                  <h3 className="mt-7 text-lg font-medium tracking-tight text-navy-800">{cat.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-ink/60">{cat.description}</p>
                   <div className="mt-6 flex flex-wrap gap-2">
                     {list.slice(0, 4).map((s) => (
@@ -189,7 +112,6 @@ function ServicesSection() {
   const list = servicesByCategory(tab);
   return (
     <section className="sky relative overflow-hidden py-20 sm:py-28" id="services">
-      <Mist />
       <div className={wrap}>
         <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
           <Reveal>
@@ -206,7 +128,7 @@ function ServicesSection() {
                   key={c.id}
                   type="button"
                   onClick={() => setTab(c.id)}
-                  className={`relative whitespace-nowrap pb-3 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors ${
+                  className={`relative whitespace-nowrap pb-3 text-sm font-medium transition-colors ${
                     tab === c.id ? 'text-navy-800' : 'text-navy-800/45 hover:text-navy-800'
                   }`}
                 >
@@ -294,8 +216,7 @@ function TrackerMock() {
 
 function WhyChoose() {
   return (
-    <section className="relative overflow-hidden pb-[clamp(160px,22vw,320px)] pt-20 sm:pt-28">
-      <Mist />
+    <section className="relative overflow-hidden pb-20 sm:pb-28 pt-20 sm:pt-28">
       <div className={`${wrap} grid items-center gap-16 lg:grid-cols-2`}>
         <div>
           <Reveal>
@@ -313,7 +234,7 @@ function WhyChoose() {
                     <r.icon className="h-5 w-5" strokeWidth={1.5} />
                   </span>
                   <div>
-                    <h3 className="text-sm font-medium uppercase tracking-[0.12em] text-navy-800">{r.title}</h3>
+                    <h3 className="text-lg font-medium tracking-tight text-navy-800">{r.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-ink/60">{r.text}</p>
                   </div>
                 </div>
@@ -325,7 +246,6 @@ function WhyChoose() {
           <TrackerMock />
         </Reveal>
       </div>
-      <Mountains tone="dark" to="#0B2A5B" />
     </section>
   );
 }
@@ -334,9 +254,7 @@ function WhyChoose() {
 
 function Process() {
   return (
-    <section className="relative overflow-hidden bg-navy-800 pb-[clamp(140px,20vw,280px)] pt-10 text-white sm:pt-16">
-      <Mist tone="dark" />
-      <GoldGlow />
+    <section className="relative overflow-hidden bg-navy-800 pb-20 sm:pb-28 pt-10 text-white sm:pt-16">
       <div className={wrap}>
         <Reveal>
           <SectionHeading
@@ -363,7 +281,6 @@ function Process() {
           <CallButton size="lg" variant="light" source="process" />
         </Reveal>
       </div>
-      <Mountains tone="dark" to="#EDF1F5" />
     </section>
   );
 }
@@ -374,7 +291,6 @@ function PricingHighlights() {
   const featured = popularServices.slice(0, 3);
   return (
     <section className="relative overflow-hidden py-20 sm:py-28">
-      <Mist />
       <div className={wrap}>
         <Reveal>
           <SectionHeading
@@ -394,7 +310,6 @@ function PricingHighlights() {
                     highlight ? 'dusk text-white shadow-2xl shadow-navy-900/30 lg:py-12' : 'glass hover:bg-white/75'
                   }`}
                 >
-                  {highlight && <GoldGlow />}
                   <div className="relative flex items-center justify-between">
                     <span
                       className={`flex h-12 w-12 items-center justify-center rounded-full border ${
@@ -405,7 +320,7 @@ function PricingHighlights() {
                     </span>
                     {highlight && <span className="label-cine text-gold-400">Most popular</span>}
                   </div>
-                  <h3 className={`relative mt-6 text-sm font-medium uppercase tracking-[0.14em] ${highlight ? 'text-white' : 'text-navy-800'}`}>
+                  <h3 className={`relative mt-6 text-lg font-medium tracking-tight ${highlight ? 'text-white' : 'text-navy-800'}`}>
                     {s.name}
                   </h3>
                   <p className={`relative mt-1 text-sm ${highlight ? 'text-white/55' : 'text-ink/50'}`}>{s.timeline}</p>
@@ -482,7 +397,6 @@ const audiences = [
 function Audiences() {
   return (
     <section className="sky relative overflow-hidden py-20 sm:py-28">
-      <Mist />
       <div className={wrap}>
         <Reveal>
           <SectionHeading
@@ -498,7 +412,7 @@ function Audiences() {
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-gold-400 to-gold-600 text-white shadow-lg shadow-gold-500/30 transition-transform duration-500 group-hover:scale-110">
                   <a.icon className="h-5 w-5" strokeWidth={1.75} />
                 </span>
-                <h3 className="mt-6 text-sm font-medium uppercase tracking-[0.16em] text-navy-800">{a.title}</h3>
+                <h3 className="mt-6 text-lg font-medium tracking-tight text-navy-800">{a.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink/60">{a.text}</p>
                 <ul className="mt-6 space-y-2.5 border-t border-navy-800/10 pt-5">
                   {a.slugs.map((slug) => {
@@ -528,7 +442,6 @@ function Audiences() {
 function TestimonialsSection() {
   return (
     <section className="relative overflow-hidden py-20 sm:py-28">
-      <Mist />
       <div className={wrap}>
         <Reveal>
           <SectionHeading center eyebrow="Customer stories" title="Businesses that grew with Regpro" />
@@ -546,7 +459,6 @@ function TestimonialsSection() {
 function FaqSection() {
   return (
     <section className="sky relative overflow-hidden py-20 sm:py-28">
-      <Mist />
       <div className={`${wrap} grid gap-14 lg:grid-cols-[0.9fr_1.1fr]`}>
         <div>
           <Reveal>
@@ -554,9 +466,8 @@ function FaqSection() {
           </Reveal>
           <Reveal delay={100}>
             <div className="dusk relative mt-10 overflow-hidden rounded-[1.75rem] p-7 text-white">
-              <GoldGlow />
               <Headphones className="relative h-7 w-7 text-gold-400" strokeWidth={1.5} />
-              <p className="relative mt-5 text-sm font-medium uppercase tracking-[0.16em]">Still have questions?</p>
+              <p className="relative mt-5 text-sm font-medium tracking-tight">Still have questions?</p>
               <p className="relative mt-2 text-sm text-white/60">Our experts are available {site.hours}.</p>
               <div className="relative mt-6 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
                 <WhatsAppButton label="Ask on WhatsApp" source="faq" />
@@ -581,39 +492,29 @@ function FaqSection() {
 
 function Enquiry() {
   return (
-    <section id="enquiry" className="relative py-20 sm:py-28">
-      <div className={wrap}>
-        {/* Boxed backdrop: clip-path confines the fixed image to this rounded box, so it stays still while the page scrolls past */}
-        <div className="relative overflow-hidden rounded-[2rem] px-6 py-14 text-white [clip-path:inset(0_round_2rem)] sm:px-10 sm:py-16 lg:px-16 lg:py-20">
-          <div className="fixed inset-0 z-0" aria-hidden="true">
-            <img src="/images/enquiry-backdrop.jpg" alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
-            <div className="absolute inset-0 bg-navy-950/25" />
+    <section id="enquiry" className="sky relative py-20 sm:py-28">
+      <div className={`${wrap} grid items-center gap-14 lg:grid-cols-2`}>
+        <Reveal>
+          <SectionHeading
+            eyebrow="Get started today"
+            title="Let’s get your business registered"
+            text="Share a few details and an expert will reach out with the right plan and a clear quote. Prefer chatting? We’re on WhatsApp."
+          />
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <WhatsAppButton size="lg" source="enquiry" />
+            <CallButton size="lg" label={site.phone} source="enquiry" />
           </div>
-          <div className="relative z-10 grid items-center gap-12 lg:grid-cols-2 lg:gap-14">
-            <Reveal>
-              <SectionHeading
-                light
-                eyebrow="Get started today"
-                title="Let’s get your business registered"
-                text="Share a few details and an expert will reach out with the right plan and a clear quote. Prefer chatting? We’re on WhatsApp."
-              />
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <WhatsAppButton size="lg" source="enquiry" />
-                <CallButton size="lg" variant="light" label={site.phone} source="enquiry" />
-              </div>
-              <ul className="mt-9 grid gap-3 text-sm text-white/75 sm:grid-cols-2">
-                {['Free consultation', 'Response within working hours', 'Fixed, transparent quote', 'Pan-India service'].map((t) => (
-                  <li key={t} className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-gold-400" /> {t}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-            <Reveal delay={150}>
-              <LeadForm solid />
-            </Reveal>
-          </div>
-        </div>
+          <ul className="mt-9 grid gap-3 text-sm text-muted sm:grid-cols-2">
+            {['Free consultation', 'Response within working hours', 'Fixed, transparent quote', 'Pan-India service'].map((t) => (
+              <li key={t} className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-gold-600" /> {t}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+        <Reveal delay={150}>
+          <LeadForm solid />
+        </Reveal>
       </div>
     </section>
   );
@@ -628,8 +529,7 @@ export default function Home() {
         path="/"
         jsonLd={[organizationLd(), faqLd(generalFaqs)]}
       />
-      <ScrollScene />
-      <StatsDusk />
+      <LandingHero />
       <ServiceMarquee />
       <WhatWeDo />
       <ServicesSection />

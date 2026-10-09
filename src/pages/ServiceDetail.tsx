@@ -13,7 +13,6 @@ import { ServiceCard } from '@/components/ServiceCard';
 import { ServiceIcon } from '@/components/ServiceIcon';
 import { CtaBanner } from '@/components/CtaBanner';
 import NotFound from '@/pages/NotFound';
-import { GoldGlow } from '@/components/Atmosphere';
 
 const sections = [
   ['overview', 'Overview'],
@@ -86,7 +85,7 @@ export default function ServiceDetail() {
       </PageHero>
 
       {/* Section nav */}
-      <div className="sticky top-[76px] z-30 border-b border-white/60 bg-mist-100/70 backdrop-blur-xl">
+      <div className="sticky top-[63px] z-30 border-b border-mist-200 bg-white/95 backdrop-blur sm:top-[79px]">
         <Container className="flex gap-1 overflow-x-auto py-2">
           {sections.map(([id, label]) => (
             <a
@@ -182,12 +181,11 @@ export default function ServiceDetail() {
           <section id="pricing" className="scroll-mt-40">
             <Reveal>
               <div className="relative overflow-hidden dusk rounded-3xl p-7 text-white sm:p-10">
-                <GoldGlow />
                 <div className="relative grid gap-8 sm:grid-cols-2 sm:items-center">
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-[0.16em] text-gold-400">Pricing</p>
+                    <p className="text-xs font-medium tracking-tight text-gold-400">Pricing</p>
                     <h2 className="mt-2 font-light text-2xl ">{service.name}</h2>
-                    <p className="mt-5 text-xs uppercase tracking-wider text-white/55">Starting at</p>
+                    <p className="mt-5 text-[13px] text-white/60">Starting at</p>
                     <p className="font-light text-5xl ">
                       {formatPrice(service.price)}
                       <span className="align-super text-lg text-gold-400">*</span>

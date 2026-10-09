@@ -35,7 +35,7 @@ export function SectionHeading({
       {eyebrow && <Eyebrow light={light}>{eyebrow}</Eyebrow>}
       <h2
         className={`heading-cine mt-5 ${light ? 'text-white' : 'text-navy-800'}`}
-        style={{ fontSize: 'clamp(1.75rem,3.4vw,3.1rem)' }}
+        style={{ fontSize: 'clamp(2rem,3.8vw,3.4rem)' }}
       >
         {title}
       </h2>
@@ -54,8 +54,8 @@ export function WhatsAppGlyph({ className = '' }: { className?: string }) {
 
 type BtnSize = 'md' | 'lg';
 const sizes: Record<BtnSize, string> = {
-  md: 'px-5 py-3 text-[11px]',
-  lg: 'px-7 py-4 text-xs',
+  md: 'px-5 py-3 text-sm',
+  lg: 'px-7 py-4 text-[15px]',
 };
 
 export function WhatsAppButton({
@@ -77,7 +77,7 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackConversion('contact', `whatsapp:${source}`)}
-      className={`group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#25D366] font-medium uppercase tracking-[0.18em] text-white shadow-lg shadow-[#25D366]/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1fbe5a] hover:shadow-xl hover:shadow-[#25D366]/30 ${sizes[size]} ${className}`}
+      className={`group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#25D366] font-medium tracking-tight text-white shadow-lg shadow-[#25D366]/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1fbe5a] hover:shadow-xl hover:shadow-[#25D366]/30 ${sizes[size]} ${className}`}
     >
       <WhatsAppGlyph className="h-4 w-4" />
       {label}
@@ -107,7 +107,7 @@ export function CallButton({
     <a
       href={site.phoneHref}
       onClick={() => trackConversion('contact', `call:${source}`)}
-      className={`inline-flex items-center justify-center gap-2.5 rounded-full font-medium uppercase tracking-[0.18em] transition-all duration-300 hover:-translate-y-0.5 ${styles} ${sizes[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2.5 rounded-full font-medium tracking-tight transition-all duration-300 hover:-translate-y-0.5 ${styles} ${sizes[size]} ${className}`}
     >
       <Phone className="h-3.5 w-3.5" />
       {label}
@@ -118,7 +118,7 @@ export function CallButton({
 export function PriceTag({ price, light = false, className = '' }: { price: number; light?: boolean; className?: string }) {
   return (
     <div className={className}>
-      <span className={`text-xs font-medium uppercase tracking-wider ${light ? 'text-white/60' : 'text-ink/50'}`}>Starting at</span>
+      <span className={`text-[13px] ${light ? 'text-white/60' : 'text-ink/50'}`}>Starting at</span>
       <div className={`font-display text-2xl font-light ${light ? 'text-white' : 'text-navy-800'}`}>
         {formatPrice(price)}
         <span className={`ml-1 align-super text-xs font-semibold ${light ? 'text-gold-300' : 'text-gold-600'}`}>*</span>

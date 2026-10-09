@@ -52,7 +52,7 @@ export default function Pricing() {
                       </span>
                     </Link>
                     <div className="sm:text-right">
-                      <span className="text-[11px] uppercase tracking-wider text-ink/45">Starting at </span>
+                      <span className="text-[13px] text-ink/45">Starting at </span>
                       <span className="heading-cine text-xl text-navy-800">
                         {formatPrice(s.price)}
                         <span className="align-super text-xs text-gold-600">*</span>
