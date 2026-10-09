@@ -2,11 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    @apply bg-gold-200 text-navy-900;
+  }
 }
 
-body {
-  font-family: 'Helvetica Neue ME', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  overflow-x: hidden;
+/* Subtle grid background used on dark sections */
+.grid-pattern {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+/* ── Scroll reveal (only hides content when JS is running) ── */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Entrance animations ── */
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+.hero-in { animation: hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes tab-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.tab-in { animation: tab-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Hero underline and logo drawing */
+.underline-draw { stroke-dasharray: 220; stroke-dashoffset: 220; animation: draw 1.2s 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards; }
+.tick-draw { stroke-dasharray: 140; stroke-dashoffset: 140; animation: draw 1s 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards; }
+.tick-head { opacity: 0; animation: fade-in 0.3s 1.35s forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes fade-in { to { opacity: 1; } }
+
+.bar-rise { transform-box: fill-box; transform-origin: bottom; animation: bar-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes bar-rise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+.skyline-bar { transform-origin: bottom; animation: bar-rise 1.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Floating chips & ambient orb */
+.float-a { animation: float 6s ease-in-out infinite; }
+.float-b { animation: float 7s ease-in-out 1s infinite; }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.orb { animation: orb 14s ease-in-out infinite; }
+@keyframes orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-40px, 30px) scale(1.1); }
+}
+
+.spin-slow { animation: spin 40s linear infinite; }
+.spin-slow-reverse { animation: spin 55s linear infinite reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Process connector line fills in when revealed */
+.process-line { transform: scaleX(0); transform-origin: left; transition: transform 1.6s 0.3s cubic-bezier(0.65, 0, 0.35, 1); }
+html:not(.js) .process-line,
+.relative:has(> .reveal.is-visible) > div > .process-line { transform: scaleX(1); }
+
+/* Application tracker mock */
+.js .reveal .tracker-fill { width: 0; }
+.reveal.is-visible .tracker-fill { width: 100%; transition: width 2.2s 0.3s cubic-bezier(0.65, 0, 0.35, 1); }
+.tracker-fill { width: 100%; }
+.js .reveal .tracker-step { opacity: 0; transform: translateX(-10px); }
+.reveal.is-visible .tracker-step { animation: step-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes step-in { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js .reveal { opacity: 1; transform: none; }
 }

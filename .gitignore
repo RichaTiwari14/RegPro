@@ -222,3 +222,4 @@ __marimo__/
 # Node / Vite
 node_modules/
 *.local
+dist-ssr/
