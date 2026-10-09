@@ -14,15 +14,19 @@ export function LeadForm({
   title = 'Get a free consultation',
   subtitle = 'Share your details — an expert will call you back within working hours.',
   compact = false,
+  solid = false,
   className = '',
 }: {
   defaultService?: string;
   title?: string;
   subtitle?: string;
   compact?: boolean;
+  /** Opaque white card instead of frosted glass — for use over images. */
+  solid?: boolean;
   className?: string;
 }) {
   const location = useLocation();
+  const surface = solid ? 'border border-white bg-mist-50 shadow-2xl shadow-navy-950/40' : 'glass';
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState('');
   const [lead, setLead] = useState<Lead | null>(null);
@@ -62,7 +66,7 @@ export function LeadForm({
 
   if (status === 'done' && lead) {
     return (
-      <div className={`glass rounded-[1.75rem] p-6 text-center sm:p-8 ${className}`}>
+      <div className={`${surface} rounded-[1.75rem] p-6 text-center sm:p-8 ${className}`}>
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50">
           <CheckCircle2 className="h-8 w-8 text-emerald-500" />
         </div>
@@ -88,7 +92,7 @@ export function LeadForm({
     <form
       onSubmit={onSubmit}
       noValidate
-      className={`glass rounded-[1.75rem] p-6 sm:p-8 ${className}`}
+      className={`${surface} rounded-[1.75rem] p-6 sm:p-8 ${className}`}
     >
       <h3 className="heading-cine text-xl text-navy-800">{title}</h3>
       {subtitle && <p className="mt-1.5 text-sm text-ink/60">{subtitle}</p>}

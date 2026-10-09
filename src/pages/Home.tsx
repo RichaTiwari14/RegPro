@@ -610,7 +610,7 @@ function Enquiry() {
               </ul>
             </Reveal>
             <Reveal delay={150}>
-              <LeadForm />
+              <LeadForm solid />
             </Reveal>
           </div>
         </div>
