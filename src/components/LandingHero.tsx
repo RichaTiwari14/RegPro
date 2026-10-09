@@ -108,24 +108,22 @@ export function LandingHero() {
   const enquiry = whatsappLink(`Hi Regpro, I'd like to enquire about: ${services.join(', ')}.`);
 
   return (
-    <section className="relative flex flex-col overflow-x-hidden bg-white text-neutral-900 lg:block lg:min-h-screen">
-      {/* Background video */}
-      <div className="pointer-events-none relative order-last aspect-square w-full overflow-hidden bg-neutral-50 md:aspect-video lg:absolute lg:inset-0 lg:z-0 lg:order-none lg:aspect-auto lg:h-full lg:bg-transparent">
+    <section className="relative flex flex-col overflow-x-hidden bg-[#F2F1FA] text-neutral-900 lg:block lg:min-h-screen">
+      {/* Video — a contained panel at the bottom right (not full-bleed). The hero uses the clip's own backdrop
+          colour (#F2F1FA), so the edges of the video are invisible against it. */}
+      <div className="pointer-events-none relative order-last mx-auto aspect-square w-full max-w-xl overflow-hidden md:aspect-video md:max-w-3xl lg:absolute lg:bottom-0 lg:right-0 lg:z-0 lg:order-none lg:mx-0 lg:aspect-auto lg:h-[80%] lg:w-[46%] lg:max-w-none">
         <video
           ref={videoRef}
           src={VIDEO_SRC}
           muted
           playsInline
           preload="auto"
-          className="h-full w-full object-cover object-right lg:object-right-bottom"
+          className="h-full w-full object-cover object-right lg:object-[72%_100%]"
         />
-        {/* Desktop only: soften the clip behind the copy and melt its lavender backdrop into the white page below */}
-        <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(255,255,255,0.85)_0%,rgba(255,255,255,0.4)_32%,rgba(255,255,255,0)_55%)] lg:block" />
-        <div className="absolute inset-x-0 bottom-0 hidden h-[38%] bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.08)_30%,rgba(255,255,255,0.35)_55%,rgba(255,255,255,0.75)_78%,#fff_100%)] lg:block" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 order-first flex w-full flex-col bg-white pb-8 lg:order-none lg:min-h-screen lg:bg-transparent lg:pb-0">
+      <div className="relative z-10 order-first flex w-full flex-col pb-8 lg:order-none lg:min-h-screen lg:pb-0">
         <div id="spade-hero" className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-12 pt-28 lg:py-12">
           {offer.active && (
             <motion.a
