@@ -62,11 +62,11 @@ export function LeadForm({
 
   if (status === 'done' && lead) {
     return (
-      <div className={`rounded-3xl bg-white p-6 text-center shadow-xl shadow-navy-900/10 ring-1 ring-navy-100 sm:p-8 ${className}`}>
+      <div className={`glass rounded-[1.75rem] p-6 text-center sm:p-8 ${className}`}>
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50">
           <CheckCircle2 className="h-8 w-8 text-emerald-500" />
         </div>
-        <h3 className="mt-4 font-display text-xl font-bold text-navy-900">Thank you, {lead.name.split(' ')[0]}!</h3>
+        <h3 className="heading-cine mt-4 text-xl text-navy-800">Thank you, {lead.name.split(' ')[0]}!</h3>
         <p className="mt-2 text-sm text-ink/70">
           We’ve received your enquiry. For a faster response, continue the conversation with our expert on WhatsApp.
         </p>
@@ -82,15 +82,15 @@ export function LeadForm({
   }
 
   const field =
-    'w-full rounded-xl border border-navy-100 bg-navy-50/40 px-4 py-3 text-sm text-ink placeholder:text-ink/40 outline-none transition focus:border-navy-500 focus:bg-white focus:ring-4 focus:ring-navy-500/10';
+    'w-full rounded-xl border border-navy-800/10 bg-white/60 px-4 py-3 text-sm text-ink placeholder:text-ink/40 outline-none transition focus:border-navy-800/40 focus:bg-white focus:ring-4 focus:ring-navy-500/10';
 
   return (
     <form
       onSubmit={onSubmit}
       noValidate
-      className={`rounded-3xl bg-white p-6 shadow-xl shadow-navy-900/10 ring-1 ring-navy-100 sm:p-7 ${className}`}
+      className={`glass rounded-[1.75rem] p-6 sm:p-8 ${className}`}
     >
-      <h3 className="font-display text-xl font-bold text-navy-900">{title}</h3>
+      <h3 className="heading-cine text-xl text-navy-800">{title}</h3>
       {subtitle && <p className="mt-1.5 text-sm text-ink/60">{subtitle}</p>}
 
       <div className={`mt-5 grid gap-3 ${compact ? '' : 'sm:grid-cols-2'}`}>
@@ -148,7 +148,7 @@ export function LeadForm({
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="group mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-navy-800 px-6 py-3.5 font-semibold text-white shadow-lg shadow-navy-900/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-navy-900 disabled:opacity-70"
+        className="group mt-6 flex w-full items-center justify-center gap-2.5 rounded-full bg-navy-800 px-6 py-4 text-xs font-medium uppercase tracking-[0.2em] text-white shadow-lg shadow-navy-900/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-navy-900 disabled:opacity-70"
       >
         {status === 'sending' ? (
           <>

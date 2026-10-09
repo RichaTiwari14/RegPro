@@ -8,11 +8,39 @@
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-white font-sans text-ink antialiased;
+    @apply bg-mist-100 font-sans text-ink antialiased;
+    overflow-x: hidden;
     text-rendering: optimizeLegibility;
   }
   ::selection {
     @apply bg-gold-200 text-navy-900;
+  }
+}
+
+@layer components {
+  /* Frosted glass panel — reads like cloud cover over the sky backgrounds */
+  .glass {
+    @apply border border-white/70 bg-white/55 shadow-[0_20px_60px_-30px_rgba(11,42,91,0.35)] backdrop-blur-xl;
+  }
+  .glass-dark {
+    @apply border border-white/10 bg-white/[0.06] backdrop-blur-xl;
+  }
+  /* Sky gradient — matches the pale cloud frames of the landing video */
+  .sky {
+    background: linear-gradient(180deg, #edf1f5 0%, #dce4eb 50%, #edf1f5 100%);
+  }
+  .sky-soft {
+    background: linear-gradient(180deg, #f5f7fa 0%, #edf1f5 100%);
+  }
+  /* Dusk gradient — matches the darker atmospheric frames, deepening into the logo navy */
+  .dusk {
+    background: linear-gradient(180deg, #0b2a5b 0%, #081f44 55%, #05142d 100%);
+  }
+  .heading-cine {
+    @apply font-display font-light uppercase leading-[1.15] tracking-wide;
+  }
+  .label-cine {
+    @apply text-[11px] font-medium uppercase tracking-[0.3em];
   }
 }
 

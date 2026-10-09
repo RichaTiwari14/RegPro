@@ -26,7 +26,7 @@ export default function Services() {
         crumbs={crumbs}
       />
       {categories.map((cat, idx) => (
-        <section key={cat.id} id={cat.id} className={`scroll-mt-24 py-16 sm:py-20 ${idx % 2 ? 'bg-surface' : ''}`}>
+        <section key={cat.id} id={cat.id} className={`scroll-mt-24 py-16 sm:py-20 ${idx % 2 ? 'sky' : ''}`}>
           <Container>
             <Reveal>
               <SectionHeading eyebrow={cat.short} title={cat.title} text={cat.description} />

@@ -1,8 +1,9 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight } from 'lucide-react';
-import { Container, Eyebrow } from '@/components/ui';
+import { Eyebrow } from '@/components/ui';
+import { Mist, Mountains } from '@/components/Atmosphere';
 
+/** Inner-page hero: the landing video's pale sky, drifting mist and ridges flowing into the page. */
 export function PageHero({
   eyebrow,
   title,
@@ -17,32 +18,33 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden bg-navy-900 pb-16 pt-10 text-white sm:pb-20">
-      <div className="grid-pattern pointer-events-none absolute inset-0 opacity-40" />
-      <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-gold-500/15 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-40 left-0 h-96 w-96 rounded-full bg-navy-400/25 blur-3xl" />
-      <Container className="relative">
-        <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-1 text-xs text-white/55">
+    <section className="sky relative -mt-[76px] overflow-hidden pb-[clamp(140px,20vw,280px)] pt-[calc(76px+3.5rem)] sm:pt-[calc(76px+5rem)]">
+      <Mist />
+      <Mountains to="#EDF1F5" />
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 md:px-12">
+        <nav aria-label="Breadcrumb" className="label-cine mb-10 flex flex-wrap items-center gap-2 text-navy-800/50">
           {crumbs.map((c, i) => (
-            <span key={c.path} className="flex items-center gap-1">
-              {i > 0 && <ChevronRight className="h-3 w-3" />}
+            <span key={c.path} className="flex items-center gap-2">
+              {i > 0 && <span className="h-px w-4 bg-navy-800/30" />}
               {i < crumbs.length - 1 ? (
-                <Link to={c.path} className="hover:text-white">
+                <Link to={c.path} className="hover:text-navy-800">
                   {c.name}
                 </Link>
               ) : (
-                <span className="text-white/85">{c.name}</span>
+                <span className="text-navy-800/80">{c.name}</span>
               )}
             </span>
           ))}
         </nav>
-        <div className="hero-in max-w-3xl">
-          {eyebrow && <Eyebrow light>{eyebrow}</Eyebrow>}
-          <h1 className="mt-4 font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">{title}</h1>
-          {text && <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">{text}</p>}
+        <div className="hero-in max-w-4xl">
+          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+          <h1 className="heading-cine mt-5 text-navy-800" style={{ fontSize: 'clamp(2.1rem,5vw,4.6rem)' }}>
+            {title}
+          </h1>
+          {text && <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink/70 sm:text-lg">{text}</p>}
         </div>
         {children}
-      </Container>
+      </div>
     </section>
   );
 }

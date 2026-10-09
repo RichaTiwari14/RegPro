@@ -33,13 +33,13 @@ export default function Contact() {
             href={whatsappLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-5 rounded-3xl bg-[#25D366] p-6 text-white shadow-xl shadow-[#25D366]/25 transition-transform duration-300 hover:-translate-y-1"
+            className="group flex items-center gap-5 rounded-full bg-[#25D366] p-4 pr-8 text-white shadow-xl shadow-[#25D366]/25 transition-transform duration-300 hover:-translate-y-1"
           >
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/20">
               <WhatsAppGlyph className="h-8 w-8" />
             </span>
             <span>
-              <span className="block font-display text-xl font-bold">Chat on WhatsApp</span>
+              <span className="block font-light text-xl ">Chat on WhatsApp</span>
               <span className="block text-sm text-white/85">Fastest response — {site.phone}</span>
             </span>
           </a>
@@ -47,19 +47,19 @@ export default function Contact() {
             {cards.map((c) => {
               const inner = (
                 <>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy-50 text-navy-800">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-navy-800/20 text-navy-800">
                     <c.icon className="h-5 w-5" />
                   </span>
-                  <p className="mt-4 text-xs uppercase tracking-wider text-ink/50">{c.label}</p>
-                  <p className="mt-1 break-words font-semibold text-navy-900">{c.value}</p>
+                  <p className="label-cine mt-4 text-ink/50">{c.label}</p>
+                  <p className="mt-1 break-words font-medium text-navy-800">{c.value}</p>
                 </>
               );
               return c.href ? (
-                <a key={c.label} href={c.href} className="rounded-2xl border border-navy-100 bg-white p-5 transition-shadow hover:shadow-lg">
+                <a key={c.label} href={c.href} className="glass rounded-2xl p-5 transition-shadow hover:shadow-lg">
                   {inner}
                 </a>
               ) : (
-                <div key={c.label} className="rounded-2xl border border-navy-100 bg-white p-5">
+                <div key={c.label} className="glass rounded-2xl p-5">
                   {inner}
                 </div>
               );

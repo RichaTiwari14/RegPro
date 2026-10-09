@@ -30,12 +30,12 @@ export function FloatingCTA({ overlay = false }: { overlay?: boolean }) {
         </span>
       </a>
 
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-navy-100 bg-white/95 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-8px_30px_-12px_rgba(11,42,91,0.25)] backdrop-blur lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/70 bg-mist-100/80 backdrop-blur-xl px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-8px_30px_-12px_rgba(11,42,91,0.25)] lg:hidden">
         <div className="grid grid-cols-3 gap-2">
           <a
             href={site.phoneHref}
             onClick={() => trackConversion('contact', 'call:mobile-bar')}
-            className="flex items-center justify-center gap-1.5 rounded-xl border border-navy-200 py-3 text-sm font-semibold text-navy-800"
+            className="flex items-center justify-center gap-1.5 rounded-full border border-navy-800/30 py-3 text-[11px] font-medium uppercase tracking-[0.14em] text-navy-800"
           >
             <Phone className="h-4 w-4" /> Call
           </a>
@@ -44,13 +44,13 @@ export function FloatingCTA({ overlay = false }: { overlay?: boolean }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackConversion('contact', 'whatsapp:mobile-bar')}
-            className="flex items-center justify-center gap-1.5 rounded-xl bg-[#25D366] py-3 text-sm font-semibold text-white"
+            className="flex items-center justify-center gap-1.5 rounded-full bg-[#25D366] py-3 text-[11px] font-medium uppercase tracking-[0.14em] text-white"
           >
             <WhatsAppGlyph className="h-4 w-4" /> WhatsApp
           </a>
           <Link
             to="/contact#enquiry"
-            className="flex items-center justify-center gap-1.5 rounded-xl bg-navy-800 py-3 text-sm font-semibold text-white"
+            className="flex items-center justify-center gap-1.5 rounded-full bg-navy-800 py-3 text-[11px] font-medium uppercase tracking-[0.14em] text-white"
           >
             <FileText className="h-4 w-4" /> Enquire
           </Link>

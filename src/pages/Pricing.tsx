@@ -31,21 +31,21 @@ export default function Pricing() {
         <div className="space-y-14">
           {categories.map((cat) => (
             <Reveal key={cat.id}>
-              <h2 className="font-display text-2xl font-bold text-navy-900">{cat.title}</h2>
-              <div className="mt-6 overflow-hidden rounded-3xl border border-navy-100 bg-white">
+              <h2 className="heading-cine text-2xl text-navy-800">{cat.title}</h2>
+              <div className="mt-6 overflow-hidden glass rounded-3xl">
                 {servicesByCategory(cat.id).map((s, i) => (
                   <div
                     key={s.slug}
-                    className={`grid items-center gap-4 px-5 py-5 transition-colors hover:bg-navy-50/50 sm:grid-cols-[1fr_auto_auto] sm:px-7 ${
-                      i > 0 ? 'border-t border-navy-50' : ''
+                    className={`grid items-center gap-4 px-5 py-5 transition-colors hover:bg-white/50 sm:grid-cols-[1fr_auto_auto] sm:px-7 ${
+                      i > 0 ? 'border-t border-navy-800/10' : ''
                     }`}
                   >
                     <Link to={`/services/${s.slug}`} className="group flex items-center gap-4">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-navy-50 text-navy-800 transition-colors group-hover:bg-navy-800 group-hover:text-gold-400">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-navy-800/20 text-navy-800 transition-colors group-hover:bg-navy-800 group-hover:text-gold-400">
                         <ServiceIcon name={s.icon} className="h-5 w-5" />
                       </span>
                       <span>
-                        <span className="block font-semibold text-navy-900 group-hover:text-gold-700">{s.name}</span>
+                        <span className="block font-medium text-navy-800 group-hover:text-gold-700">{s.name}</span>
                         <span className="mt-0.5 flex items-center gap-1 text-xs text-ink/55">
                           <Clock className="h-3 w-3" /> {s.timeline}
                         </span>
@@ -53,7 +53,7 @@ export default function Pricing() {
                     </Link>
                     <div className="sm:text-right">
                       <span className="text-[11px] uppercase tracking-wider text-ink/45">Starting at </span>
-                      <span className="font-display text-xl font-bold text-navy-900">
+                      <span className="heading-cine text-xl text-navy-800">
                         {formatPrice(s.price)}
                         <span className="align-super text-xs text-gold-600">*</span>
                       </span>

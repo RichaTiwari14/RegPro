@@ -45,14 +45,14 @@ export default function About() {
             </div>
             <ul className="mt-8 grid gap-3 sm:grid-cols-2">
               {['Expert-assisted filing', 'Transparent, upfront pricing', '100% online process', 'Dedicated support'].map((t) => (
-                <li key={t} className="flex items-center gap-2 text-sm font-medium text-navy-900">
+                <li key={t} className="flex items-center gap-2 text-sm font-medium text-navy-800">
                   <CheckCircle2 className="h-5 w-5 text-emerald-500" /> {t}
                 </li>
               ))}
             </ul>
           </Reveal>
           <Reveal delay={150}>
-            <div className="relative mx-auto flex aspect-square max-w-md items-center justify-center rounded-[2.5rem] bg-gradient-to-br from-navy-50 via-white to-gold-50 ring-1 ring-navy-100">
+            <div className="relative mx-auto flex aspect-square max-w-md items-center justify-center glass rounded-full">
               <div className="spin-slow absolute inset-8 rounded-full border border-dashed border-navy-200" />
               <div className="spin-slow-reverse absolute inset-20 rounded-full border border-dashed border-gold-300" />
               <LogoMark animated className="relative h-40 w-auto" />
@@ -61,16 +61,16 @@ export default function About() {
         </Container>
       </section>
 
-      <section className="bg-surface py-16 sm:py-24">
+      <section className="sky relative overflow-hidden py-16 sm:py-24">
         <Container>
           <div className="grid gap-6 md:grid-cols-3">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 120}>
-                <div className="h-full rounded-3xl bg-white p-7 ring-1 ring-navy-100">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-800 text-gold-400">
+                <div className="h-full glass rounded-3xl p-7">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gold-500/50 text-gold-600">
                     <v.icon className="h-6 w-6" />
                   </span>
-                  <h3 className="mt-5 font-display text-xl font-bold text-navy-900">{v.title}</h3>
+                  <h3 className="mt-5 heading-cine text-xl text-navy-800">{v.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-ink/70">{v.text}</p>
                 </div>
               </Reveal>

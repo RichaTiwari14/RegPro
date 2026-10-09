@@ -1,13 +1,16 @@
+import { useId } from 'react';
+
 /** Vector recreation of the Regpro mark: three rising navy bars with a gold tick-arrow. */
 export function LogoMark({ className = '', animated = false, light = false }: { className?: string; animated?: boolean; light?: boolean }) {
+  const clipId = `regpro-bars-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
   return (
     <svg viewBox="0 0 120 100" className={className} aria-hidden="true">
       <defs>
-        <clipPath id="regpro-bars-clip">
+        <clipPath id={clipId}>
           <polygon points="0,0 100,0 100,13 30,79 0,51" />
         </clipPath>
       </defs>
-      <g clipPath="url(#regpro-bars-clip)" fill={light ? '#FFFFFF' : '#0B2A5B'}>
+      <g clipPath={`url(#${clipId})`} fill={light ? '#FFFFFF' : '#0B2A5B'}>
         <rect x="22" y="40" width="10" height="60" className={animated ? 'bar-rise' : ''} style={{ animationDelay: '0.1s' }} />
         <rect x="36" y="28" width="10" height="72" className={animated ? 'bar-rise' : ''} style={{ animationDelay: '0.22s' }} />
         <rect x="50" y="16" width="10" height="84" className={animated ? 'bar-rise' : ''} style={{ animationDelay: '0.34s' }} />

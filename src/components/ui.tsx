@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Phone } from 'lucide-react';
+import { ArrowRight, Phone } from 'lucide-react';
 import { site, whatsappLink } from '@/config/site';
 import { trackConversion } from '@/lib/analytics';
 import { formatPrice } from '@/data/services';
@@ -10,12 +10,8 @@ export function Container({ children, className = '' }: { children: ReactNode; c
 
 export function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
   return (
-    <span
-      className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] ${
-        light ? 'bg-white/10 text-gold-300 ring-1 ring-white/15' : 'bg-gold-50 text-gold-700 ring-1 ring-gold-200'
-      }`}
-    >
-      <span className={`h-1.5 w-1.5 rounded-full ${light ? 'bg-gold-400' : 'bg-gold-500'}`} />
+    <span className={`label-cine inline-flex items-center gap-3 ${light ? 'text-gold-300' : 'text-gold-700'}`}>
+      <span className={`h-px w-8 ${light ? 'bg-gold-400' : 'bg-gold-500'}`} />
       {children}
     </span>
   );
@@ -35,16 +31,15 @@ export function SectionHeading({
   light?: boolean;
 }) {
   return (
-    <div className={`max-w-2xl ${center ? 'mx-auto text-center' : ''}`}>
+    <div className={`max-w-3xl ${center ? 'mx-auto text-center' : ''}`}>
       {eyebrow && <Eyebrow light={light}>{eyebrow}</Eyebrow>}
       <h2
-        className={`mt-4 font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl ${
-          light ? 'text-white' : 'text-navy-900'
-        }`}
+        className={`heading-cine mt-5 ${light ? 'text-white' : 'text-navy-800'}`}
+        style={{ fontSize: 'clamp(1.75rem,3.4vw,3.1rem)' }}
       >
         {title}
       </h2>
-      {text && <p className={`mt-4 text-base leading-relaxed sm:text-lg ${light ? 'text-white/70' : 'text-ink/70'}`}>{text}</p>}
+      {text && <p className={`mt-5 text-base leading-relaxed sm:text-lg ${light ? 'text-white/65' : 'text-ink/65'}`}>{text}</p>}
     </div>
   );
 }
@@ -59,8 +54,8 @@ export function WhatsAppGlyph({ className = '' }: { className?: string }) {
 
 type BtnSize = 'md' | 'lg';
 const sizes: Record<BtnSize, string> = {
-  md: 'px-5 py-3 text-sm',
-  lg: 'px-6 py-3.5 text-base',
+  md: 'px-5 py-3 text-[11px]',
+  lg: 'px-7 py-4 text-xs',
 };
 
 export function WhatsAppButton({
@@ -82,9 +77,9 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackConversion('contact', `whatsapp:${source}`)}
-      className={`group inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] font-semibold text-white shadow-lg shadow-[#25D366]/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1fbe5a] hover:shadow-xl hover:shadow-[#25D366]/30 ${sizes[size]} ${className}`}
+      className={`group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#25D366] font-medium uppercase tracking-[0.18em] text-white shadow-lg shadow-[#25D366]/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1fbe5a] hover:shadow-xl hover:shadow-[#25D366]/30 ${sizes[size]} ${className}`}
     >
-      <WhatsAppGlyph className="h-5 w-5" />
+      <WhatsAppGlyph className="h-4 w-4" />
       {label}
     </a>
   );
@@ -104,17 +99,17 @@ export function CallButton({
   source?: string;
 }) {
   const styles = {
-    outline: 'border border-navy-200 bg-white text-navy-800 hover:border-navy-800',
-    light: 'border border-white/25 bg-white/5 text-white backdrop-blur hover:bg-white/15',
+    outline: 'border border-navy-800/30 bg-white/40 text-navy-800 backdrop-blur hover:border-navy-800',
+    light: 'border border-white/35 bg-white/5 text-white backdrop-blur hover:border-white',
     navy: 'bg-navy-800 text-white hover:bg-navy-900',
   }[variant];
   return (
     <a
       href={site.phoneHref}
       onClick={() => trackConversion('contact', `call:${source}`)}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-300 hover:-translate-y-0.5 ${styles} ${sizes[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2.5 rounded-full font-medium uppercase tracking-[0.18em] transition-all duration-300 hover:-translate-y-0.5 ${styles} ${sizes[size]} ${className}`}
     >
-      <Phone className="h-4 w-4" />
+      <Phone className="h-3.5 w-3.5" />
       {label}
     </a>
   );
@@ -124,7 +119,7 @@ export function PriceTag({ price, light = false, className = '' }: { price: numb
   return (
     <div className={className}>
       <span className={`text-xs font-medium uppercase tracking-wider ${light ? 'text-white/60' : 'text-ink/50'}`}>Starting at</span>
-      <div className={`font-display text-2xl font-bold ${light ? 'text-white' : 'text-navy-900'}`}>
+      <div className={`font-display text-2xl font-light ${light ? 'text-white' : 'text-navy-800'}`}>
         {formatPrice(price)}
         <span className={`ml-1 align-super text-xs font-semibold ${light ? 'text-gold-300' : 'text-gold-600'}`}>*</span>
       </div>
@@ -137,5 +132,28 @@ export function FeeNote({ light = false, className = '' }: { light?: boolean; cl
     <p className={`text-xs ${light ? 'text-white/55' : 'text-ink/55'} ${className}`}>
       * Professional fee. {site.feeNote}
     </p>
+  );
+}
+
+/** Outline circle with an arrow — the landing page's signature control. */
+export function CircleArrow({
+  icon: Icon = ArrowRight,
+  light = false,
+  size = 'md',
+  className = '',
+}: {
+  icon?: typeof ArrowRight;
+  light?: boolean;
+  size?: 'sm' | 'md';
+  className?: string;
+}) {
+  return (
+    <span
+      className={`flex shrink-0 items-center justify-center rounded-full border transition-all duration-500 ${
+        size === 'sm' ? 'h-10 w-10' : 'h-12 w-12'
+      } ${light ? 'border-white/40 text-white' : 'border-navy-800/30 text-navy-800'} ${className}`}
+    >
+      <Icon size={size === 'sm' ? 16 : 18} />
+    </span>
   );
 }
