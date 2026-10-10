@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 import { ArrowRight, Phone } from 'lucide-react';
+import { motion } from 'motion/react';
+import { MaskedWords } from '@/components/Reveal';
 import { site, whatsappLink } from '@/config/site';
 import { trackConversion } from '@/lib/analytics';
 import { formatPrice } from '@/data/services';
@@ -10,10 +12,24 @@ export function Container({ children, className = '' }: { children: ReactNode; c
 
 export function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
   return (
-    <span className={`label-cine inline-flex items-center gap-3 ${light ? 'text-gold-300' : 'text-gold-400'}`}>
-      <span className={`h-px w-8 ${light ? 'bg-gold-400' : 'bg-gold-500'}`} />
-      {children}
-    </span>
+    <motion.span
+      className={`label-cine inline-flex items-center gap-3 ${light ? 'text-gold-300' : 'text-gold-400'}`}
+      initial="hidden"
+      whileInView="shown"
+      viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+    >
+      <motion.span
+        className="h-px w-8 origin-left bg-gold-500"
+        variants={{ hidden: { scaleX: 0 }, shown: { scaleX: 1 } }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      />
+      <motion.span
+        variants={{ hidden: { opacity: 0, x: -8 }, shown: { opacity: 1, x: 0 } }}
+        transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {children}
+      </motion.span>
+    </motion.span>
   );
 }
 
@@ -33,13 +49,20 @@ export function SectionHeading({
   return (
     <div className={`max-w-3xl ${center ? 'mx-auto text-center' : ''}`}>
       {eyebrow && <Eyebrow light={light}>{eyebrow}</Eyebrow>}
-      <h2
-        className={`heading-cine mt-5 ${light ? 'text-white' : 'text-white'}`}
-        style={{ fontSize: 'clamp(2rem,3.8vw,3.4rem)' }}
-      >
-        {title}
+      <h2 className="heading-cine mt-5 text-white" style={{ fontSize: 'clamp(2rem,3.8vw,3.4rem)' }}>
+        {typeof title === 'string' ? <MaskedWords text={title} delay={120} /> : title}
       </h2>
-      {text && <p className={`mt-5 text-base leading-relaxed sm:text-lg ${light ? 'text-white/65' : 'text-white/65'}`}>{text}</p>}
+      {text && (
+        <motion.p
+          className="mt-5 text-base leading-relaxed text-white/65 sm:text-lg"
+          initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+          transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {text}
+        </motion.p>
+      )}
     </div>
   );
 }

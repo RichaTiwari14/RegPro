@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Eyebrow } from '@/components/ui';
+import { MaskedWords } from '@/components/Reveal';
 
 /** Inner-page hero: the landing video's pale sky, drifting mist and ridges flowing into the page. */
 export function PageHero({
@@ -36,7 +37,7 @@ export function PageHero({
         <div className="hero-in max-w-4xl">
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
           <h1 className="heading-cine mt-5 text-white" style={{ fontSize: 'clamp(2.1rem,5vw,4.6rem)' }}>
-            {title}
+            {typeof title === 'string' ? <MaskedWords text={title} delay={150} /> : title}
           </h1>
           {text && <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">{text}</p>}
         </div>

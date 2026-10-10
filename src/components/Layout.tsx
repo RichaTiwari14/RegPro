@@ -5,6 +5,8 @@ import { Footer } from '@/components/Footer';
 import { FloatingCTA } from '@/components/FloatingCTA';
 import { initAnalytics, trackPageView } from '@/lib/analytics';
 import { initSmoothScroll, scrollToTarget } from '@/lib/smoothScroll';
+import { initSpotlight } from '@/lib/spotlight';
+import { MotionConfig } from 'motion/react';
 
 export function Layout() {
   const { pathname, hash } = useLocation();
@@ -12,6 +14,7 @@ export function Layout() {
   useEffect(() => {
     initAnalytics();
     initSmoothScroll();
+    initSpotlight();
   }, []);
 
   useEffect(() => {
@@ -25,6 +28,7 @@ export function Layout() {
   }, [pathname, hash]);
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="flex min-h-screen flex-col overflow-x-clip">
       <Header />
       <main className="flex-1">
@@ -33,5 +37,6 @@ export function Layout() {
       <Footer />
       <FloatingCTA />
     </div>
+    </MotionConfig>
   );
 }
