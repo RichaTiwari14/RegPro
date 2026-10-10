@@ -1,137 +1,158 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { LogoMark } from '@/components/Logo';
+import { ArrowRight, Menu, Phone, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { Logo } from '@/components/Logo';
 import { WhatsAppGlyph } from '@/components/ui';
-import { categories, servicesByCategory } from '@/data/services';
 import { site, whatsappLink } from '@/config/site';
 import { lockScroll } from '@/lib/smoothScroll';
 
 const links = [
+  { to: '/', label: 'Home' },
   { to: '/services', label: 'Services' },
   { to: '/pricing', label: 'Pricing' },
   { to: '/about', label: 'About' },
-  { to: '/faqs', label: 'FAQs' },
+  { to: '/blog', label: 'Blog' },
+  { to: '/contact', label: 'Contact' },
 ];
 
-const mobileLinks = [{ to: '/', label: 'Home' }, ...links, { to: '/blog', label: 'Blog' }, { to: '/contact', label: 'Contact' }];
-
 export function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => setIsMobileMenuOpen(false), [location.pathname]);
+  useEffect(() => setOpen(false), [location.pathname]);
 
   useEffect(() => {
-    if (!isMobileMenuOpen) return;
+    if (!open) return;
     lockScroll(true);
     return () => lockScroll(false);
-  }, [isMobileMenuOpen]);
+  }, [open]);
 
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 flex flex-row items-center justify-between px-5 py-4 transition-[background-color,box-shadow] duration-300 sm:px-8 sm:py-5 ${
-          scrolled && !isMobileMenuOpen ? 'bg-white/90 shadow-[0_1px_0_rgba(16,24,40,0.06)] backdrop-blur' : 'bg-transparent'
+        className={`sticky top-0 z-50 transition-[background-color,box-shadow] duration-300 ${
+          scrolled ? 'bg-white/90 shadow-[0_8px_30px_-16px_rgba(11,42,91,0.25)] backdrop-blur-lg' : 'bg-white'
         }`}
       >
-        {/* Logo */}
-        <Link to="/" aria-label={`${site.name} home`} className="flex items-center gap-3">
-          <span className="select-none text-[21px] font-medium tracking-tight text-black sm:text-[26px]">Regpro&reg;</span>
-          <LogoMark className="mb-1 h-[25px] w-auto select-none sm:h-[30px]" />
-        </Link>
+        <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-6 px-5 sm:px-6 lg:px-8">
+          <Link to="/" aria-label={`${site.name} home`} className="shrink-0">
+            <Logo />
+          </Link>
 
-        {/* Desktop links */}
-        <nav className="hidden flex-row text-[23px] text-black md:flex" aria-label="Main">
-          {links.map((l, i) => (
-            <Fragment key={l.to}>
-              {i > 0 && <span className="opacity-40">,&nbsp;</span>}
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
+            {links.map((l) => (
               <NavLink
+                key={l.to}
                 to={l.to}
+                end={l.to === '/'}
                 className={({ isActive }) =>
-                  `transition-opacity hover:opacity-60 ${isActive ? 'underline decoration-gold-500 decoration-2 underline-offset-[6px]' : ''}`
+                  `relative px-3.5 py-2 text-sm font-medium transition-colors ${isActive ? 'text-gold-600' : 'text-ink/75 hover:text-navy-800'}`
                 }
               >
-                {l.label}
+                {({ isActive }) => (
+                  <>
+                    {l.label}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute inset-x-3.5 -bottom-0.5 h-0.5 rounded-full bg-gold-500"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </>
+                )}
               </NavLink>
-            </Fragment>
-          ))}
-        </nav>
-
-        {/* Desktop CTA */}
-        <Link to="/contact" className="hidden text-[23px] text-black underline underline-offset-2 transition-opacity hover:opacity-60 md:block">
-          Get in touch
-        </Link>
-
-        {/* Mobile burger */}
-        <button
-          type="button"
-          onClick={() => setIsMobileMenuOpen((v) => !v)}
-          aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={isMobileMenuOpen}
-          className="relative z-20 flex flex-col gap-[5px] md:hidden"
-        >
-          <span className={`block h-[2px] w-6 bg-black transition-all duration-300 ${isMobileMenuOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
-          <span className={`block h-[2px] w-6 bg-black transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
-          <span className={`block h-[2px] w-6 bg-black transition-all duration-300 ${isMobileMenuOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
-        </button>
-      </header>
-
-      {/* Mobile navigation overlay */}
-      <div
-        data-lenis-prevent
-        className={`fixed inset-0 z-[45] overflow-y-auto bg-white/95 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-          isMobileMenuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
-        }`}
-        aria-hidden={!isMobileMenuOpen}
-      >
-        <div className="flex min-h-full flex-col px-6 pb-10 pt-28">
-          <nav className="flex flex-col" aria-label="Mobile">
-            {mobileLinks.map((l) => (
-              <Link key={l.to} to={l.to} className="py-2 text-[34px] leading-tight tracking-tight text-black transition-opacity hover:opacity-60">
-                {l.label}
-              </Link>
             ))}
           </nav>
-          <div className="mt-10 grid gap-6 border-t border-mist-200 pt-8">
-            {categories.map((cat) => (
-              <div key={cat.id}>
-                <p className="text-sm text-subtle">{cat.title}</p>
-                <p className="mt-2 text-[15px] leading-relaxed text-ink">
-                  {servicesByCategory(cat.id).map((s, i, all) => (
-                    <Fragment key={s.slug}>
-                      <Link to={`/services/${s.slug}`} className="hover:opacity-60">
-                        {s.shortName}
-                      </Link>
-                      {i < all.length - 1 && <span className="opacity-40">, </span>}
-                    </Fragment>
-                  ))}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-auto flex flex-col gap-3 pt-10">
-            <a
-              href={whatsappLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 rounded-full bg-[#25D366] py-3.5 text-sm font-medium text-white"
+
+          <div className="flex items-center gap-3">
+            <Link
+              to="/contact#enquiry"
+              className="group hidden items-center gap-2 rounded-full bg-navy-800 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-navy-900/20 transition-all hover:-translate-y-0.5 hover:bg-navy-900 sm:inline-flex"
             >
-              <WhatsAppGlyph className="h-4 w-4" /> Chat on WhatsApp
-            </a>
-            <a href={site.phoneHref} className="text-center text-sm text-muted underline underline-offset-2">
-              Call {site.phone}
-            </a>
+              Get a Free Consultation
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              aria-label="Open menu"
+              className="flex h-11 w-11 items-center justify-center rounded-xl border border-navy-100 text-navy-800 lg:hidden"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
           </div>
         </div>
-      </div>
+      </header>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {open && (
+          <motion.div className="fixed inset-0 z-[60] lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <div className="absolute inset-0 bg-navy-950/40 backdrop-blur-sm" onClick={() => setOpen(false)} />
+            <motion.div
+              data-lenis-prevent
+              className="absolute right-0 top-0 flex h-full w-[86%] max-w-sm flex-col overflow-y-auto bg-white shadow-2xl"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 320, damping: 34 }}
+            >
+              <div className="flex h-[76px] items-center justify-between border-b border-navy-50 px-5">
+                <Logo />
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label="Close menu"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-navy-100 text-navy-800"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              <nav className="flex-1 px-3 py-4" aria-label="Mobile">
+                {links.map((l, i) => (
+                  <motion.div key={l.to} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 * i + 0.1 }}>
+                    <NavLink
+                      to={l.to}
+                      end={l.to === '/'}
+                      className={({ isActive }) =>
+                        `block rounded-xl px-3 py-3 font-display text-lg font-semibold ${isActive ? 'bg-gold-50 text-gold-700' : 'text-navy-800 hover:bg-navy-50'}`
+                      }
+                    >
+                      {l.label}
+                    </NavLink>
+                  </motion.div>
+                ))}
+              </nav>
+              <div className="space-y-3 border-t border-navy-50 p-5">
+                <Link to="/contact#enquiry" className="flex w-full items-center justify-center gap-2 rounded-full bg-navy-800 py-3 text-sm font-semibold text-white">
+                  Get a Free Consultation <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a
+                  href={whatsappLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] py-3 text-sm font-semibold text-white"
+                >
+                  <WhatsAppGlyph className="h-4 w-4" /> WhatsApp Us
+                </a>
+                <a href={site.phoneHref} className="flex w-full items-center justify-center gap-2 rounded-full border border-navy-100 py-3 text-sm font-semibold text-navy-800">
+                  <Phone className="h-4 w-4" /> {site.phone}
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

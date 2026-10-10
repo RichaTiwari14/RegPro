@@ -33,30 +33,54 @@ html.lenis {
 }
 
 @layer components {
-  /* Clean white card */
+  /* White card with a soft navy-tinted shadow */
   .glass {
-    @apply border border-mist-200 bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04),0_12px_32px_-18px_rgba(11,42,91,0.18)];
+    @apply rounded-2xl border border-[#EDF0F5] bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04),0_18px_40px_-24px_rgba(11,42,91,0.22)];
   }
   .glass-dark {
     @apply border border-white/10 bg-white/[0.06];
   }
-  /* Soft neutral band used to separate sections */
+  /* Warm cream band */
   .sky {
-    @apply bg-mist-100;
+    background: linear-gradient(180deg, #fbf8f1 0%, #f8f4ea 100%);
   }
   .sky-soft {
-    @apply bg-mist-50;
+    @apply bg-cream;
   }
   /* Logo navy block */
   .dusk {
-    background: linear-gradient(160deg, #0f2f63 0%, #0b2a5b 45%, #081f44 100%);
+    background: linear-gradient(150deg, #0f2f63 0%, #0b2a5b 45%, #071b3b 100%);
   }
   .heading-cine {
-    @apply font-display font-normal leading-[1.08] tracking-tight;
+    @apply font-display font-bold leading-[1.12] tracking-tight text-navy-800;
   }
   .label-cine {
-    @apply text-[13px] font-medium tracking-normal;
+    @apply text-[11px] font-bold uppercase tracking-[0.14em];
   }
+  /* Small gold pill above section titles */
+  .pill-gold {
+    @apply inline-flex items-center gap-2 rounded-full bg-gold-50 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-gold-700 ring-1 ring-gold-200;
+  }
+}
+
+/* Cursor spotlight on cards (vars set in lib/spotlight.ts) */
+.glass {
+  position: relative;
+  isolation: isolate;
+}
+.glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(214, 162, 31, 0.10), transparent 45%);
+  z-index: 1;
+}
+.glass:hover::after {
+  opacity: 1;
 }
 
 .marquee-mask {
@@ -70,16 +94,6 @@ html.lenis {
 }
 .animate-blink { animation: blink 1s step-end infinite; }
 
-/* ── Scroll reveal (only hides content when JS is running) ── */
-.js .reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.js .reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
 
 /* ── Entrance animations ── */
 @keyframes hero-in {
@@ -143,5 +157,4 @@ html:not(.js) .process-line,
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .js .reveal { opacity: 1; transform: none; }
 }

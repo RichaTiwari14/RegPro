@@ -61,11 +61,11 @@ export default function ServiceDetail() {
         ]}
       />
 
-      <PageHero eyebrow={category.title} title={service.name} text={service.intro} crumbs={crumbs}>
-        <div className="hero-in mt-8 flex flex-wrap items-center gap-x-8 gap-y-4" style={{ animationDelay: '0.15s' }}>
+      <PageHero eyebrow={category.title} title={service.name} text={service.intro} crumbs={crumbs} image="/images/tower.jpg">
+        <div className="mt-8 inline-flex flex-wrap items-center gap-x-8 gap-y-4 rounded-2xl bg-white px-6 py-4 shadow-sm ring-1 ring-navy-800/10">
           <div>
             <p className="label-cine text-ink/50">Starting at</p>
-            <p className="mt-1 text-4xl font-light text-navy-800">
+            <p className="mt-1 font-display text-4xl font-extrabold text-navy-800">
               {formatPrice(service.price)}
               <span className="align-super text-sm text-gold-600">*</span>
             </p>
@@ -78,20 +78,20 @@ export default function ServiceDetail() {
             </p>
           </div>
         </div>
-        <div className="hero-in mt-8 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: '0.25s' }}>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <WhatsAppButton size="lg" label="Get started on WhatsApp" message={waMessage} source={`service-hero:${service.slug}`} />
           <CallButton size="lg" label="Talk to an expert" source={`service-hero:${service.slug}`} />
         </div>
       </PageHero>
 
       {/* Section nav */}
-      <div className="sticky top-[63px] z-30 border-b border-mist-200 bg-white/95 backdrop-blur sm:top-[79px]">
+      <div className="sticky top-[76px] z-30 border-b border-mist-200 bg-white/95 backdrop-blur">
         <Container className="flex gap-1 overflow-x-auto py-2">
           {sections.map(([id, label]) => (
             <a
               key={id}
               href={`#${id}`}
-              className="label-cine whitespace-nowrap px-3 py-3 text-navy-800/55 transition-colors hover:text-navy-800"
+              className="whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold text-navy-800/60 transition-colors hover:bg-cream hover:text-navy-800"
             >
               {label}
             </a>
@@ -128,7 +128,7 @@ export default function ServiceDetail() {
               {service.whoNeeds.map((w, i) => (
                 <Reveal key={w} delay={i * 70}>
                   <div className="flex h-full items-start gap-3 glass rounded-2xl p-4">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-navy-800/20 text-navy-800">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gold-50 text-gold-700">
                       <Users className="h-4 w-4" />
                     </span>
                     <p className="text-sm leading-relaxed text-ink/75">{w}</p>
@@ -146,8 +146,8 @@ export default function ServiceDetail() {
               {service.benefits.map((b, i) => (
                 <Reveal key={b.title} delay={i * 80}>
                   <div className="glass group h-full rounded-2xl p-6 transition-all duration-500 hover:bg-navy-800">
-                    <span className="font-light text-sm  text-gold-600">0{i + 1}</span>
-                    <h3 className="mt-2 font-light text-lg  text-navy-800 transition-colors group-hover:text-white">{b.title}</h3>
+                    <span className="font-display text-sm font-bold text-gold-600">0{i + 1}</span>
+                    <h3 className="mt-2 font-display text-lg font-bold text-navy-800 transition-colors group-hover:text-white">{b.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-ink/70 transition-colors group-hover:text-white/70">{b.text}</p>
                   </div>
                 </Reveal>
@@ -184,9 +184,9 @@ export default function ServiceDetail() {
                 <div className="relative grid gap-8 sm:grid-cols-2 sm:items-center">
                   <div>
                     <p className="text-xs font-medium tracking-tight text-gold-400">Pricing</p>
-                    <h2 className="mt-2 font-light text-2xl ">{service.name}</h2>
+                    <h2 className="mt-2 font-display text-2xl font-bold">{service.name}</h2>
                     <p className="mt-5 text-[13px] text-white/60">Starting at</p>
-                    <p className="font-light text-5xl ">
+                    <p className="font-display text-5xl font-extrabold">
                       {formatPrice(service.price)}
                       <span className="align-super text-lg text-gold-400">*</span>
                     </p>
@@ -220,7 +220,7 @@ export default function ServiceDetail() {
               <ServiceIcon name={service.icon} className="h-5 w-5" />
             </span>
             <div className="flex-1">
-              <p className="text-sm font-medium text-navy-800">{service.shortName}</p>
+              <p className="font-display text-sm font-bold text-navy-800">{service.shortName}</p>
               <p className="text-xs text-ink/55">from {formatPrice(service.price)}* · {service.timeline}</p>
             </div>
           </div>

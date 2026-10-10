@@ -33,7 +33,7 @@ export function Logo({ light = false, className = '' }: { light?: boolean; class
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
       <LogoMark light={light} className="h-9 w-auto" />
       <span className="flex flex-col leading-none">
-        <span className={`font-display text-[1.35rem] font-bold tracking-tight ${light ? 'text-white' : 'text-ink'}`}>REGPRO</span>
+        <span className={`font-display text-[1.35rem] font-extrabold tracking-tight ${light ? 'text-white' : 'text-navy-800'}`}>REGPRO</span>
         <span className={`mt-1 text-[0.5rem] font-semibold tracking-[0.32em] ${light ? 'text-white/60' : 'text-ink/60'}`}>
           REGISTER. COMPLY. GROW
         </span>

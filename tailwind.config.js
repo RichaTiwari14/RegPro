@@ -43,10 +43,12 @@ export default {
         muted: '#55627A',
         subtle: '#7A879C',
         surface: '#F7F8FA',
+        cream: '#FBF8F1',
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Montserrat', 'Inter', 'ui-sans-serif', 'sans-serif'],
+        script: ['Caveat', 'cursive'],
       },
       keyframes: {
         marquee: { from: { transform: 'translateX(0)' }, to: { transform: 'translateX(-100%)' } },

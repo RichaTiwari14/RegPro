@@ -17,7 +17,7 @@ export function Footer({ overlap = false }: { overlap?: boolean }) {
             <div>
               <Link to="/" aria-label={`${site.name} home`} className="flex items-center gap-2">
                 <LogoMark light className="h-8 w-auto" />
-                <span className="text-xl font-medium tracking-tight">Regpro&reg;</span>
+                <span className="font-display text-xl font-extrabold tracking-tight">REGPRO</span>
               </Link>
               <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/55">
                 Business registration, government documentation and compliance assistance for startups and small businesses across India.
@@ -27,7 +27,7 @@ export function Footer({ overlap = false }: { overlap?: boolean }) {
                 href={whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-medium text-white"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5"
               >
                 <WhatsAppGlyph className="h-4 w-4" /> WhatsApp us
               </a>

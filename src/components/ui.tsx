@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 import { ArrowRight, Phone } from 'lucide-react';
+import { motion } from 'motion/react';
+import { MaskedWords } from '@/components/Reveal';
 import { site, whatsappLink } from '@/config/site';
 import { trackConversion } from '@/lib/analytics';
 import { formatPrice } from '@/data/services';
@@ -10,10 +12,15 @@ export function Container({ children, className = '' }: { children: ReactNode; c
 
 export function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
   return (
-    <span className={`label-cine inline-flex items-center gap-3 ${light ? 'text-gold-300' : 'text-gold-700'}`}>
-      <span className={`h-px w-8 ${light ? 'bg-gold-400' : 'bg-gold-500'}`} />
+    <motion.span
+      className={light ? 'inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-gold-300 ring-1 ring-white/15' : 'pill-gold'}
+      initial={{ opacity: 0, y: 10, scale: 0.94 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+    >
       {children}
-    </span>
+    </motion.span>
   );
 }
 
@@ -23,23 +30,33 @@ export function SectionHeading({
   text,
   center = false,
   light = false,
+  highlight = [],
 }: {
   eyebrow?: string;
   title: ReactNode;
   text?: ReactNode;
   center?: boolean;
   light?: boolean;
+  /** Words in `title` to paint gold. */
+  highlight?: string[];
 }) {
   return (
     <div className={`max-w-3xl ${center ? 'mx-auto text-center' : ''}`}>
       {eyebrow && <Eyebrow light={light}>{eyebrow}</Eyebrow>}
-      <h2
-        className={`heading-cine mt-5 ${light ? 'text-white' : 'text-navy-800'}`}
-        style={{ fontSize: 'clamp(2rem,3.8vw,3.4rem)' }}
-      >
-        {title}
+      <h2 className={`heading-cine mt-4 ${light ? 'text-white' : ''}`} style={{ fontSize: 'clamp(1.9rem,3.4vw,3rem)' }}>
+        {typeof title === 'string' ? <MaskedWords text={title} delay={100} highlight={highlight} /> : title}
       </h2>
-      {text && <p className={`mt-5 text-base leading-relaxed sm:text-lg ${light ? 'text-white/65' : 'text-ink/65'}`}>{text}</p>}
+      {text && (
+        <motion.p
+          className={`mt-4 text-base leading-relaxed sm:text-lg ${light ? 'text-white/70' : 'text-ink/65'}`}
+          initial={{ opacity: 0, y: 14, filter: 'blur(6px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+          transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {text}
+        </motion.p>
+      )}
     </div>
   );
 }
@@ -54,8 +71,8 @@ export function WhatsAppGlyph({ className = '' }: { className?: string }) {
 
 type BtnSize = 'md' | 'lg';
 const sizes: Record<BtnSize, string> = {
-  md: 'px-5 py-3 text-sm',
-  lg: 'px-7 py-4 text-[15px]',
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-3.5 text-[15px]',
 };
 
 export function WhatsAppButton({
@@ -77,7 +94,7 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackConversion('contact', `whatsapp:${source}`)}
-      className={`group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#25D366] font-medium tracking-tight text-white shadow-lg shadow-[#25D366]/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1fbe5a] hover:shadow-xl hover:shadow-[#25D366]/30 ${sizes[size]} ${className}`}
+      className={`group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#25D366] font-semibold text-white shadow-lg shadow-[#25D366]/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1fbe5a] hover:shadow-xl hover:shadow-[#25D366]/30 ${sizes[size]} ${className}`}
     >
       <WhatsAppGlyph className="h-4 w-4" />
       {label}
@@ -99,7 +116,7 @@ export function CallButton({
   source?: string;
 }) {
   const styles = {
-    outline: 'border border-navy-800/30 bg-white/50 text-navy-800 hover:border-navy-800',
+    outline: 'border border-navy-800/15 bg-white text-navy-800 shadow-sm hover:border-navy-800/40',
     light: 'border border-white/35 bg-white/10 text-white hover:border-white',
     navy: 'bg-navy-800 text-white hover:bg-navy-900',
   }[variant];
@@ -107,7 +124,7 @@ export function CallButton({
     <a
       href={site.phoneHref}
       onClick={() => trackConversion('contact', `call:${source}`)}
-      className={`inline-flex items-center justify-center gap-2.5 rounded-full font-medium tracking-tight transition-all duration-300 hover:-translate-y-0.5 ${styles} ${sizes[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2.5 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 ${styles} ${sizes[size]} ${className}`}
     >
       <Phone className="h-3.5 w-3.5" />
       {label}
