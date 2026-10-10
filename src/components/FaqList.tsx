@@ -16,7 +16,7 @@ export function FaqList({ faqs, light = false }: { faqs: { q: string; a: string 
               aria-expanded={isOpen}
               className="group flex w-full items-center justify-between gap-6 py-5 text-left"
             >
-              <span className={`font-display text-xl font-semibold sm:text-[1.4rem] ${light ? 'text-white' : 'text-olive-800 group-hover:text-sage-700'} transition-colors`}>{f.q}</span>
+              <span className={`font-display text-lg sm:text-xl ${light ? 'text-white' : 'text-ink group-hover:text-olive-700'} transition-colors`}>{f.q}</span>
               <span
                 className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-500 ${
                   isOpen

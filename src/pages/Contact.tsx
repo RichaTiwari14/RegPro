@@ -6,7 +6,6 @@ import { PageHero } from '@/components/PageHero';
 import { Container, WhatsAppGlyph } from '@/components/ui';
 import { Reveal } from '@/components/Reveal';
 import { LeadForm } from '@/components/LeadForm';
-import { StickyBg } from '@/components/StickyBg';
 
 export default function Contact() {
   const crumbs = [
@@ -33,9 +32,11 @@ export default function Contact() {
         highlight={['business']}
         text="Reach us on WhatsApp for the fastest response, or share your details and we’ll call you back."
         crumbs={crumbs}
+        image="/photos/contact-hero.jpg"
+        scribble={"We’re here to help ♡"}
       />
 
-      <StickyBg image="/images/city-dusk.jpg" overlay="bg-gradient-to-b from-olive-950/85 to-olive-950/70">
+      <section>
         <Container className="grid gap-12 py-16 sm:py-24 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <Reveal>
@@ -43,13 +44,13 @@ export default function Contact() {
                 href={whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-5 rounded-full bg-[#25D366] p-4 pr-8 text-white shadow-xl shadow-black/20 transition-transform duration-300 hover:-translate-y-1"
+                className="group flex items-center gap-5 rounded-full bg-[#25D366] p-4 pr-8 text-white shadow-lg shadow-[#25D366]/25 transition-transform duration-300 hover:-translate-y-1"
               >
                 <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/20">
                   <WhatsAppGlyph className="h-8 w-8" />
                 </span>
                 <span>
-                  <span className="block font-display text-xl font-semibold">Chat on WhatsApp</span>
+                  <span className="block font-display text-xl">Chat on WhatsApp</span>
                   <span className="block text-sm text-white/85">Fastest response — {site.phone}</span>
                 </span>
               </a>
@@ -86,11 +87,11 @@ export default function Contact() {
           </div>
           <Reveal delay={120}>
             <div id="enquiry" className="scroll-mt-28">
-              <LeadForm solid className="!bg-white" title="Send us an enquiry" />
+              <LeadForm solid title="Send us an enquiry" />
             </div>
           </Reveal>
         </Container>
-      </StickyBg>
+      </section>
     </>
   );
 }

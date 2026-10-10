@@ -7,7 +7,6 @@ import { PageHero } from '@/components/PageHero';
 import { Container, SectionHeading } from '@/components/ui';
 import { Reveal } from '@/components/Reveal';
 import { Leaf } from '@/components/Leaf';
-import { StickyBg } from '@/components/StickyBg';
 import { CtaBanner } from '@/components/CtaBanner';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -44,12 +43,12 @@ export default function About() {
         highlight={['Grow']}
         text="We help Indian businesses get started and stay compliant — without the paperwork stress."
         crumbs={crumbs}
-        image="/images/city-day.jpg"
-        scribble={"Built for founders ♥"}
+        image="/photos/about-hero.jpg"
+        scribble={"Built for founders ♡"}
       />
 
-      {/* Stats band over a fixed skyline */}
-      <StickyBg image="/images/city-dusk.jpg" overlay="bg-olive-950/80">
+      {/* Stats band */}
+      <section className="bg-olive-800">
         <Container className="grid grid-cols-2 gap-y-10 py-16 lg:grid-cols-4">
           {stats.map(([v, l], i) => (
             <motion.div
@@ -60,14 +59,14 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: i * 0.1, ease: EASE }}
             >
-              <p className="font-display text-4xl font-semibold text-sage-400 sm:text-5xl">{v}</p>
-              <p className="mt-2 text-sm text-white/70">{l}</p>
+              <p className="font-display text-4xl text-soft-white sm:text-5xl">{v}</p>
+              <p className="mt-2 text-sm text-soft-white/65">{l}</p>
             </motion.div>
           ))}
         </Container>
-      </StickyBg>
+      </section>
 
-      <section className="bg-white py-16 sm:py-24">
+      <section className="py-16 sm:py-24">
         <Container className="grid items-center gap-14 lg:grid-cols-2">
           <div>
             <SectionHeading eyebrow="Who we are" title="Your partner for registrations and compliance" highlight={['partner']} />
@@ -93,15 +92,15 @@ export default function About() {
             </Reveal>
           </div>
           <Reveal delay={150} className="relative mx-auto w-full max-w-md">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-30px_rgba(53,63,34,0.45)]">
-              <img src="/images/tower.jpg" alt="" className="h-full w-full object-cover" loading="lazy" />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-30px_rgba(44,68,50,0.45)]">
+              <img src="/photos/about.jpg" alt="" className="h-full w-full object-cover" loading="lazy" />
             </div>
-            <div className="absolute -bottom-6 -right-4 rounded-2xl bg-white p-5 shadow-2xl shadow-olive-900/20 sm:-right-10">
-              <p className="font-display text-2xl font-semibold text-olive-800">Register.</p>
-              <p className="font-display text-2xl font-semibold text-olive-800">Comply.</p>
-              <p className="font-display text-2xl font-semibold text-sage-500">Grow.</p>
+            <div className="absolute -bottom-6 -right-4 rounded-2xl bg-soft-white p-5 shadow-2xl shadow-olive-900/20 sm:-right-10">
+              <p className="font-display text-2xl text-olive-800">Register.</p>
+              <p className="font-display text-2xl text-olive-800">Comply.</p>
+              <p className="font-display text-2xl text-sage-500">Grow.</p>
             </div>
-            <Leaf className="absolute -left-5 -top-7 z-10" rotate={-25} color="#65733F" opacity={0.85} float />
+            <Leaf className="absolute -left-5 -top-7 z-10" rotate={-25} color="#66755D" opacity={0.85} float />
           </Reveal>
         </Container>
       </section>
@@ -126,7 +125,7 @@ export default function About() {
                 <span className={`flex h-14 w-14 items-center justify-center rounded-2xl ${v.tint}`}>
                   <v.icon className="h-6 w-6" />
                 </span>
-                <h3 className="mt-6 font-display text-2xl font-semibold text-olive-800">{v.title}</h3>
+                <h3 className="mt-6 font-display text-2xl text-olive-800">{v.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{v.text}</p>
               </motion.div>
             ))}

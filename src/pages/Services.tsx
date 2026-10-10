@@ -32,8 +32,8 @@ export default function Services() {
         highlight={['business', 'needs']}
         text="Choose a service to see who needs it, the documents required, the process, timelines and pricing."
         crumbs={crumbs}
-        image="/images/tower.jpg"
-        scribble={'Simplify today,\ngrow tomorrow ♥'}
+        image="/photos/services-hero.jpg"
+        scribble={'Simplify today,\ngrow tomorrow'}
       >
         <div className="mt-9 flex flex-col gap-3 sm:flex-row">
           <WhatsAppButton size="lg" label="Ask an expert" source="services-hero" />
@@ -41,9 +41,9 @@ export default function Services() {
         </div>
       </PageHero>
 
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-soft-white py-16 sm:py-20">
         <Container>
-          <div className="sticky top-[84px] z-20 -mx-1 flex gap-2 overflow-x-auto rounded-full bg-white/90 p-1.5 shadow-[0_10px_30px_-18px_rgba(53,63,34,0.35)] ring-1 ring-olive-800/5 backdrop-blur sm:mx-auto sm:w-fit">
+          <div className="sticky top-[84px] z-20 -mx-1 flex gap-2 overflow-x-auto rounded-full bg-white/90 p-1.5 shadow-[0_10px_30px_-18px_rgba(44,68,50,0.35)] ring-1 ring-olive-800/5 backdrop-blur sm:mx-auto sm:w-fit">
             {tabs.map((t) => (
               <button
                 key={t.id}

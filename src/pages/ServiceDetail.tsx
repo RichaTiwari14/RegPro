@@ -61,11 +61,11 @@ export default function ServiceDetail() {
         ]}
       />
 
-      <PageHero eyebrow={category.title} title={service.name} text={service.intro} crumbs={crumbs} image="/images/tower.jpg">
-        <div className="mt-8 inline-flex flex-wrap items-center gap-x-8 gap-y-4 rounded-2xl bg-white px-6 py-4 shadow-sm ring-1 ring-olive-800/10">
+      <PageHero eyebrow={category.title} title={service.name} text={service.intro} crumbs={crumbs} image={`/photos/services/${service.slug}.jpg`}>
+        <div className="mt-8 inline-flex flex-wrap items-center gap-x-8 gap-y-4 rounded-2xl bg-soft-white px-6 py-4 shadow-sm ring-1 ring-olive-800/10">
           <div>
             <p className="label-cine text-ink/50">Starting at</p>
-            <p className="mt-1 font-display text-4xl font-semibold text-olive-800">
+            <p className="mt-1 font-display text-4xl text-olive-800">
               {formatPrice(service.price)}
               <span className="align-super text-sm text-sage-600">*</span>
             </p>
@@ -85,7 +85,7 @@ export default function ServiceDetail() {
       </PageHero>
 
       {/* Section nav */}
-      <div className="sticky top-[76px] z-30 border-b border-mist-200 bg-white/95 backdrop-blur">
+      <div className="sticky top-[68px] z-30 sm:top-[76px] border-b border-mist-200 bg-cream/95 backdrop-blur">
         <Container className="flex gap-1 overflow-x-auto py-2">
           {sections.map(([id, label]) => (
             <a
@@ -147,7 +147,7 @@ export default function ServiceDetail() {
                 <Reveal key={b.title} delay={i * 80}>
                   <div className="glass group h-full rounded-2xl p-6 transition-all duration-500 hover:bg-olive-800">
                     <span className="font-display text-lg italic text-sage-600">0{i + 1}</span>
-                    <h3 className="mt-2 font-display text-2xl font-semibold text-olive-800 transition-colors group-hover:text-white">{b.title}</h3>
+                    <h3 className="mt-2 font-display text-2xl text-olive-800 transition-colors group-hover:text-white">{b.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-ink/70 transition-colors group-hover:text-white/70">{b.text}</p>
                   </div>
                 </Reveal>
@@ -184,9 +184,9 @@ export default function ServiceDetail() {
                 <div className="relative grid gap-8 sm:grid-cols-2 sm:items-center">
                   <div>
                     <p className="text-xs font-medium tracking-tight text-sage-400">Pricing</p>
-                    <h2 className="mt-2 font-display text-2xl font-semibold">{service.name}</h2>
+                    <h2 className="mt-2 font-display text-2xl">{service.name}</h2>
                     <p className="mt-5 text-[13px] text-white/60">Starting at</p>
-                    <p className="font-display text-5xl font-semibold">
+                    <p className="font-display text-5xl">
                       {formatPrice(service.price)}
                       <span className="align-super text-lg text-sage-400">*</span>
                     </p>
@@ -220,7 +220,7 @@ export default function ServiceDetail() {
               <ServiceIcon name={service.icon} className="h-5 w-5" />
             </span>
             <div className="flex-1">
-              <p className="font-display text-lg font-semibold text-olive-800">{service.shortName}</p>
+              <p className="font-display text-lg text-olive-800">{service.shortName}</p>
               <p className="text-xs text-ink/55">from {formatPrice(service.price)}* · {service.timeline}</p>
             </div>
           </div>

@@ -7,7 +7,6 @@ import { PageHero } from '@/components/PageHero';
 import { Container, WhatsAppButton, CallButton } from '@/components/ui';
 import { Reveal } from '@/components/Reveal';
 import { FaqList } from '@/components/FaqList';
-import { StickyBg } from '@/components/StickyBg';
 
 export default function Faqs() {
   const crumbs = [
@@ -41,17 +40,17 @@ export default function Faqs() {
         </div>
         <aside className="lg:sticky lg:top-28 lg:self-start">
           <Reveal>
-            <StickyBg image="/images/tower.jpg" overlay="bg-olive-950/75" rounded="1.75rem">
+            <div className="overflow-hidden rounded-2xl bg-olive-800">
               <div className="p-7 text-white">
                 <Headphones className="h-8 w-8 text-sage-400" strokeWidth={1.5} />
-                <p className="mt-5 font-display text-xl font-semibold">Still have questions?</p>
+                <p className="mt-5 font-display text-xl">Still have questions?</p>
                 <p className="mt-2 text-sm text-white/70">Our experts are available {site.hours}.</p>
                 <div className="mt-6 grid gap-3">
                   <WhatsAppButton label="Ask on WhatsApp" source="faqs-page" />
                   <CallButton variant="light" source="faqs-page" />
                 </div>
               </div>
-            </StickyBg>
+            </div>
           </Reveal>
         </aside>
       </Container>

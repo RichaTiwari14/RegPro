@@ -8,8 +8,8 @@ export function Leaf({
   className = '',
   width = 44,
   height = 104,
-  color = '#83915F',
-  vein = '#FBFBF8',
+  color = '#97A38B',
+  vein = '#FBF9F5',
   rotate = 0,
   flip = false,
   opacity = 1,
@@ -48,13 +48,13 @@ export function Leaf({
 }
 
 /** Small three-leaf sprig used as a section ornament. */
-export function Sprig({ className = '', color = '#6E9094' }: { className?: string; color?: string }) {
+export function Sprig({ className = '', color = '#7E8E74' }: { className?: string; color?: string }) {
   return (
     <svg viewBox="0 0 100 100" className={className} fill="none" aria-hidden="true">
       <path d="M50 14 C56 26 58 42 50 64 C42 42 44 26 50 14 Z" fill={color} />
-      <path d="M48 64 C32 58 20 48 24 36 C36 34 46 48 48 64 Z" fill="#83915F" />
-      <path d="M52 64 C68 58 80 48 76 36 C64 34 54 48 52 64 Z" fill="#83915F" />
-      <path d="M50 64 C48 74 52 82 50 88" stroke="#4F5B31" strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M48 64 C32 58 20 48 24 36 C36 34 46 48 48 64 Z" fill="#97A38B" />
+      <path d="M52 64 C68 58 80 48 76 36 C64 34 54 48 52 64 Z" fill="#97A38B" />
+      <path d="M50 64 C48 74 52 82 50 88" stroke="#3A5742" strokeWidth="3.5" strokeLinecap="round" />
     </svg>
   );
 }

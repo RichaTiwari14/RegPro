@@ -18,7 +18,7 @@ function Card({ t }: { t: Testimonial }) {
           {t.name.charAt(0)}
         </span>
         <span>
-          <span className="block font-display text-lg font-semibold text-olive-800">{t.name}</span>
+          <span className="block font-display text-lg text-olive-800">{t.name}</span>
           <span className="block text-xs text-ink/55">
             {t.role} · {t.service}
           </span>

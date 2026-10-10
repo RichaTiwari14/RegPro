@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { ArrowRight, Phone, Sparkles } from 'lucide-react';
+import { ArrowRight, Phone } from 'lucide-react';
 import { motion } from 'motion/react';
 import { MaskedWords } from '@/components/Reveal';
 import { site, whatsappLink } from '@/config/site';
@@ -13,17 +13,12 @@ export function Container({ children, className = '' }: { children: ReactNode; c
 export function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
   return (
     <motion.span
-      className={
-        light
-          ? 'inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/90 backdrop-blur-sm'
-          : 'pill-sage'
-      }
-      initial={{ opacity: 0, y: 10, scale: 0.94 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      className={`eyebrow ${light ? '!text-soft-white/80 after:!bg-soft-white/50' : ''}`}
+      initial={{ opacity: 0, x: -12 }}
+      whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '0px 0px -10% 0px' }}
-      transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
-      <Sparkles className={`h-3 w-3 ${light ? 'text-sage-200' : 'text-sage-500'}`} />
       {children}
     </motion.span>
   );
@@ -48,16 +43,16 @@ export function SectionHeading({
   return (
     <div className={`max-w-3xl ${center ? 'mx-auto text-center' : ''}`}>
       {eyebrow && <Eyebrow light={light}>{eyebrow}</Eyebrow>}
-      <h2 className={`heading-cine mt-4 ${light ? 'text-white' : ''}`} style={{ fontSize: 'clamp(2.4rem,4.2vw,3.6rem)' }}>
+      <h2 className={`heading-cine mt-5 ${light ? '!text-soft-white' : ''}`} style={{ fontSize: 'clamp(2.2rem,4vw,3.4rem)' }}>
         {typeof title === 'string' ? <MaskedWords text={title} delay={100} highlight={highlight} /> : title}
       </h2>
       {text && (
         <motion.p
-          className={`mt-5 text-base leading-relaxed sm:text-lg ${light ? 'text-white/70' : 'text-muted'}`}
+          className={`mt-5 text-base leading-relaxed ${light ? 'text-white/70' : 'text-muted'}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '0px 0px -10% 0px' }}
-          transition={{ duration: 0.9, delay: 0.3, ease: [0.215, 0.61, 0.355, 1] }}
+          transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           {text}
         </motion.p>
@@ -99,7 +94,7 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackConversion('contact', `whatsapp:${source}`)}
-      className={`group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#25D366] font-semibold tracking-wide text-white shadow-lg shadow-[#25D366]/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1fbe5a] hover:shadow-xl hover:shadow-[#25D366]/25 ${sizes[size]} ${className}`}
+      className={`group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#25D366] font-medium text-white shadow-lg shadow-[#25D366]/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1fbe5a] hover:shadow-xl hover:shadow-[#25D366]/25 ${sizes[size]} ${className}`}
     >
       <WhatsAppGlyph className="h-4 w-4" />
       {label}
@@ -121,15 +116,15 @@ export function CallButton({
   source?: string;
 }) {
   const styles = {
-    outline: 'border border-olive-800/25 bg-cream/70 text-olive-800 backdrop-blur-sm hover:bg-olive-800 hover:text-soft-white',
-    light: 'border border-white/35 bg-white/10 text-white hover:border-white',
+    outline: 'bg-soft-white text-ink shadow-sm ring-1 ring-mist-300 hover:ring-ink/30',
+    light: 'bg-soft-white text-ink hover:bg-white',
     navy: 'bg-olive-800 text-soft-white hover:bg-olive-950 hover:shadow-xl hover:shadow-olive-900/20',
   }[variant];
   return (
     <a
       href={site.phoneHref}
       onClick={() => trackConversion('contact', `call:${source}`)}
-      className={`inline-flex items-center justify-center gap-2.5 rounded-full font-semibold tracking-wide transition-all duration-300 hover:-translate-y-0.5 ${styles} ${sizes[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2.5 rounded-full font-medium transition-all duration-300 hover:-translate-y-0.5 ${styles} ${sizes[size]} ${className}`}
     >
       <Phone className="h-3.5 w-3.5" />
       {label}
@@ -141,7 +136,7 @@ export function PriceTag({ price, light = false, className = '' }: { price: numb
   return (
     <div className={className}>
       <span className={`text-[13px] ${light ? 'text-white/60' : 'text-ink/50'}`}>Starting at</span>
-      <div className={`font-display text-3xl font-semibold ${light ? 'text-white' : 'text-olive-800'}`}>
+      <div className={`font-display text-3xl ${light ? 'text-white' : 'text-olive-800'}`}>
         {formatPrice(price)}
         <span className={`ml-1 align-super text-xs font-semibold ${light ? 'text-sage-300' : 'text-sage-600'}`}>*</span>
       </div>

@@ -23,7 +23,7 @@ html.lenis {
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-soft-white font-sans text-ink antialiased;
+    @apply bg-cream font-sans text-ink antialiased;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
   }
@@ -31,52 +31,66 @@ html.lenis {
     @apply bg-olive-700 text-soft-white;
   }
   *:focus-visible {
-    outline: 2px solid #6e9094;
+    outline: 2px solid #7E8E74;
     outline-offset: 2px;
   }
   ::-webkit-scrollbar {
     width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #f7f7f2;
+    background: #f4efe7;
   }
   ::-webkit-scrollbar-thumb {
-    background: #c6d6d7;
+    background: #cbbfae;
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #353f22;
+    background: #2C4432;
   }
 }
 
 @layer components {
-  /* Soft white card, hairline sage border, gentle olive shadow */
+  /* Clean card on beige: white, hairline warm border, soft shadow */
   .glass {
-    @apply rounded-3xl border border-mist-300/80 bg-white shadow-[0_1px_2px_rgba(36,41,28,0.04),0_20px_50px_-28px_rgba(53,63,34,0.28)];
+    @apply rounded-2xl border border-mist-300/80 bg-soft-white shadow-[0_1px_2px_rgba(30,34,30,0.04),0_18px_40px_-26px_rgba(44,68,50,0.25)];
   }
   .glass-dark {
     @apply border border-white/10 bg-white/[0.06];
   }
-  /* Soft warm band */
   .sky {
-    background: linear-gradient(180deg, #f5f6f0 0%, #eef1ea 100%);
+    @apply bg-soft-white;
   }
   .sky-soft {
     @apply bg-cream;
   }
-  /* Deep olive block */
   .dusk {
-    background: linear-gradient(150deg, #414b29 0%, #353f22 45%, #232a16 100%);
+    @apply bg-olive-800;
   }
   .heading-cine {
-    @apply font-display font-semibold leading-[1.06] tracking-[-0.01em] text-olive-800;
+    @apply font-display font-normal leading-[1.08] tracking-[-0.01em] text-ink;
   }
   .label-cine {
-    @apply text-[11px] font-semibold uppercase tracking-[0.22em];
+    @apply text-[11px] font-semibold uppercase tracking-[0.2em];
   }
-  /* Small sage pill above section titles */
+  /* "EYEBROW ——" label from the reference */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink/80;
+  }
+  .eyebrow::after {
+    content: '';
+    @apply h-px w-8 bg-ink/50;
+  }
   .pill-sage {
-    @apply inline-flex items-center gap-2 rounded-full border border-sage-200 bg-sage-50/80 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-sage-700 backdrop-blur-sm;
+    @apply inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink/80;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-full bg-olive-800 px-7 py-3.5 text-sm font-medium text-soft-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-olive-900 hover:shadow-lg hover:shadow-olive-900/20;
+  }
+  .btn-light {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-full bg-soft-white px-7 py-3.5 text-sm font-medium text-ink shadow-sm ring-1 ring-mist-300 transition-all duration-300 hover:-translate-y-0.5 hover:ring-ink/30;
+  }
+  .link-underline {
+    @apply inline-flex items-center gap-2 border-b border-ink pb-1 text-sm font-semibold text-ink transition-colors hover:border-olive-700 hover:text-olive-700;
   }
 }
 
@@ -93,7 +107,7 @@ html.lenis {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.4s ease;
-  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(110,144,148, 0.10), transparent 45%);
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(126,142,116, 0.10), transparent 45%);
   z-index: 1;
 }
 .glass:hover::after {

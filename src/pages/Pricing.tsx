@@ -41,14 +41,14 @@ export default function Pricing() {
             { icon: ReceiptIndianRupee, t: 'Govt. fees at actuals' },
             { icon: Laptop, t: '100% online' },
           ].map(({ icon: Icon, t }) => (
-            <span key={t} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-olive-800 shadow-sm ring-1 ring-olive-800/10">
+            <span key={t} className="inline-flex items-center gap-2 rounded-full bg-soft-white px-4 py-2 text-sm font-medium text-olive-800 shadow-sm ring-1 ring-olive-800/10">
               <Icon className="h-4 w-4 text-sage-600" /> {t}
             </span>
           ))}
         </div>
       </PageHero>
 
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-soft-white py-16 sm:py-20">
         <Container>
           <div className="-mx-1 flex gap-2 overflow-x-auto rounded-full bg-cream p-1.5 ring-1 ring-olive-800/5 sm:mx-auto sm:w-fit">
             {tabs.map((t) => (
@@ -83,7 +83,7 @@ export default function Pricing() {
                       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-olive-50 text-olive-800 transition-colors group-hover:bg-olive-800 group-hover:text-sage-400">
                         <ServiceIcon name={s.icon} className="h-5 w-5" />
                       </span>
-                      <span className="font-display text-xl font-semibold leading-snug text-olive-800 group-hover:text-sage-700">{s.name}</span>
+                      <span className="font-display text-xl leading-snug text-olive-800 group-hover:text-sage-700">{s.name}</span>
                     </Link>
                     {s.popular && (
                       <span className="shrink-0 rounded-full bg-sage-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-sage-700 ring-1 ring-sage-200">
@@ -94,7 +94,7 @@ export default function Pricing() {
                   <div className="mt-6 flex items-end justify-between gap-3 border-t border-olive-800/10 pt-5">
                     <div>
                       <p className="label-cine text-subtle">Starting at</p>
-                      <p className="font-display text-3xl font-semibold text-olive-800">
+                      <p className="font-display text-3xl text-olive-800">
                         {formatPrice(s.price)}
                         <span className="align-super text-xs text-sage-600">*</span>
                       </p>
