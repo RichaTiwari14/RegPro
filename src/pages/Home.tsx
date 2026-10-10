@@ -40,7 +40,7 @@ function ServiceMarquee() {
     <div className="marquee-mask overflow-hidden py-8">
       <div className="flex w-max animate-marquee-slow">
         {[...items, ...items].map((name, i) => (
-          <span key={i} className="flex items-center gap-8 pr-8 text-xl font-light tracking-tight text-navy-800/60 sm:text-2xl">
+          <span key={i} className="flex items-center gap-8 pr-8 text-xl font-light tracking-tight text-white/60 sm:text-2xl">
             {name}
             <span className="h-1.5 w-1.5 rotate-45 bg-gold-500" />
           </span>
@@ -63,7 +63,7 @@ function WhatWeDo() {
             <SectionHeading eyebrow="What Regpro does" title="Everything your business needs to start right and stay compliant" />
           </Reveal>
           <Reveal delay={100}>
-            <p className="text-base leading-relaxed text-ink/65 sm:text-lg">
+            <p className="text-base leading-relaxed text-white/65 sm:text-lg">
               We are your single partner for business registrations, government documentation and compliance. No queues, no confusing
               portals — just clear guidance, transparent pricing and an expert who keeps you updated at every step.
             </p>
@@ -76,24 +76,24 @@ function WhatWeDo() {
             const list = servicesByCategory(cat.id);
             return (
               <Reveal key={cat.id} delay={i * 140}>
-                <div className="glass group relative h-full overflow-hidden rounded-[1.75rem] p-8 transition-all duration-500 hover:-translate-y-1 hover:bg-white/75">
-                  <span className="absolute right-7 top-6 text-6xl font-light text-navy-800/[0.07]">0{i + 1}</span>
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full border border-navy-800/20 text-navy-800 transition-all duration-500 group-hover:border-navy-800 group-hover:bg-navy-800 group-hover:text-gold-400">
+                <div className="glass group relative h-full overflow-hidden rounded-[1.75rem] p-8 transition-all duration-500 hover:-translate-y-1 hover:bg-white/[0.07]">
+                  <span className="absolute right-7 top-6 text-6xl font-light text-white/[0.07]">0{i + 1}</span>
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full border border-white/20 text-white transition-all duration-500 group-hover:border-white group-hover:bg-white group-hover:text-black">
                     <Icon className="h-6 w-6" strokeWidth={1.5} />
                   </span>
-                  <h3 className="mt-7 text-lg font-medium tracking-tight text-navy-800">{cat.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ink/60">{cat.description}</p>
+                  <h3 className="mt-7 text-lg font-medium tracking-tight text-white">{cat.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/60">{cat.description}</p>
                   <div className="mt-6 flex flex-wrap gap-2">
                     {list.slice(0, 4).map((s) => (
                       <Link
                         key={s.slug}
                         to={`/services/${s.slug}`}
-                        className="rounded-full border border-navy-800/15 bg-white/50 px-3 py-1 text-xs text-navy-800 transition-colors hover:border-navy-800 hover:bg-navy-800 hover:text-white"
+                        className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-xs text-white transition-colors hover:border-white hover:bg-white hover:text-black"
                       >
                         {s.shortName}
                       </Link>
                     ))}
-                    {list.length > 4 && <span className="px-2 py-1 text-xs text-ink/45">+{list.length - 4} more</span>}
+                    {list.length > 4 && <span className="px-2 py-1 text-xs text-white/45">+{list.length - 4} more</span>}
                   </div>
                 </div>
               </Reveal>
@@ -122,14 +122,14 @@ function ServicesSection() {
             />
           </Reveal>
           <Reveal delay={100} className="w-full min-w-0 lg:w-auto">
-            <div className="flex w-full gap-6 overflow-x-auto border-b border-navy-800/15 lg:w-auto">
+            <div className="flex w-full gap-6 overflow-x-auto border-b border-white/15 lg:w-auto">
               {categories.map((c) => (
                 <button
                   key={c.id}
                   type="button"
                   onClick={() => setTab(c.id)}
                   className={`relative whitespace-nowrap pb-3 text-sm font-medium transition-colors ${
-                    tab === c.id ? 'text-navy-800' : 'text-navy-800/45 hover:text-navy-800'
+                    tab === c.id ? 'text-white' : 'text-white/45 hover:text-white'
                   }`}
                 >
                   {c.title}
@@ -153,8 +153,8 @@ function ServicesSection() {
         </div>
 
         <div className="glass mt-12 flex flex-col items-center justify-between gap-4 rounded-[1.75rem] px-6 py-4 sm:flex-row sm:rounded-full sm:pl-8">
-          <p className="text-sm text-ink/65">
-            <span className="text-navy-800">Can’t find what you need?</span> We handle many more documentation and compliance services.
+          <p className="text-sm text-white/65">
+            <span className="text-white">Can’t find what you need?</span> We handle many more documentation and compliance services.
           </p>
           <WhatsAppButton label="Ask an expert" message="Hi Regpro, I need help with a service not listed on the website." source="services-more" />
         </div>
@@ -182,17 +182,17 @@ function TrackerMock() {
       <div className="glass relative rounded-[2rem] p-7 sm:p-9">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-navy-800 text-gold-400">
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black">
               <ServiceIcon name="ReceiptIndianRupee" className="h-5 w-5" />
             </span>
             <div>
-              <p className="label-cine text-ink/45">Application tracker</p>
-              <p className="mt-1 text-navy-800">GST Registration</p>
+              <p className="label-cine text-white/45">Application tracker</p>
+              <p className="mt-1 text-white">GST Registration</p>
             </div>
           </div>
           <span className="label-cine rounded-full border border-emerald-500/40 px-3 py-1 text-emerald-600">On track</span>
         </div>
-        <div className="mt-7 h-1 overflow-hidden rounded-full bg-navy-800/10">
+        <div className="mt-7 h-1 overflow-hidden rounded-full bg-white/10">
           <div className="tracker-fill h-full rounded-full bg-gradient-to-r from-navy-800 via-navy-600 to-gold-500" />
         </div>
         <ol className="mt-7 space-y-4">
@@ -201,13 +201,13 @@ function TrackerMock() {
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-emerald-500/50 text-emerald-600">
                 <CheckCircle2 className="h-4 w-4" />
               </span>
-              <span className="text-sm text-ink/75">{s}</span>
+              <span className="text-sm text-white/75">{s}</span>
             </li>
           ))}
         </ol>
         <div className="mt-7 flex items-center gap-3 rounded-2xl bg-[#25D366]/10 p-4">
           <MessageCircle className="h-5 w-5 shrink-0 text-[#1a9e4b]" />
-          <p className="text-sm text-ink/70">“Good news! Your GST registration is approved. Certificate shared below.”</p>
+          <p className="text-sm text-white/70">“Good news! Your GST registration is approved. Certificate shared below.”</p>
         </div>
       </div>
     </div>
@@ -230,12 +230,12 @@ function WhyChoose() {
             {reasons.map((r, i) => (
               <Reveal key={r.title} delay={i * 80}>
                 <div className="group flex gap-4">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold-500/40 text-gold-600 transition-all duration-500 group-hover:bg-gold-500 group-hover:text-white">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold-500/40 text-gold-400 transition-all duration-500 group-hover:bg-gold-500 group-hover:text-white">
                     <r.icon className="h-5 w-5" strokeWidth={1.5} />
                   </span>
                   <div>
-                    <h3 className="text-lg font-medium tracking-tight text-navy-800">{r.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink/60">{r.text}</p>
+                    <h3 className="text-lg font-medium tracking-tight text-white">{r.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white/60">{r.text}</p>
                   </div>
                 </div>
               </Reveal>
@@ -254,7 +254,7 @@ function WhyChoose() {
 
 function Process() {
   return (
-    <section className="relative overflow-hidden bg-navy-800 pb-20 sm:pb-28 pt-10 text-white sm:pt-16">
+    <section className="relative overflow-hidden border-y border-white/10 bg-neutral-950 pb-20 sm:pb-28 pt-10 text-white sm:pt-16">
       <div className={wrap}>
         <Reveal>
           <SectionHeading
@@ -307,34 +307,34 @@ function PricingHighlights() {
               <Reveal key={s.slug} delay={i * 140}>
                 <div
                   className={`relative flex h-full flex-col overflow-hidden rounded-[2rem] p-8 transition-all duration-500 hover:-translate-y-1.5 ${
-                    highlight ? 'dusk text-white shadow-2xl shadow-navy-900/30 lg:py-12' : 'glass hover:bg-white/75'
+                    highlight ? 'dusk text-white shadow-2xl shadow-black/40 lg:py-12' : 'glass hover:bg-white/[0.07]'
                   }`}
                 >
                   <div className="relative flex items-center justify-between">
                     <span
                       className={`flex h-12 w-12 items-center justify-center rounded-full border ${
-                        highlight ? 'border-gold-400/60 text-gold-400' : 'border-navy-800/20 text-navy-800'
+                        highlight ? 'border-gold-400/60 text-gold-400' : 'border-white/20 text-white'
                       }`}
                     >
                       <ServiceIcon name={s.icon} className="h-5 w-5" />
                     </span>
                     {highlight && <span className="label-cine text-gold-400">Most popular</span>}
                   </div>
-                  <h3 className={`relative mt-6 text-lg font-medium tracking-tight ${highlight ? 'text-white' : 'text-navy-800'}`}>
+                  <h3 className={`relative mt-6 text-lg font-medium tracking-tight ${highlight ? 'text-white' : 'text-white'}`}>
                     {s.name}
                   </h3>
-                  <p className={`relative mt-1 text-sm ${highlight ? 'text-white/55' : 'text-ink/50'}`}>{s.timeline}</p>
+                  <p className={`relative mt-1 text-sm ${highlight ? 'text-white/55' : 'text-white/50'}`}>{s.timeline}</p>
                   <div className="relative mt-7">
-                    <p className={`label-cine ${highlight ? 'text-white/50' : 'text-ink/45'}`}>Starting at</p>
-                    <p className={`mt-2 text-5xl font-light ${highlight ? 'text-white' : 'text-navy-800'}`}>
+                    <p className={`label-cine ${highlight ? 'text-white/50' : 'text-white/45'}`}>Starting at</p>
+                    <p className={`mt-2 text-5xl font-light ${highlight ? 'text-white' : 'text-white'}`}>
                       {formatPrice(s.price)}
-                      <span className={`align-super text-base ${highlight ? 'text-gold-400' : 'text-gold-600'}`}>*</span>
+                      <span className={`align-super text-base ${highlight ? 'text-gold-400' : 'text-gold-400'}`}>*</span>
                     </p>
                   </div>
                   <ul className="relative mt-7 flex-1 space-y-3">
                     {s.includes.slice(0, 5).map((inc) => (
-                      <li key={inc} className={`flex items-start gap-2.5 text-sm ${highlight ? 'text-white/75' : 'text-ink/70'}`}>
-                        <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${highlight ? 'text-gold-400' : 'text-gold-600'}`} />
+                      <li key={inc} className={`flex items-start gap-2.5 text-sm ${highlight ? 'text-white/75' : 'text-white/70'}`}>
+                        <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${highlight ? 'text-gold-400' : 'text-gold-400'}`} />
                         {inc}
                       </li>
                     ))}
@@ -343,7 +343,7 @@ function PricingHighlights() {
                     <WhatsAppButton label="Get started" message={`Hi Regpro, I want to get started with ${s.name}.`} source={`pricing:${s.slug}`} />
                     <Link
                       to={`/services/${s.slug}`}
-                      className={`label-cine py-2 text-center transition-opacity hover:opacity-70 ${highlight ? 'text-white/80' : 'text-navy-800'}`}
+                      className={`label-cine py-2 text-center transition-opacity hover:opacity-70 ${highlight ? 'text-white/80' : 'text-white'}`}
                     >
                       View details →
                     </Link>
@@ -355,9 +355,9 @@ function PricingHighlights() {
         </div>
         <div className="mt-12 flex flex-col items-center gap-4 text-center">
           <FeeNote />
-          <Link to="/pricing" className="label-cine group inline-flex items-center gap-4 text-navy-800">
+          <Link to="/pricing" className="label-cine group inline-flex items-center gap-4 text-white">
             See pricing for all services
-            <CircleArrow size="sm" className="group-hover:bg-navy-800 group-hover:text-white" />
+            <CircleArrow size="sm" className="group-hover:bg-white group-hover:text-black" />
           </Link>
         </div>
       </div>
@@ -408,19 +408,19 @@ function Audiences() {
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {audiences.map((a, i) => (
             <Reveal key={a.title} delay={i * 110}>
-              <div className="glass group h-full rounded-[1.75rem] p-7 transition-all duration-500 hover:-translate-y-1 hover:bg-white/75">
+              <div className="glass group h-full rounded-[1.75rem] p-7 transition-all duration-500 hover:-translate-y-1 hover:bg-white/[0.07]">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-gold-400 to-gold-600 text-white shadow-lg shadow-gold-500/30 transition-transform duration-500 group-hover:scale-110">
                   <a.icon className="h-5 w-5" strokeWidth={1.75} />
                 </span>
-                <h3 className="mt-6 text-lg font-medium tracking-tight text-navy-800">{a.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink/60">{a.text}</p>
-                <ul className="mt-6 space-y-2.5 border-t border-navy-800/10 pt-5">
+                <h3 className="mt-6 text-lg font-medium tracking-tight text-white">{a.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/60">{a.text}</p>
+                <ul className="mt-6 space-y-2.5 border-t border-white/10 pt-5">
                   {a.slugs.map((slug) => {
                     const s = services.find((x) => x.slug === slug);
                     if (!s) return null;
                     return (
                       <li key={slug}>
-                        <Link to={`/services/${slug}`} className="flex items-center justify-between text-sm text-navy-800 transition-colors hover:text-gold-700">
+                        <Link to={`/services/${slug}`} className="flex items-center justify-between text-sm text-white transition-colors hover:text-gold-400">
                           {s.shortName}
                           <ArrowRight className="h-3.5 w-3.5" />
                         </Link>
@@ -478,9 +478,9 @@ function FaqSection() {
         </div>
         <Reveal delay={100}>
           <FaqList faqs={generalFaqs.slice(0, 6)} />
-          <Link to="/faqs" className="label-cine group mt-8 inline-flex items-center gap-4 text-navy-800">
+          <Link to="/faqs" className="label-cine group mt-8 inline-flex items-center gap-4 text-white">
             View all FAQs
-            <CircleArrow size="sm" className="group-hover:bg-navy-800 group-hover:text-white" />
+            <CircleArrow size="sm" className="group-hover:bg-white group-hover:text-black" />
           </Link>
         </Reveal>
       </div>
@@ -504,10 +504,10 @@ function Enquiry() {
             <WhatsAppButton size="lg" source="enquiry" />
             <CallButton size="lg" label={site.phone} source="enquiry" />
           </div>
-          <ul className="mt-9 grid gap-3 text-sm text-muted sm:grid-cols-2">
+          <ul className="mt-9 grid gap-3 text-sm text-gray-300 sm:grid-cols-2">
             {['Free consultation', 'Response within working hours', 'Fixed, transparent quote', 'Pan-India service'].map((t) => (
               <li key={t} className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-gold-600" /> {t}
+                <CheckCircle2 className="h-4 w-4 text-gold-400" /> {t}
               </li>
             ))}
           </ul>

@@ -26,7 +26,7 @@ export function LeadForm({
   className?: string;
 }) {
   const location = useLocation();
-  const surface = solid ? 'border border-white bg-mist-50 shadow-2xl shadow-navy-950/40' : 'glass';
+  const surface = solid ? 'border border-white bg-white/[0.04] shadow-2xl shadow-black/40' : 'glass';
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState('');
   const [lead, setLead] = useState<Lead | null>(null);
@@ -70,8 +70,8 @@ export function LeadForm({
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50">
           <CheckCircle2 className="h-8 w-8 text-emerald-500" />
         </div>
-        <h3 className="heading-cine mt-4 text-xl text-navy-800">Thank you, {lead.name.split(' ')[0]}!</h3>
-        <p className="mt-2 text-sm text-ink/70">
+        <h3 className="heading-cine mt-4 text-xl text-white">Thank you, {lead.name.split(' ')[0]}!</h3>
+        <p className="mt-2 text-sm text-white/70">
           We’ve received your enquiry. For a faster response, continue the conversation with our expert on WhatsApp.
         </p>
         <WhatsAppButton
@@ -86,7 +86,7 @@ export function LeadForm({
   }
 
   const field =
-    'w-full rounded-xl border border-navy-800/10 bg-white/60 px-4 py-3 text-sm text-ink placeholder:text-ink/40 outline-none transition focus:border-navy-800/40 focus:bg-white focus:ring-4 focus:ring-navy-500/10';
+    'w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white/40 focus:bg-white/[0.07] focus:ring-4 focus:ring-white/5';
 
   return (
     <form
@@ -94,8 +94,8 @@ export function LeadForm({
       noValidate
       className={`${surface} rounded-[1.75rem] p-6 sm:p-8 ${className}`}
     >
-      <h3 className="heading-cine text-xl text-navy-800">{title}</h3>
-      {subtitle && <p className="mt-1.5 text-sm text-ink/60">{subtitle}</p>}
+      <h3 className="heading-cine text-xl text-white">{title}</h3>
+      {subtitle && <p className="mt-1.5 text-sm text-white/60">{subtitle}</p>}
 
       <div className={`mt-5 grid gap-3 ${compact ? '' : 'sm:grid-cols-2'}`}>
         <label className="sr-only" htmlFor="lf-name">Full name</label>
@@ -152,7 +152,7 @@ export function LeadForm({
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="group mt-6 flex w-full items-center justify-center gap-2.5 rounded-full bg-navy-800 px-6 py-4 text-[15px] font-medium tracking-tight text-white shadow-lg shadow-navy-900/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-navy-900 disabled:opacity-70"
+        className="group mt-6 flex w-full items-center justify-center gap-2.5 rounded-lg bg-white px-6 py-4 text-[15px] font-medium tracking-tight text-black shadow-lg shadow-black/40 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 disabled:opacity-70"
       >
         {status === 'sending' ? (
           <>
@@ -166,7 +166,7 @@ export function LeadForm({
         )}
       </button>
 
-      <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-ink/50">
+      <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-white/50">
         <ShieldCheck className="h-3.5 w-3.5" /> Your details are safe. No spam, ever.
       </p>
     </form>

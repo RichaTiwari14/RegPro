@@ -47,11 +47,11 @@ export default function Contact() {
             {cards.map((c) => {
               const inner = (
                 <>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-navy-800/20 text-navy-800">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white">
                     <c.icon className="h-5 w-5" />
                   </span>
-                  <p className="label-cine mt-4 text-ink/50">{c.label}</p>
-                  <p className="mt-1 break-words font-medium text-navy-800">{c.value}</p>
+                  <p className="label-cine mt-4 text-white/50">{c.label}</p>
+                  <p className="mt-1 break-words font-medium text-white">{c.value}</p>
                 </>
               );
               return c.href ? (

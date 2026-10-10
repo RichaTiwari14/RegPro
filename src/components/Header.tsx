@@ -1,10 +1,12 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 import { LogoMark } from '@/components/Logo';
 import { WhatsAppGlyph } from '@/components/ui';
 import { categories, servicesByCategory } from '@/data/services';
 import { site, whatsappLink } from '@/config/site';
 import { lockScroll } from '@/lib/smoothScroll';
+import { trackConversion } from '@/lib/analytics';
 
 const links = [
   { to: '/services', label: 'Services' },
@@ -16,98 +18,85 @@ const links = [
 const mobileLinks = [{ to: '/', label: 'Home' }, ...links, { to: '/blog', label: 'Blog' }, { to: '/contact', label: 'Contact' }];
 
 export function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => setIsMobileMenuOpen(false), [location.pathname]);
+  useEffect(() => setMenuOpen(false), [location.pathname]);
 
   useEffect(() => {
-    if (!isMobileMenuOpen) return;
+    if (!menuOpen) return;
     lockScroll(true);
     return () => lockScroll(false);
-  }, [isMobileMenuOpen]);
+  }, [menuOpen]);
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 flex flex-row items-center justify-between px-5 py-4 transition-[background-color,box-shadow] duration-300 sm:px-8 sm:py-5 ${
-          scrolled && !isMobileMenuOpen ? 'bg-white/90 shadow-[0_1px_0_rgba(16,24,40,0.06)] backdrop-blur' : 'bg-transparent'
-        }`}
-      >
-        {/* Logo */}
-        <Link to="/" aria-label={`${site.name} home`} className="flex items-center gap-3">
-          <span className="select-none text-[21px] font-medium tracking-tight text-black sm:text-[26px]">Regpro&reg;</span>
-          <LogoMark className="mb-1 h-[25px] w-auto select-none sm:h-[30px]" />
-        </Link>
+      <header className="fixed inset-x-0 top-0 z-50 px-6 pt-6 md:px-12 lg:px-16">
+        <nav className="liquid-glass flex items-center justify-between rounded-xl px-4 py-2" aria-label="Main">
+          <Link to="/" aria-label={`${site.name} home`} className="flex items-center gap-2">
+            <LogoMark className="h-6 w-auto" />
+            <span className="text-2xl font-semibold tracking-tight">Regpro</span>
+          </Link>
 
-        {/* Desktop links */}
-        <nav className="hidden flex-row text-[23px] text-black md:flex" aria-label="Main">
-          {links.map((l, i) => (
-            <Fragment key={l.to}>
-              {i > 0 && <span className="opacity-40">,&nbsp;</span>}
+          <div className="hidden items-center gap-8 text-sm md:flex">
+            {links.map((l) => (
               <NavLink
+                key={l.to}
                 to={l.to}
-                className={({ isActive }) =>
-                  `transition-opacity hover:opacity-60 ${isActive ? 'underline decoration-gold-500 decoration-2 underline-offset-[6px]' : ''}`
-                }
+                className={({ isActive }) => `transition-colors hover:text-gray-300 ${isActive ? 'text-white' : 'text-white/85'}`}
               >
                 {l.label}
               </NavLink>
-            </Fragment>
-          ))}
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackConversion('contact', 'whatsapp:navbar')}
+              className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-gray-100 sm:px-6"
+            >
+              Start a Chat
+            </a>
+            <button
+              type="button"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/10 md:hidden"
+            >
+              {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </nav>
-
-        {/* Desktop CTA */}
-        <Link to="/contact" className="hidden text-[23px] text-black underline underline-offset-2 transition-opacity hover:opacity-60 md:block">
-          Get in touch
-        </Link>
-
-        {/* Mobile burger */}
-        <button
-          type="button"
-          onClick={() => setIsMobileMenuOpen((v) => !v)}
-          aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={isMobileMenuOpen}
-          className="relative z-20 flex flex-col gap-[5px] md:hidden"
-        >
-          <span className={`block h-[2px] w-6 bg-black transition-all duration-300 ${isMobileMenuOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
-          <span className={`block h-[2px] w-6 bg-black transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
-          <span className={`block h-[2px] w-6 bg-black transition-all duration-300 ${isMobileMenuOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
-        </button>
       </header>
 
-      {/* Mobile navigation overlay */}
+      {/* Mobile menu */}
       <div
         data-lenis-prevent
-        className={`fixed inset-0 z-[45] overflow-y-auto bg-white/95 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-          isMobileMenuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+        className={`fixed inset-0 z-[45] overflow-y-auto bg-black/95 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+          menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
-        aria-hidden={!isMobileMenuOpen}
+        aria-hidden={!menuOpen}
       >
         <div className="flex min-h-full flex-col px-6 pb-10 pt-28">
           <nav className="flex flex-col" aria-label="Mobile">
             {mobileLinks.map((l) => (
-              <Link key={l.to} to={l.to} className="py-2 text-[34px] leading-tight tracking-tight text-black transition-opacity hover:opacity-60">
+              <Link key={l.to} to={l.to} className="py-2 text-[34px] leading-tight text-white transition-colors hover:text-gray-300" style={{ letterSpacing: '-0.04em' }}>
                 {l.label}
               </Link>
             ))}
           </nav>
-          <div className="mt-10 grid gap-6 border-t border-mist-200 pt-8">
+          <div className="mt-10 grid gap-6 border-t border-white/10 pt-8">
             {categories.map((cat) => (
               <div key={cat.id}>
-                <p className="text-sm text-subtle">{cat.title}</p>
-                <p className="mt-2 text-[15px] leading-relaxed text-ink">
+                <p className="text-sm text-gray-400">{cat.title}</p>
+                <p className="mt-2 text-[15px] leading-relaxed text-gray-300">
                   {servicesByCategory(cat.id).map((s, i, all) => (
                     <Fragment key={s.slug}>
-                      <Link to={`/services/${s.slug}`} className="hover:opacity-60">
+                      <Link to={`/services/${s.slug}`} className="hover:text-white">
                         {s.shortName}
                       </Link>
                       {i < all.length - 1 && <span className="opacity-40">, </span>}
@@ -122,11 +111,11 @@ export function Header() {
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 rounded-full bg-[#25D366] py-3.5 text-sm font-medium text-white"
+              className="flex items-center justify-center gap-2 rounded-lg bg-white py-3.5 text-sm font-medium text-black"
             >
-              <WhatsAppGlyph className="h-4 w-4" /> Chat on WhatsApp
+              <WhatsAppGlyph className="h-4 w-4 text-[#25D366]" /> Chat on WhatsApp
             </a>
-            <a href={site.phoneHref} className="text-center text-sm text-muted underline underline-offset-2">
+            <a href={site.phoneHref} className="text-center text-sm text-gray-300 underline underline-offset-2">
               Call {site.phone}
             </a>
           </div>

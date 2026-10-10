@@ -64,17 +64,17 @@ export default function ServiceDetail() {
       <PageHero eyebrow={category.title} title={service.name} text={service.intro} crumbs={crumbs}>
         <div className="hero-in mt-8 flex flex-wrap items-center gap-x-8 gap-y-4" style={{ animationDelay: '0.15s' }}>
           <div>
-            <p className="label-cine text-ink/50">Starting at</p>
-            <p className="mt-1 text-4xl font-light text-navy-800">
+            <p className="label-cine text-white/50">Starting at</p>
+            <p className="mt-1 text-4xl font-light text-white">
               {formatPrice(service.price)}
-              <span className="align-super text-sm text-gold-600">*</span>
+              <span className="align-super text-sm text-gold-400">*</span>
             </p>
           </div>
-          <div className="h-12 w-px bg-navy-800/15" />
+          <div className="h-12 w-px bg-white/15" />
           <div>
-            <p className="label-cine text-ink/50">Processing time</p>
-            <p className="mt-2 flex items-center gap-2 text-navy-800">
-              <Clock className="h-4 w-4 text-gold-600" /> {service.timeline}
+            <p className="label-cine text-white/50">Processing time</p>
+            <p className="mt-2 flex items-center gap-2 text-white">
+              <Clock className="h-4 w-4 text-gold-400" /> {service.timeline}
             </p>
           </div>
         </div>
@@ -85,13 +85,13 @@ export default function ServiceDetail() {
       </PageHero>
 
       {/* Section nav */}
-      <div className="sticky top-[63px] z-30 border-b border-mist-200 bg-white/95 backdrop-blur sm:top-[79px]">
+      <div className="sticky top-[84px] z-30 border-b border-white/10 bg-black/80 backdrop-blur">
         <Container className="flex gap-1 overflow-x-auto py-2">
           {sections.map(([id, label]) => (
             <a
               key={id}
               href={`#${id}`}
-              className="label-cine whitespace-nowrap px-3 py-3 text-navy-800/55 transition-colors hover:text-navy-800"
+              className="label-cine whitespace-nowrap px-3 py-3 text-white/55 transition-colors hover:text-white"
             >
               {label}
             </a>
@@ -104,14 +104,14 @@ export default function ServiceDetail() {
           <section id="overview" className="scroll-mt-40">
             <Reveal>
               <SectionHeading eyebrow="Overview" title={`What is ${service.shortName}?`} />
-              <p className="mt-5 text-base leading-relaxed text-ink/75">{service.intro}</p>
+              <p className="mt-5 text-base leading-relaxed text-white/75">{service.intro}</p>
               <div className="mt-6 glass rounded-2xl p-6">
-                <p className="flex items-center gap-2 font-medium text-navy-800">
-                  <Sparkles className="h-4 w-4 text-gold-600" /> What’s included
+                <p className="flex items-center gap-2 font-medium text-white">
+                  <Sparkles className="h-4 w-4 text-gold-400" /> What’s included
                 </p>
                 <ul className="mt-3 grid gap-2 sm:grid-cols-2">
                   {service.includes.map((inc) => (
-                    <li key={inc} className="flex items-start gap-2 text-sm text-ink/75">
+                    <li key={inc} className="flex items-start gap-2 text-sm text-white/75">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" /> {inc}
                     </li>
                   ))}
@@ -128,10 +128,10 @@ export default function ServiceDetail() {
               {service.whoNeeds.map((w, i) => (
                 <Reveal key={w} delay={i * 70}>
                   <div className="flex h-full items-start gap-3 glass rounded-2xl p-4">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-navy-800/20 text-navy-800">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 text-white">
                       <Users className="h-4 w-4" />
                     </span>
-                    <p className="text-sm leading-relaxed text-ink/75">{w}</p>
+                    <p className="text-sm leading-relaxed text-white/75">{w}</p>
                   </div>
                 </Reveal>
               ))}
@@ -145,10 +145,10 @@ export default function ServiceDetail() {
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {service.benefits.map((b, i) => (
                 <Reveal key={b.title} delay={i * 80}>
-                  <div className="glass group h-full rounded-2xl p-6 transition-all duration-500 hover:bg-navy-800">
-                    <span className="font-light text-sm  text-gold-600">0{i + 1}</span>
-                    <h3 className="mt-2 font-light text-lg  text-navy-800 transition-colors group-hover:text-white">{b.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink/70 transition-colors group-hover:text-white/70">{b.text}</p>
+                  <div className="glass group h-full rounded-2xl p-6 transition-all duration-500 hover:bg-white/10">
+                    <span className="font-light text-sm  text-gold-400">0{i + 1}</span>
+                    <h3 className="mt-2 font-light text-lg  text-white transition-colors group-hover:text-white">{b.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white/70 transition-colors group-hover:text-white/70">{b.text}</p>
                   </div>
                 </Reveal>
               ))}
@@ -158,14 +158,14 @@ export default function ServiceDetail() {
           <section id="documents" className="scroll-mt-40">
             <Reveal>
               <SectionHeading eyebrow="Documents required" title="Keep these ready" />
-              <ul className="mt-6 divide-y divide-navy-800/10 overflow-hidden glass rounded-2xl">
+              <ul className="mt-6 divide-y divide-white/10 overflow-hidden glass rounded-2xl">
                 {service.documents.map((d) => (
-                  <li key={d} className="flex items-center gap-3 px-5 py-4 text-sm text-ink/80">
-                    <FileText className="h-4 w-4 shrink-0 text-gold-600" /> {d}
+                  <li key={d} className="flex items-center gap-3 px-5 py-4 text-sm text-white/80">
+                    <FileText className="h-4 w-4 shrink-0 text-gold-400" /> {d}
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-xs text-ink/50">Exact documents may vary based on your business type. We share a personalised checklist.</p>
+              <p className="mt-3 text-xs text-white/50">Exact documents may vary based on your business type. We share a personalised checklist.</p>
             </Reveal>
           </section>
 
@@ -216,12 +216,12 @@ export default function ServiceDetail() {
 
         <aside className="lg:sticky lg:top-40 lg:self-start">
           <div className="mb-5 hidden items-center gap-3 glass rounded-2xl p-4 lg:flex">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-navy-800 text-gold-400">
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black">
               <ServiceIcon name={service.icon} className="h-5 w-5" />
             </span>
             <div className="flex-1">
-              <p className="text-sm font-medium text-navy-800">{service.shortName}</p>
-              <p className="text-xs text-ink/55">from {formatPrice(service.price)}* · {service.timeline}</p>
+              <p className="text-sm font-medium text-white">{service.shortName}</p>
+              <p className="text-xs text-white/55">from {formatPrice(service.price)}* · {service.timeline}</p>
             </div>
           </div>
           <div id="enquiry" className="scroll-mt-40">
@@ -244,7 +244,7 @@ export default function ServiceDetail() {
               ))}
             </div>
             <div className="mt-8 text-center">
-              <Link to="/services" className="font-medium text-navy-800 hover:text-navy-950">
+              <Link to="/services" className="font-medium text-white hover:text-white">
                 View all services →
               </Link>
             </div>

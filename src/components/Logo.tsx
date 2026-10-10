@@ -1,7 +1,7 @@
 import { useId } from 'react';
 
 /** Vector recreation of the Regpro mark: three rising navy bars with a gold tick-arrow. */
-export function LogoMark({ className = '', animated = false, light = false }: { className?: string; animated?: boolean; light?: boolean }) {
+export function LogoMark({ className = '', animated = false, light = true }: { className?: string; animated?: boolean; light?: boolean }) {
   const clipId = `regpro-bars-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
   return (
     <svg viewBox="0 0 120 100" className={className} aria-hidden="true">
@@ -33,8 +33,8 @@ export function Logo({ light = false, className = '' }: { light?: boolean; class
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
       <LogoMark light={light} className="h-9 w-auto" />
       <span className="flex flex-col leading-none">
-        <span className={`font-display text-[1.35rem] font-bold tracking-tight ${light ? 'text-white' : 'text-ink'}`}>REGPRO</span>
-        <span className={`mt-1 text-[0.5rem] font-semibold tracking-[0.32em] ${light ? 'text-white/60' : 'text-ink/60'}`}>
+        <span className={`font-display text-[1.35rem] font-bold tracking-tight ${light ? 'text-white' : 'text-white'}`}>REGPRO</span>
+        <span className={`mt-1 text-[0.5rem] font-semibold tracking-[0.32em] ${light ? 'text-white/60' : 'text-white/60'}`}>
           REGISTER. COMPLY. GROW
         </span>
       </span>

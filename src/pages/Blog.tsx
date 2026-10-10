@@ -28,18 +28,18 @@ export default function Blog() {
           <Reveal key={p.slug} delay={i * 100}>
             <Link
               to={`/blog/${p.slug}`}
-              className="group flex h-full flex-col overflow-hidden glass rounded-3xl transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-navy-900/10"
+              className="group flex h-full flex-col overflow-hidden glass rounded-3xl transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40"
             >
               <div className="dusk relative h-44 overflow-hidden">
                 <span className="absolute bottom-4 left-5 label-cine rounded-full border border-gold-400/60 px-3 py-1 text-gold-300">{p.category}</span>
                 <ArrowUpRight className="absolute right-5 top-5 h-6 w-6 text-white/60 transition-all duration-500 group-hover:rotate-45 group-hover:text-gold-400" />
               </div>
               <div className="flex flex-1 flex-col p-6">
-                <p className="text-xs text-ink/50">
+                <p className="text-xs text-white/50">
                   {formatDate(p.date)} · {p.readTime}
                 </p>
-                <h2 className="mt-2 font-light text-lg  leading-snug text-navy-800 group-hover:text-gold-700">{p.title}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-ink/65">{p.excerpt}</p>
+                <h2 className="mt-2 font-light text-lg  leading-snug text-white group-hover:text-gold-400">{p.title}</h2>
+                <p className="mt-2 text-sm leading-relaxed text-white/65">{p.excerpt}</p>
               </div>
             </Link>
           </Reveal>

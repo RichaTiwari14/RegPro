@@ -39,9 +39,9 @@ export default function BlogPost() {
       />
       <PageHero eyebrow={post.category} title={post.title} text={`${formatDate(post.date)} · ${post.readTime}`} crumbs={crumbs} />
       <Container className="max-w-3xl py-14 sm:py-20">
-        <article className="space-y-5 text-base leading-relaxed text-ink/80">
+        <article className="space-y-5 text-base leading-relaxed text-white/80">
           {post.body.map((b, i) => {
-            if ('h' in b) return <h2 key={i} className="pt-4 heading-cine text-2xl text-navy-800">{b.h}</h2>;
+            if ('h' in b) return <h2 key={i} className="pt-4 heading-cine text-2xl text-white">{b.h}</h2>;
             if ('ul' in b)
               return (
                 <ul key={i} className="list-disc space-y-2 pl-6 marker:text-gold-500">
@@ -53,7 +53,7 @@ export default function BlogPost() {
             return <p key={i}>{b.p}</p>;
           })}
         </article>
-        <Link to="/blog" className="mt-12 inline-block font-medium text-navy-800 hover:text-navy-950">
+        <Link to="/blog" className="mt-12 inline-block font-medium text-white hover:text-white">
           ← Back to all articles
         </Link>
       </Container>

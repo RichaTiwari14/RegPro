@@ -11,13 +11,13 @@ export function ProcessSteps({ steps, light = false }: { steps: { title: string;
         <Reveal key={s.title} delay={i * 140} className="relative">
           <div
             className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full border text-sm tracking-[0.1em] ${
-              light ? 'border-gold-400/70 bg-navy-900/60 text-gold-300' : 'border-navy-800/30 bg-mist-100/80 text-navy-800'
+              light ? 'border-gold-400/70 bg-black/60 text-gold-300' : 'border-white/30 bg-white/[0.04]/80 text-white'
             }`}
           >
             {String(i + 1).padStart(2, '0')}
           </div>
-          <h3 className={`mt-6 text-lg font-medium tracking-tight ${light ? 'text-white' : 'text-navy-800'}`}>{s.title}</h3>
-          <p className={`mt-3 text-sm leading-relaxed ${light ? 'text-white/60' : 'text-ink/65'}`}>{s.text}</p>
+          <h3 className={`mt-6 text-lg font-medium tracking-tight ${light ? 'text-white' : 'text-white'}`}>{s.title}</h3>
+          <p className={`mt-3 text-sm leading-relaxed ${light ? 'text-white/60' : 'text-white/65'}`}>{s.text}</p>
         </Reveal>
       ))}
     </div>

@@ -23,40 +23,70 @@ html.lenis {
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-white font-sans text-ink antialiased;
+    @apply bg-black text-white;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    @apply bg-navy-50 text-navy-800;
+    @apply bg-white/20 text-white;
   }
 }
 
 @layer components {
-  /* Clean white card */
+  /* Dark glass card used across the site */
   .glass {
-    @apply border border-mist-200 bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04),0_12px_32px_-18px_rgba(11,42,91,0.18)];
+    @apply border border-white/10 bg-white/[0.04];
   }
   .glass-dark {
     @apply border border-white/10 bg-white/[0.06];
   }
-  /* Soft neutral band used to separate sections */
+  /* Section bands */
   .sky {
-    @apply bg-mist-100;
+    @apply bg-neutral-950;
   }
   .sky-soft {
-    @apply bg-mist-50;
+    @apply bg-black;
   }
-  /* Logo navy block */
   .dusk {
-    background: linear-gradient(160deg, #0f2f63 0%, #0b2a5b 45%, #081f44 100%);
+    @apply border border-white/10 bg-neutral-900;
   }
   .heading-cine {
-    @apply font-display font-normal leading-[1.08] tracking-tight;
+    @apply font-normal leading-[1.08];
+    letter-spacing: -0.04em;
   }
   .label-cine {
     @apply text-[13px] font-medium tracking-normal;
   }
+}
+
+/* Liquid glass */
+.liquid-glass {
+  background: rgba(0, 0, 0, 0.4);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 20%,
+    rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
+    rgba(255,255,255,0.1) 80%, rgba(255,255,255,0.3) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 .marquee-mask {

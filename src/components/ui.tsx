@@ -10,7 +10,7 @@ export function Container({ children, className = '' }: { children: ReactNode; c
 
 export function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
   return (
-    <span className={`label-cine inline-flex items-center gap-3 ${light ? 'text-gold-300' : 'text-gold-700'}`}>
+    <span className={`label-cine inline-flex items-center gap-3 ${light ? 'text-gold-300' : 'text-gold-400'}`}>
       <span className={`h-px w-8 ${light ? 'bg-gold-400' : 'bg-gold-500'}`} />
       {children}
     </span>
@@ -34,12 +34,12 @@ export function SectionHeading({
     <div className={`max-w-3xl ${center ? 'mx-auto text-center' : ''}`}>
       {eyebrow && <Eyebrow light={light}>{eyebrow}</Eyebrow>}
       <h2
-        className={`heading-cine mt-5 ${light ? 'text-white' : 'text-navy-800'}`}
+        className={`heading-cine mt-5 ${light ? 'text-white' : 'text-white'}`}
         style={{ fontSize: 'clamp(2rem,3.8vw,3.4rem)' }}
       >
         {title}
       </h2>
-      {text && <p className={`mt-5 text-base leading-relaxed sm:text-lg ${light ? 'text-white/65' : 'text-ink/65'}`}>{text}</p>}
+      {text && <p className={`mt-5 text-base leading-relaxed sm:text-lg ${light ? 'text-white/65' : 'text-white/65'}`}>{text}</p>}
     </div>
   );
 }
@@ -54,8 +54,8 @@ export function WhatsAppGlyph({ className = '' }: { className?: string }) {
 
 type BtnSize = 'md' | 'lg';
 const sizes: Record<BtnSize, string> = {
-  md: 'px-5 py-3 text-sm',
-  lg: 'px-7 py-4 text-[15px]',
+  md: 'px-6 py-2.5 text-sm',
+  lg: 'px-8 py-3 text-base',
 };
 
 export function WhatsAppButton({
@@ -77,9 +77,9 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackConversion('contact', `whatsapp:${source}`)}
-      className={`group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#25D366] font-medium tracking-tight text-white shadow-lg shadow-[#25D366]/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1fbe5a] hover:shadow-xl hover:shadow-[#25D366]/30 ${sizes[size]} ${className}`}
+      className={`group inline-flex items-center justify-center gap-2.5 rounded-lg bg-white font-medium text-black transition-colors duration-300 hover:bg-gray-100 ${sizes[size]} ${className}`}
     >
-      <WhatsAppGlyph className="h-4 w-4" />
+      <WhatsAppGlyph className="h-4 w-4 text-[#25D366]" />
       {label}
     </a>
   );
@@ -99,15 +99,15 @@ export function CallButton({
   source?: string;
 }) {
   const styles = {
-    outline: 'border border-navy-800/30 bg-white/50 text-navy-800 hover:border-navy-800',
-    light: 'border border-white/35 bg-white/10 text-white hover:border-white',
-    navy: 'bg-navy-800 text-white hover:bg-navy-900',
+    outline: 'liquid-glass border border-white/20 text-white hover:bg-white hover:text-black',
+    light: 'liquid-glass border border-white/20 text-white hover:bg-white hover:text-black',
+    navy: 'bg-white text-black hover:bg-gray-100',
   }[variant];
   return (
     <a
       href={site.phoneHref}
       onClick={() => trackConversion('contact', `call:${source}`)}
-      className={`inline-flex items-center justify-center gap-2.5 rounded-full font-medium tracking-tight transition-all duration-300 hover:-translate-y-0.5 ${styles} ${sizes[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2.5 rounded-lg font-medium transition-colors duration-300 ${styles} ${sizes[size]} ${className}`}
     >
       <Phone className="h-3.5 w-3.5" />
       {label}
@@ -118,10 +118,10 @@ export function CallButton({
 export function PriceTag({ price, light = false, className = '' }: { price: number; light?: boolean; className?: string }) {
   return (
     <div className={className}>
-      <span className={`text-[13px] ${light ? 'text-white/60' : 'text-ink/50'}`}>Starting at</span>
-      <div className={`font-display text-2xl font-light ${light ? 'text-white' : 'text-navy-800'}`}>
+      <span className={`text-[13px] ${light ? 'text-white/60' : 'text-white/50'}`}>Starting at</span>
+      <div className={`font-display text-2xl font-light ${light ? 'text-white' : 'text-white'}`}>
         {formatPrice(price)}
-        <span className={`ml-1 align-super text-xs font-semibold ${light ? 'text-gold-300' : 'text-gold-600'}`}>*</span>
+        <span className={`ml-1 align-super text-xs font-semibold ${light ? 'text-gold-300' : 'text-gold-400'}`}>*</span>
       </div>
     </div>
   );
@@ -129,7 +129,7 @@ export function PriceTag({ price, light = false, className = '' }: { price: numb
 
 export function FeeNote({ light = false, className = '' }: { light?: boolean; className?: string }) {
   return (
-    <p className={`text-xs ${light ? 'text-white/55' : 'text-ink/55'} ${className}`}>
+    <p className={`text-xs ${light ? 'text-white/55' : 'text-white/55'} ${className}`}>
       * Professional fee. {site.feeNote}
     </p>
   );
@@ -151,7 +151,7 @@ export function CircleArrow({
     <span
       className={`flex shrink-0 items-center justify-center rounded-full border transition-all duration-500 ${
         size === 'sm' ? 'h-10 w-10' : 'h-12 w-12'
-      } ${light ? 'border-white/40 text-white' : 'border-navy-800/30 text-navy-800'} ${className}`}
+      } ${light ? 'border-white/40 text-white' : 'border-white/30 text-white'} ${className}`}
     >
       <Icon size={size === 'sm' ? 16 : 18} />
     </span>

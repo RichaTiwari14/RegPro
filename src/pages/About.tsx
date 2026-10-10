@@ -32,7 +32,7 @@ export default function About() {
         <Container className="grid items-center gap-14 lg:grid-cols-2">
           <Reveal>
             <SectionHeading eyebrow="Who we are" title="Your partner for registrations and compliance" />
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-ink/75">
+            <div className="mt-6 space-y-4 text-base leading-relaxed text-white/75">
               <p>
                 {site.name} helps startups, entrepreneurs, professionals and small businesses with business registrations, government
                 documentation and compliance assistance.
@@ -45,7 +45,7 @@ export default function About() {
             </div>
             <ul className="mt-8 grid gap-3 sm:grid-cols-2">
               {['Expert-assisted filing', 'Transparent, upfront pricing', '100% online process', 'Dedicated support'].map((t) => (
-                <li key={t} className="flex items-center gap-2 text-sm font-medium text-navy-800">
+                <li key={t} className="flex items-center gap-2 text-sm font-medium text-white">
                   <CheckCircle2 className="h-5 w-5 text-emerald-500" /> {t}
                 </li>
               ))}
@@ -53,7 +53,7 @@ export default function About() {
           </Reveal>
           <Reveal delay={150}>
             <div className="relative mx-auto flex aspect-square max-w-md items-center justify-center glass rounded-full">
-              <div className="spin-slow absolute inset-8 rounded-full border border-dashed border-navy-200" />
+              <div className="spin-slow absolute inset-8 rounded-full border border-dashed border-white/20" />
               <div className="spin-slow-reverse absolute inset-20 rounded-full border border-dashed border-gold-300" />
               <LogoMark animated className="relative h-40 w-auto" />
             </div>
@@ -67,11 +67,11 @@ export default function About() {
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 120}>
                 <div className="h-full glass rounded-3xl p-7">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gold-500/50 text-gold-600">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gold-500/50 text-gold-400">
                     <v.icon className="h-6 w-6" />
                   </span>
-                  <h3 className="mt-5 heading-cine text-xl text-navy-800">{v.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink/70">{v.text}</p>
+                  <h3 className="mt-5 heading-cine text-xl text-white">{v.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">{v.text}</p>
                 </div>
               </Reveal>
             ))}

@@ -23,12 +23,12 @@ export default function Faqs() {
       <PageHero eyebrow="FAQs" title="Frequently asked questions" text="Can’t find your answer? Message us on WhatsApp — we’re happy to help." crumbs={crumbs} />
       <Container className="max-w-4xl space-y-16 py-16 sm:py-20">
         <Reveal>
-          <h2 className="mb-6 heading-cine text-2xl text-navy-800">General</h2>
+          <h2 className="mb-6 heading-cine text-2xl text-white">General</h2>
           <FaqList faqs={generalFaqs} />
         </Reveal>
         {categories.map((cat) => (
           <Reveal key={cat.id}>
-            <h2 className="mb-6 heading-cine text-2xl text-navy-800">{cat.title}</h2>
+            <h2 className="mb-6 heading-cine text-2xl text-white">{cat.title}</h2>
             <FaqList faqs={servicesByCategory(cat.id).flatMap((s) => s.faqs.slice(0, 2))} />
           </Reveal>
         ))}

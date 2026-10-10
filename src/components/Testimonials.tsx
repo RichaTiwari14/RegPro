@@ -10,16 +10,16 @@ function Card({ t }: { t: Testimonial }) {
             <Star key={i} className="h-4 w-4 fill-gold-500 text-gold-500" />
           ))}
         </div>
-        <Quote className="h-6 w-6 text-navy-800/15" />
+        <Quote className="h-6 w-6 text-white/15" />
       </div>
-      <blockquote className="mt-5 flex-1 text-[15px] leading-relaxed text-ink/75">“{t.quote}”</blockquote>
-      <figcaption className="mt-6 flex items-center gap-3 border-t border-navy-800/10 pt-5">
-        <span className="flex h-10 w-10 items-center justify-center rounded-full border border-navy-800/25 text-sm text-navy-800">
+      <blockquote className="mt-5 flex-1 text-[15px] leading-relaxed text-white/75">“{t.quote}”</blockquote>
+      <figcaption className="mt-6 flex items-center gap-3 border-t border-white/10 pt-5">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-sm text-white">
           {t.name.charAt(0)}
         </span>
         <span>
-          <span className="block text-sm tracking-tight text-navy-800">{t.name}</span>
-          <span className="block text-xs text-ink/55">
+          <span className="block text-sm tracking-tight text-white">{t.name}</span>
+          <span className="block text-xs text-white/55">
             {t.role} · {t.service}
           </span>
         </span>
