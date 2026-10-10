@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 
 /**
- * Handwritten note with a hand-drawn gold arrow that draws itself in — the script annotations from the design.
+ * Italic serif note with a hand-drawn sage arrow that draws itself in.
  * `arrow` picks the direction the arrow curls towards.
  */
 export function Scribble({
@@ -29,11 +29,11 @@ export function Scribble({
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       aria-hidden="true"
     >
-      <p className={`whitespace-pre-line font-script text-2xl font-bold leading-[1.05] sm:text-[28px] ${light ? 'text-white' : 'text-navy-800'}`}>{text}</p>
+      <p className={`whitespace-pre-line font-script text-2xl italic font-medium leading-[1.1] sm:text-[27px] ${light ? 'text-sage-100' : 'text-olive-700'}`}>{text}</p>
       <svg viewBox="0 0 92 70" className="mt-1 h-12 w-16" fill="none">
         <motion.path
           d={paths[arrow]}
-          stroke="#D6A21F"
+          stroke="#6E9094"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"

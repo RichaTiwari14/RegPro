@@ -41,10 +41,10 @@ export default function BlogPost() {
       <Container className="max-w-3xl py-14 sm:py-20">
         <article className="space-y-5 text-base leading-relaxed text-ink/80">
           {post.body.map((b, i) => {
-            if ('h' in b) return <h2 key={i} className="pt-4 heading-cine text-2xl text-navy-800">{b.h}</h2>;
+            if ('h' in b) return <h2 key={i} className="pt-4 heading-cine text-3xl text-olive-800">{b.h}</h2>;
             if ('ul' in b)
               return (
-                <ul key={i} className="list-disc space-y-2 pl-6 marker:text-gold-500">
+                <ul key={i} className="list-disc space-y-2 pl-6 marker:text-sage-500">
                   {b.ul.map((li) => (
                     <li key={li}>{li}</li>
                   ))}
@@ -53,7 +53,7 @@ export default function BlogPost() {
             return <p key={i}>{b.p}</p>;
           })}
         </article>
-        <Link to="/blog" className="mt-12 inline-block font-medium text-navy-800 hover:text-navy-950">
+        <Link to="/blog" className="mt-12 inline-block font-medium text-olive-800 hover:text-olive-950">
           ← Back to all articles
         </Link>
       </Container>

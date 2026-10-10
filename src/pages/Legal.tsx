@@ -40,12 +40,12 @@ function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
       <Container className="max-w-3xl space-y-8 py-14 sm:py-20">
         {content.map((s) => (
           <section key={s.h}>
-            <h2 className="heading-cine text-xl text-navy-800">{s.h}</h2>
+            <h2 className="heading-cine text-3xl text-olive-800">{s.h}</h2>
             <p className="mt-2 leading-relaxed text-ink/75">{s.p}</p>
           </section>
         ))}
         <p className="text-sm text-ink/60">
-          Questions? Contact us at <a className="font-medium text-navy-800" href={`mailto:${site.email}`}>{site.email}</a>.
+          Questions? Contact us at <a className="font-medium text-olive-800" href={`mailto:${site.email}`}>{site.email}</a>.
         </p>
       </Container>
     </>

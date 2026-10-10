@@ -1,7 +1,8 @@
 import { useState, type ReactNode } from 'react';
 import { motion } from 'motion/react';
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+/** GSAP power3.out — the reference site's easing. */
+const EASE = [0.215, 0.61, 0.355, 1] as const;
 
 /**
  * Scroll-into-view entrance: rises, sharpens from a soft blur and settles (Framer Motion).
@@ -20,10 +21,10 @@ export function Reveal({
   return (
     <motion.div
       className={`reveal ${shown ? 'is-visible' : ''} ${className}`}
-      initial={{ opacity: 0, y: 40, scale: 0.985, filter: 'blur(8px)' }}
-      whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+      initial={{ opacity: 0, y: 35, scale: 0.97 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: '0px 0px -10% 0px' }}
-      transition={{ duration: 1, ease: EASE, delay: delay / 1000 }}
+      transition={{ duration: 0.95, ease: EASE, delay: delay / 1000 }}
       onViewportEnter={() => setShown(true)}
     >
       {children}
@@ -41,7 +42,7 @@ export function MaskedWords({
   text: string;
   className?: string;
   delay?: number;
-  /** Words (exact match) to paint in the logo gold. */
+  /** Words (exact match) set in sage italic. */
   highlight?: string[];
 }) {
   const words = text.split(' ');
@@ -57,8 +58,8 @@ export function MaskedWords({
       {words.map((w, i) => (
         <span key={i} className="inline-block overflow-hidden pb-[0.12em] align-top -mb-[0.12em]" aria-hidden="true">
           <motion.span
-            className={`inline-block ${highlight.includes(w.replace(/[.,!?]$/, '')) ? 'text-gold-500' : ''}`}
-            variants={{ hidden: { y: '110%', rotate: 4 }, shown: { y: '0%', rotate: 0 } }}
+            className={`inline-block ${highlight.includes(w.replace(/[.,!?]$/, '')) ? 'font-normal italic text-sage-600' : ''}`}
+            variants={{ hidden: { y: '110%', rotate: 3 }, shown: { y: '0%', rotate: 0 } }}
             transition={{ duration: 0.9, ease: EASE }}
           >
             {w}

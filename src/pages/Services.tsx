@@ -33,7 +33,7 @@ export default function Services() {
         text="Choose a service to see who needs it, the documents required, the process, timelines and pricing."
         crumbs={crumbs}
         image="/images/tower.jpg"
-        scribble={'Simplify Today,\nGrow Tomorrow'}
+        scribble={'Simplify today,\ngrow tomorrow ♥'}
       >
         <div className="mt-9 flex flex-col gap-3 sm:flex-row">
           <WhatsAppButton size="lg" label="Ask an expert" source="services-hero" />
@@ -43,16 +43,16 @@ export default function Services() {
 
       <section className="bg-white py-16 sm:py-20">
         <Container>
-          <div className="sticky top-[84px] z-20 -mx-1 flex gap-2 overflow-x-auto rounded-full bg-white/90 p-1.5 shadow-[0_10px_30px_-18px_rgba(11,42,91,0.35)] ring-1 ring-navy-800/5 backdrop-blur sm:mx-auto sm:w-fit">
+          <div className="sticky top-[84px] z-20 -mx-1 flex gap-2 overflow-x-auto rounded-full bg-white/90 p-1.5 shadow-[0_10px_30px_-18px_rgba(53,63,34,0.35)] ring-1 ring-olive-800/5 backdrop-blur sm:mx-auto sm:w-fit">
             {tabs.map((t) => (
               <button
                 key={t.id}
                 type="button"
                 onClick={() => setFilter(t.id)}
-                className={`relative whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${filter === t.id ? 'text-white' : 'text-navy-800/70 hover:text-navy-800'}`}
+                className={`relative whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${filter === t.id ? 'text-white' : 'text-olive-800/70 hover:text-olive-800'}`}
               >
                 {filter === t.id && (
-                  <motion.span layoutId="svc-tab" className="absolute inset-0 rounded-full bg-navy-800" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />
+                  <motion.span layoutId="svc-tab" className="absolute inset-0 rounded-full bg-olive-800" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />
                 )}
                 <span className="relative">{t.label}</span>
               </button>

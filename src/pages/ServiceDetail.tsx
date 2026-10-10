@@ -62,19 +62,19 @@ export default function ServiceDetail() {
       />
 
       <PageHero eyebrow={category.title} title={service.name} text={service.intro} crumbs={crumbs} image="/images/tower.jpg">
-        <div className="mt-8 inline-flex flex-wrap items-center gap-x-8 gap-y-4 rounded-2xl bg-white px-6 py-4 shadow-sm ring-1 ring-navy-800/10">
+        <div className="mt-8 inline-flex flex-wrap items-center gap-x-8 gap-y-4 rounded-2xl bg-white px-6 py-4 shadow-sm ring-1 ring-olive-800/10">
           <div>
             <p className="label-cine text-ink/50">Starting at</p>
-            <p className="mt-1 font-display text-4xl font-extrabold text-navy-800">
+            <p className="mt-1 font-display text-4xl font-semibold text-olive-800">
               {formatPrice(service.price)}
-              <span className="align-super text-sm text-gold-600">*</span>
+              <span className="align-super text-sm text-sage-600">*</span>
             </p>
           </div>
-          <div className="h-12 w-px bg-navy-800/15" />
+          <div className="h-12 w-px bg-olive-800/15" />
           <div>
             <p className="label-cine text-ink/50">Processing time</p>
-            <p className="mt-2 flex items-center gap-2 text-navy-800">
-              <Clock className="h-4 w-4 text-gold-600" /> {service.timeline}
+            <p className="mt-2 flex items-center gap-2 text-olive-800">
+              <Clock className="h-4 w-4 text-sage-600" /> {service.timeline}
             </p>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function ServiceDetail() {
             <a
               key={id}
               href={`#${id}`}
-              className="whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold text-navy-800/60 transition-colors hover:bg-cream hover:text-navy-800"
+              className="whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold text-olive-800/60 transition-colors hover:bg-cream hover:text-olive-800"
             >
               {label}
             </a>
@@ -106,8 +106,8 @@ export default function ServiceDetail() {
               <SectionHeading eyebrow="Overview" title={`What is ${service.shortName}?`} />
               <p className="mt-5 text-base leading-relaxed text-ink/75">{service.intro}</p>
               <div className="mt-6 glass rounded-2xl p-6">
-                <p className="flex items-center gap-2 font-medium text-navy-800">
-                  <Sparkles className="h-4 w-4 text-gold-600" /> What’s included
+                <p className="flex items-center gap-2 font-medium text-olive-800">
+                  <Sparkles className="h-4 w-4 text-sage-600" /> What’s included
                 </p>
                 <ul className="mt-3 grid gap-2 sm:grid-cols-2">
                   {service.includes.map((inc) => (
@@ -128,7 +128,7 @@ export default function ServiceDetail() {
               {service.whoNeeds.map((w, i) => (
                 <Reveal key={w} delay={i * 70}>
                   <div className="flex h-full items-start gap-3 glass rounded-2xl p-4">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gold-50 text-gold-700">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-sage-50 text-sage-700">
                       <Users className="h-4 w-4" />
                     </span>
                     <p className="text-sm leading-relaxed text-ink/75">{w}</p>
@@ -145,9 +145,9 @@ export default function ServiceDetail() {
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {service.benefits.map((b, i) => (
                 <Reveal key={b.title} delay={i * 80}>
-                  <div className="glass group h-full rounded-2xl p-6 transition-all duration-500 hover:bg-navy-800">
-                    <span className="font-display text-sm font-bold text-gold-600">0{i + 1}</span>
-                    <h3 className="mt-2 font-display text-lg font-bold text-navy-800 transition-colors group-hover:text-white">{b.title}</h3>
+                  <div className="glass group h-full rounded-2xl p-6 transition-all duration-500 hover:bg-olive-800">
+                    <span className="font-display text-lg italic text-sage-600">0{i + 1}</span>
+                    <h3 className="mt-2 font-display text-2xl font-semibold text-olive-800 transition-colors group-hover:text-white">{b.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-ink/70 transition-colors group-hover:text-white/70">{b.text}</p>
                   </div>
                 </Reveal>
@@ -158,10 +158,10 @@ export default function ServiceDetail() {
           <section id="documents" className="scroll-mt-40">
             <Reveal>
               <SectionHeading eyebrow="Documents required" title="Keep these ready" />
-              <ul className="mt-6 divide-y divide-navy-800/10 overflow-hidden glass rounded-2xl">
+              <ul className="mt-6 divide-y divide-olive-800/10 overflow-hidden glass rounded-2xl">
                 {service.documents.map((d) => (
                   <li key={d} className="flex items-center gap-3 px-5 py-4 text-sm text-ink/80">
-                    <FileText className="h-4 w-4 shrink-0 text-gold-600" /> {d}
+                    <FileText className="h-4 w-4 shrink-0 text-sage-600" /> {d}
                   </li>
                 ))}
               </ul>
@@ -183,15 +183,15 @@ export default function ServiceDetail() {
               <div className="relative overflow-hidden dusk rounded-3xl p-7 text-white sm:p-10">
                 <div className="relative grid gap-8 sm:grid-cols-2 sm:items-center">
                   <div>
-                    <p className="text-xs font-medium tracking-tight text-gold-400">Pricing</p>
-                    <h2 className="mt-2 font-display text-2xl font-bold">{service.name}</h2>
+                    <p className="text-xs font-medium tracking-tight text-sage-400">Pricing</p>
+                    <h2 className="mt-2 font-display text-2xl font-semibold">{service.name}</h2>
                     <p className="mt-5 text-[13px] text-white/60">Starting at</p>
-                    <p className="font-display text-5xl font-extrabold">
+                    <p className="font-display text-5xl font-semibold">
                       {formatPrice(service.price)}
-                      <span className="align-super text-lg text-gold-400">*</span>
+                      <span className="align-super text-lg text-sage-400">*</span>
                     </p>
                     <p className="mt-3 flex items-center gap-2 text-sm text-white/70">
-                      <Clock className="h-4 w-4 text-gold-400" /> Processing time: {service.timeline}
+                      <Clock className="h-4 w-4 text-sage-400" /> Processing time: {service.timeline}
                     </p>
                     <FeeNote light className="mt-4" />
                   </div>
@@ -216,11 +216,11 @@ export default function ServiceDetail() {
 
         <aside className="lg:sticky lg:top-40 lg:self-start">
           <div className="mb-5 hidden items-center gap-3 glass rounded-2xl p-4 lg:flex">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-navy-800 text-gold-400">
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-olive-800 text-sage-400">
               <ServiceIcon name={service.icon} className="h-5 w-5" />
             </span>
             <div className="flex-1">
-              <p className="font-display text-sm font-bold text-navy-800">{service.shortName}</p>
+              <p className="font-display text-lg font-semibold text-olive-800">{service.shortName}</p>
               <p className="text-xs text-ink/55">from {formatPrice(service.price)}* · {service.timeline}</p>
             </div>
           </div>
@@ -244,7 +244,7 @@ export default function ServiceDetail() {
               ))}
             </div>
             <div className="mt-8 text-center">
-              <Link to="/services" className="font-medium text-navy-800 hover:text-navy-950">
+              <Link to="/services" className="font-medium text-olive-800 hover:text-olive-950">
                 View all services →
               </Link>
             </div>

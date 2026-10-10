@@ -23,43 +23,60 @@ html.lenis {
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-white font-sans text-ink antialiased;
+    @apply bg-soft-white font-sans text-ink antialiased;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    @apply bg-navy-50 text-navy-800;
+    @apply bg-olive-700 text-soft-white;
+  }
+  *:focus-visible {
+    outline: 2px solid #6e9094;
+    outline-offset: 2px;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f7f7f2;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c6d6d7;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #353f22;
   }
 }
 
 @layer components {
-  /* White card with a soft navy-tinted shadow */
+  /* Soft white card, hairline sage border, gentle olive shadow */
   .glass {
-    @apply rounded-2xl border border-[#EDF0F5] bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04),0_18px_40px_-24px_rgba(11,42,91,0.22)];
+    @apply rounded-3xl border border-mist-300/80 bg-white shadow-[0_1px_2px_rgba(36,41,28,0.04),0_20px_50px_-28px_rgba(53,63,34,0.28)];
   }
   .glass-dark {
     @apply border border-white/10 bg-white/[0.06];
   }
-  /* Warm cream band */
+  /* Soft warm band */
   .sky {
-    background: linear-gradient(180deg, #fbf8f1 0%, #f8f4ea 100%);
+    background: linear-gradient(180deg, #f5f6f0 0%, #eef1ea 100%);
   }
   .sky-soft {
     @apply bg-cream;
   }
-  /* Logo navy block */
+  /* Deep olive block */
   .dusk {
-    background: linear-gradient(150deg, #0f2f63 0%, #0b2a5b 45%, #071b3b 100%);
+    background: linear-gradient(150deg, #414b29 0%, #353f22 45%, #232a16 100%);
   }
   .heading-cine {
-    @apply font-display font-bold leading-[1.12] tracking-tight text-navy-800;
+    @apply font-display font-semibold leading-[1.06] tracking-[-0.01em] text-olive-800;
   }
   .label-cine {
-    @apply text-[11px] font-bold uppercase tracking-[0.14em];
+    @apply text-[11px] font-semibold uppercase tracking-[0.22em];
   }
-  /* Small gold pill above section titles */
-  .pill-gold {
-    @apply inline-flex items-center gap-2 rounded-full bg-gold-50 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-gold-700 ring-1 ring-gold-200;
+  /* Small sage pill above section titles */
+  .pill-sage {
+    @apply inline-flex items-center gap-2 rounded-full border border-sage-200 bg-sage-50/80 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-sage-700 backdrop-blur-sm;
   }
 }
 
@@ -76,7 +93,7 @@ html.lenis {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.4s ease;
-  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(214, 162, 31, 0.10), transparent 45%);
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(110,144,148, 0.10), transparent 45%);
   z-index: 1;
 }
 .glass:hover::after {
@@ -157,4 +174,10 @@ html:not(.js) .process-line,
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Cormorant defaults to old-style figures; prices read better with lining numerals */
+.font-display,
+.heading-cine {
+  font-variant-numeric: lining-nums;
 }

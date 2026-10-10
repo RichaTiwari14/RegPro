@@ -41,8 +41,8 @@ export default function Pricing() {
             { icon: ReceiptIndianRupee, t: 'Govt. fees at actuals' },
             { icon: Laptop, t: '100% online' },
           ].map(({ icon: Icon, t }) => (
-            <span key={t} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-navy-800 shadow-sm ring-1 ring-navy-800/10">
-              <Icon className="h-4 w-4 text-gold-600" /> {t}
+            <span key={t} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-olive-800 shadow-sm ring-1 ring-olive-800/10">
+              <Icon className="h-4 w-4 text-sage-600" /> {t}
             </span>
           ))}
         </div>
@@ -50,16 +50,16 @@ export default function Pricing() {
 
       <section className="bg-white py-16 sm:py-20">
         <Container>
-          <div className="-mx-1 flex gap-2 overflow-x-auto rounded-full bg-cream p-1.5 ring-1 ring-navy-800/5 sm:mx-auto sm:w-fit">
+          <div className="-mx-1 flex gap-2 overflow-x-auto rounded-full bg-cream p-1.5 ring-1 ring-olive-800/5 sm:mx-auto sm:w-fit">
             {tabs.map((t) => (
               <button
                 key={t.id}
                 type="button"
                 onClick={() => setFilter(t.id)}
-                className={`relative whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${filter === t.id ? 'text-white' : 'text-navy-800/70 hover:text-navy-800'}`}
+                className={`relative whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${filter === t.id ? 'text-white' : 'text-olive-800/70 hover:text-olive-800'}`}
               >
                 {filter === t.id && (
-                  <motion.span layoutId="price-tab" className="absolute inset-0 rounded-full bg-navy-800" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />
+                  <motion.span layoutId="price-tab" className="absolute inset-0 rounded-full bg-olive-800" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />
                 )}
                 <span className="relative">{t.label}</span>
               </button>
@@ -80,23 +80,23 @@ export default function Pricing() {
                 >
                   <div className="flex items-start justify-between gap-3">
                     <Link to={`/services/${s.slug}`} className="group flex items-center gap-3">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-navy-50 text-navy-800 transition-colors group-hover:bg-navy-800 group-hover:text-gold-400">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-olive-50 text-olive-800 transition-colors group-hover:bg-olive-800 group-hover:text-sage-400">
                         <ServiceIcon name={s.icon} className="h-5 w-5" />
                       </span>
-                      <span className="font-display font-bold leading-snug text-navy-800 group-hover:text-gold-700">{s.name}</span>
+                      <span className="font-display text-xl font-semibold leading-snug text-olive-800 group-hover:text-sage-700">{s.name}</span>
                     </Link>
                     {s.popular && (
-                      <span className="shrink-0 rounded-full bg-gold-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-gold-700 ring-1 ring-gold-200">
+                      <span className="shrink-0 rounded-full bg-sage-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-sage-700 ring-1 ring-sage-200">
                         Popular
                       </span>
                     )}
                   </div>
-                  <div className="mt-6 flex items-end justify-between gap-3 border-t border-navy-800/10 pt-5">
+                  <div className="mt-6 flex items-end justify-between gap-3 border-t border-olive-800/10 pt-5">
                     <div>
                       <p className="label-cine text-subtle">Starting at</p>
-                      <p className="font-display text-3xl font-extrabold text-navy-800">
+                      <p className="font-display text-3xl font-semibold text-olive-800">
                         {formatPrice(s.price)}
-                        <span className="align-super text-xs text-gold-600">*</span>
+                        <span className="align-super text-xs text-sage-600">*</span>
                       </p>
                       <p className="mt-1 flex items-center gap-1 text-xs text-subtle">
                         <Clock className="h-3 w-3" /> {s.timeline}

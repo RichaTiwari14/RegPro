@@ -34,17 +34,17 @@ export default function Faqs() {
         <div className="min-w-0 space-y-16">
           {groups.map((g) => (
             <Reveal key={g.id}>
-              <h2 id={g.id} className="heading-cine mb-6 scroll-mt-28 text-2xl">{g.title}</h2>
+              <h2 id={g.id} className="heading-cine mb-6 scroll-mt-28 text-4xl">{g.title}</h2>
               <FaqList faqs={g.faqs} />
             </Reveal>
           ))}
         </div>
         <aside className="lg:sticky lg:top-28 lg:self-start">
           <Reveal>
-            <StickyBg image="/images/tower.jpg" overlay="bg-navy-950/75" rounded="1.75rem">
+            <StickyBg image="/images/tower.jpg" overlay="bg-olive-950/75" rounded="1.75rem">
               <div className="p-7 text-white">
-                <Headphones className="h-8 w-8 text-gold-400" strokeWidth={1.5} />
-                <p className="mt-5 font-display text-xl font-bold">Still have questions?</p>
+                <Headphones className="h-8 w-8 text-sage-400" strokeWidth={1.5} />
+                <p className="mt-5 font-display text-xl font-semibold">Still have questions?</p>
                 <p className="mt-2 text-sm text-white/70">Our experts are available {site.hours}.</p>
                 <div className="mt-6 grid gap-3">
                   <WhatsAppButton label="Ask on WhatsApp" source="faqs-page" />

@@ -6,15 +6,15 @@ import { services } from '@/data/services';
 import { PageHero } from '@/components/PageHero';
 import { Container, SectionHeading } from '@/components/ui';
 import { Reveal } from '@/components/Reveal';
-import { Scribble } from '@/components/Scribble';
+import { Leaf } from '@/components/Leaf';
 import { StickyBg } from '@/components/StickyBg';
 import { CtaBanner } from '@/components/CtaBanner';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const values = [
-  { icon: Target, title: 'Our mission', text: 'Make business registration and compliance simple, affordable and transparent for every Indian entrepreneur.', tint: 'bg-navy-50 text-navy-800' },
-  { icon: Eye, title: 'Our vision', text: 'To be the most trusted compliance partner for startups and small businesses across India.', tint: 'bg-gold-50 text-gold-700' },
+  { icon: Target, title: 'Our mission', text: 'Make business registration and compliance simple, affordable and transparent for every Indian entrepreneur.', tint: 'bg-olive-50 text-olive-800' },
+  { icon: Eye, title: 'Our vision', text: 'To be the most trusted compliance partner for startups and small businesses across India.', tint: 'bg-sage-50 text-sage-700' },
   { icon: HeartHandshake, title: 'Our promise', text: 'Honest advice, upfront pricing and an expert who stays with you until the job is done.', tint: 'bg-emerald-50 text-emerald-700' },
 ];
 
@@ -45,11 +45,11 @@ export default function About() {
         text="We help Indian businesses get started and stay compliant — without the paperwork stress."
         crumbs={crumbs}
         image="/images/city-day.jpg"
-        scribble="Built for founders"
+        scribble={"Built for founders ♥"}
       />
 
       {/* Stats band over a fixed skyline */}
-      <StickyBg image="/images/city-dusk.jpg" overlay="bg-navy-950/80">
+      <StickyBg image="/images/city-dusk.jpg" overlay="bg-olive-950/80">
         <Container className="grid grid-cols-2 gap-y-10 py-16 lg:grid-cols-4">
           {stats.map(([v, l], i) => (
             <motion.div
@@ -60,7 +60,7 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: i * 0.1, ease: EASE }}
             >
-              <p className="font-display text-4xl font-extrabold text-gold-400 sm:text-5xl">{v}</p>
+              <p className="font-display text-4xl font-semibold text-sage-400 sm:text-5xl">{v}</p>
               <p className="mt-2 text-sm text-white/70">{l}</p>
             </motion.div>
           ))}
@@ -85,23 +85,23 @@ export default function About() {
               </div>
               <ul className="mt-8 grid gap-3 sm:grid-cols-2">
                 {['Expert-assisted filing', 'Transparent, upfront pricing', '100% online process', 'Dedicated support'].map((t) => (
-                  <li key={t} className="flex items-center gap-2 text-sm font-semibold text-navy-800">
-                    <CheckCircle2 className="h-5 w-5 text-gold-500" /> {t}
+                  <li key={t} className="flex items-center gap-2 text-sm font-semibold text-olive-800">
+                    <CheckCircle2 className="h-5 w-5 text-sage-500" /> {t}
                   </li>
                 ))}
               </ul>
             </Reveal>
           </div>
           <Reveal delay={150} className="relative mx-auto w-full max-w-md">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-30px_rgba(11,42,91,0.45)]">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-30px_rgba(53,63,34,0.45)]">
               <img src="/images/tower.jpg" alt="" className="h-full w-full object-cover" loading="lazy" />
             </div>
-            <div className="absolute -bottom-6 -right-4 rounded-2xl bg-white p-5 shadow-2xl shadow-navy-900/20 sm:-right-10">
-              <p className="font-display text-2xl font-extrabold text-navy-800">Register.</p>
-              <p className="font-display text-2xl font-extrabold text-navy-800">Comply.</p>
-              <p className="font-display text-2xl font-extrabold text-gold-500">Grow.</p>
+            <div className="absolute -bottom-6 -right-4 rounded-2xl bg-white p-5 shadow-2xl shadow-olive-900/20 sm:-right-10">
+              <p className="font-display text-2xl font-semibold text-olive-800">Register.</p>
+              <p className="font-display text-2xl font-semibold text-olive-800">Comply.</p>
+              <p className="font-display text-2xl font-semibold text-sage-500">Grow.</p>
             </div>
-            <Scribble text="That's our promise" arrow="down-right" className="absolute -left-6 -top-16 hidden sm:block" />
+            <Leaf className="absolute -left-5 -top-7 z-10" rotate={-25} color="#65733F" opacity={0.85} float />
           </Reveal>
         </Container>
       </section>
@@ -126,7 +126,7 @@ export default function About() {
                 <span className={`flex h-14 w-14 items-center justify-center rounded-2xl ${v.tint}`}>
                   <v.icon className="h-6 w-6" />
                 </span>
-                <h3 className="mt-6 font-display text-xl font-bold text-navy-800">{v.title}</h3>
+                <h3 className="mt-6 font-display text-2xl font-semibold text-olive-800">{v.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{v.text}</p>
               </motion.div>
             ))}

@@ -1,30 +1,25 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { animate, motion, useInView, useScroll, useTransform } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import {
   ArrowRight,
   BadgeIndianRupee,
   Briefcase,
-  Building2,
   CheckCircle2,
+  ChevronDown,
   Clock3,
-  Factory,
   FileCheck2,
-  FileSignature,
-  GraduationCap,
-  HeartPulse,
   Headphones,
   Laptop,
   Lightbulb,
   MessageCircle,
+  Phone,
   Rocket,
-  Search,
   ShieldCheck,
-  ShoppingBag,
+  Sparkles,
+  Star,
   Store,
-  Truck,
   UserCheck,
-  Utensils,
 } from 'lucide-react';
 import { Seo, organizationLd, faqLd } from '@/lib/seo';
 import { site, whatsappLink } from '@/config/site';
@@ -33,302 +28,299 @@ import { generalFaqs } from '@/data/faqs';
 import { offer } from '@/data/offers';
 import { SectionHeading, WhatsAppButton, CallButton, FeeNote, Container } from '@/components/ui';
 import { Reveal, MaskedWords } from '@/components/Reveal';
-import { Scribble } from '@/components/Scribble';
-import { StickyBg } from '@/components/StickyBg';
+import { Leaf } from '@/components/Leaf';
 import { LeadForm } from '@/components/LeadForm';
 import { ServiceIcon } from '@/components/ServiceIcon';
 import { Testimonials } from '@/components/Testimonials';
 import { FaqList } from '@/components/FaqList';
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+/** GSAP power3.out, the reference site's easing. */
+const EASE = [0.215, 0.61, 0.355, 1] as const;
 
-/** Cards rise in one after another as their grid scrolls into view. */
+/** Children rise in one after another as their group scrolls into view. */
 const stagger = { hidden: {}, shown: { transition: { staggerChildren: 0.12 } } };
-const cardIn = {
-  hidden: { opacity: 0, y: 40, scale: 0.97 },
+const rise = {
+  hidden: { opacity: 0, y: 45, scale: 0.95 },
   shown: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.9, ease: EASE } },
 };
-const inView = { initial: 'hidden', whileInView: 'shown', viewport: { once: true, margin: '0px 0px -10% 0px' } } as const;
-const spring = { type: 'spring', stiffness: 300, damping: 24 } as const;
+const fadeUp = {
+  hidden: { opacity: 0, y: 35 },
+  shown: { opacity: 1, y: 0, transition: { duration: 0.95, ease: EASE } },
+};
+const inView = { initial: 'hidden', whileInView: 'shown', viewport: { once: true, margin: '0px 0px -15% 0px' } } as const;
+const lift = { y: -6, transition: { type: 'spring', stiffness: 300, damping: 22 } } as const;
 
-// ───────────────────────── Hero ─────────────────────────
+const eyebrow = 'text-xs font-semibold uppercase tracking-[0.3em] text-sage-600';
 
-const heroChecklist = ['Company Registration', 'GST Registration', 'Trademark Filing', 'MSME / Udyam', 'Compliance Support'];
+// ───────────────────────── Hero — fixed botanical backdrop, content scrolls away ─────────────────────────
+
+const heroRows = [
+  ['Services', 'Company • GST • MSME • Trademark'],
+  ['Pricing', `From ${formatPrice(Math.min(...services.map((s) => s.price)))} • No hidden charges`],
+  ['Support', 'Expert updates on WhatsApp'],
+];
 
 function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
-  const cardY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-
   return (
-    <section ref={ref} className="relative overflow-hidden bg-cream">
-      <div
-        className="pointer-events-none absolute -right-40 -top-40 h-[640px] w-[640px] rounded-full"
-        style={{ background: 'radial-gradient(closest-side, rgba(214,162,31,0.14), rgba(214,162,31,0))' }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 opacity-40"
-        style={{
-          backgroundImage: 'radial-gradient(rgba(11,42,91,0.12) 1px, transparent 1px)',
-          backgroundSize: '26px 26px',
-          maskImage: 'linear-gradient(to bottom, black, transparent 80%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black, transparent 80%)',
-        }}
-      />
+    <section className="relative" style={{ clipPath: 'inset(0)' }}>
+      {/* Fixed backdrop: stays put while the rounded sheet below slides over it */}
+      <div className="pointer-events-none fixed inset-0" aria-hidden="true">
+        <img src="/images/hero-bg.svg" alt="" className="h-full w-full object-cover object-right" />
+        <div className="absolute inset-0 bg-gradient-to-r from-soft-white/95 via-soft-white/75 to-soft-white/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-soft-white/70 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-soft-white/55 lg:hidden" />
+      </div>
 
-      <Container className="relative grid items-center gap-16 pb-24 pt-12 sm:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-28 lg:pt-20">
-        <div className="min-w-0">
-          {offer.active ? (
-            <motion.a
-              href={whatsappLink(offer.message)}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: EASE }}
-              className="inline-flex max-w-full items-center gap-2 rounded-full bg-white py-1.5 pl-1.5 pr-4 text-xs font-medium text-navy-800 shadow-sm ring-1 ring-navy-800/10 transition hover:ring-gold-400 sm:text-[13px]"
-            >
-              <span className="shrink-0 rounded-full bg-gold-500 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">Offer</span>
-              <span className="truncate">{offer.text}</span>
-            </motion.a>
-          ) : (
-            <motion.span initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="pill-gold">
-              Your trusted business partner
-            </motion.span>
-          )}
+      <Leaf className="absolute left-6 top-28 z-10 hidden sm:block lg:left-14" rotate={-15} opacity={0.8} float />
+      <Leaf className="absolute right-8 top-32 z-10 lg:right-[44%]" rotate={22} flip width={40} height={94} color="#6E9094" opacity={0.75} float delay={1.2} />
+      <Leaf className="absolute bottom-36 left-[46%] z-10 hidden md:block" rotate={-35} width={32} height={76} opacity={0.6} float delay={2.4} />
 
-          <h1 className="mt-7 font-display font-extrabold leading-[1.08] tracking-tight text-navy-800" style={{ fontSize: 'clamp(2.4rem,5.4vw,4.5rem)' }}>
-            <span className="sr-only">Your Business. Our Compliance. A Bigger Tomorrow. — {site.name}</span>
-            <span aria-hidden="true" className="block">
-              <MaskedWords text="Your Business." delay={150} />
-            </span>
-            <span aria-hidden="true" className="block">
-              <MaskedWords text="Our Compliance." delay={350} />
-            </span>
-            <span aria-hidden="true" className="relative block w-fit">
-              <MaskedWords text="A Bigger Tomorrow." delay={550} className="text-gold-500" />
-              <svg viewBox="0 0 300 14" className="absolute -bottom-2 left-0 h-3 w-full" fill="none" preserveAspectRatio="none">
-                <motion.path
-                  d="M2 10 C 80 2, 200 2, 298 8"
-                  stroke="#D6A21F"
-                  strokeOpacity="0.5"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 1.2, delay: 1.3, ease: 'easeInOut' }}
-                />
-              </svg>
-            </span>
-          </h1>
-
-          <motion.p
-            className="mt-8 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
-            initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 1, delay: 0.9, ease: EASE }}
-          >
-            Company registration, GST, trademark, MSME and every licence your business needs — handled end-to-end by experts, 100% online,
-            with transparent pricing.
-          </motion.p>
-
+      <Container className="relative z-10 flex min-h-[100svh] items-center pb-36 pt-32 lg:pb-40 lg:pt-36">
+        <div className="grid w-full items-center gap-12 lg:grid-cols-12 lg:gap-8">
           <motion.div
-            className="mt-9 flex flex-col gap-3 sm:flex-row"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 1.1, ease: EASE }}
-          >
-            <WhatsAppButton size="lg" label="Chat on WhatsApp" source="hero" />
-            <CallButton size="lg" label="Talk to an Expert" source="hero" />
-          </motion.div>
-
-          <motion.ul
-            className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-ink/70"
+            className="max-w-2xl lg:col-span-7"
             initial="hidden"
             animate="shown"
-            variants={{ hidden: {}, shown: { transition: { staggerChildren: 0.1, delayChildren: 1.3 } } }}
+            variants={{ hidden: {}, shown: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } } }}
           >
-            {[
-              { icon: ShieldCheck, t: 'Expert-led filings' },
-              { icon: BadgeIndianRupee, t: 'No hidden charges' },
-              { icon: Laptop, t: '100% online' },
-            ].map(({ icon: Icon, t }) => (
-              <motion.li key={t} className="flex items-center gap-2" variants={{ hidden: { opacity: 0, y: 8 }, shown: { opacity: 1, y: 0 } }}>
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gold-50 text-gold-600 ring-1 ring-gold-200">
-                  <Icon className="h-3.5 w-3.5" />
-                </span>
-                {t}
-              </motion.li>
-            ))}
-          </motion.ul>
+            <motion.div variants={fadeUp} className="pill-sage">
+              <Sparkles className="h-3.5 w-3.5 text-sage-500" />
+              Bengaluru • Registration & Compliance
+            </motion.div>
+
+            <motion.h1 variants={fadeUp} className="mt-6 font-display font-semibold leading-[1.02] text-olive-800" style={{ fontSize: 'clamp(3rem,7vw,5.75rem)' }}>
+              Register. Comply.
+              <br />
+              <span className="font-normal italic text-sage-600">Grow with ease.</span>
+            </motion.h1>
+
+            <motion.p variants={fadeUp} className="mt-6 max-w-lg text-base leading-relaxed text-muted sm:text-lg">
+              Company registration, GST, MSME, trademark &amp; compliance — handled end-to-end by experts, 100% online, with transparent
+              pricing and updates on WhatsApp.
+            </motion.p>
+
+            <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+              <WhatsAppButton size="lg" label="Chat on WhatsApp" source="hero" />
+              <Link
+                to="/services"
+                className="inline-flex items-center justify-center gap-2.5 rounded-full border border-olive-800/25 bg-cream/60 px-7 py-3.5 text-[15px] font-semibold tracking-wide text-olive-800 backdrop-blur-sm transition-all duration-300 hover:bg-olive-800 hover:text-soft-white"
+              >
+                Explore Services <ArrowRight className="h-4 w-4" />
+              </Link>
+            </motion.div>
+
+            {offer.active && (
+              <motion.a
+                variants={fadeUp}
+                href={whatsappLink(offer.message)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group mt-8 inline-flex max-w-full items-start gap-2.5 text-xs text-olive-800/70 transition-colors hover:text-sage-600 sm:text-[13px]"
+              >
+                <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-sage-500 transition-transform group-hover:scale-110" />
+                <span className="group-hover:underline">{offer.text}</span>
+              </motion.a>
+            )}
+          </motion.div>
+
+          {/* Glass welcome card */}
+          <motion.div
+            className="lg:col-span-5"
+            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 0.75, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <div className="relative overflow-hidden rounded-3xl border border-white/70 bg-cream/85 p-6 shadow-[0_20px_50px_rgba(53,63,34,0.14)] backdrop-blur-md sm:p-9">
+              <Leaf className="absolute -bottom-12 -right-6" width={90} height={200} rotate={20} flip color="#83915F" opacity={0.18} />
+              <div className="relative">
+                <div className="flex items-center justify-between border-b border-mist-300 pb-4">
+                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-sage-600">Welcome to Regpro</span>
+                  <span className="flex items-center gap-1.5 text-xs font-medium text-olive-800/70">
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-sage-500" />
+                    Mon – Sat
+                  </span>
+                </div>
+                <p className="mt-6 font-display text-2xl italic leading-snug text-olive-800 sm:text-[1.9rem]">
+                  &ldquo;Paperwork handled with care — so you can focus on building your business.&rdquo;
+                </p>
+                <div className="mt-6 space-y-1 text-xs">
+                  {heroRows.map(([k, v]) => (
+                    <div key={k} className="flex flex-col gap-0.5 border-t border-mist-300/80 py-2.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                      <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wider text-olive-800">{k}</span>
+                      <span className="text-olive-800/75 sm:text-right">{v}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
+      </Container>
 
-        {/* Visual */}
-        <div className="relative mx-auto w-full max-w-[500px] lg:mr-0">
-          <motion.div
-            className="relative aspect-[4/5] overflow-hidden rounded-[2.25rem] shadow-[0_40px_80px_-30px_rgba(11,42,91,0.45)]"
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.4, delay: 0.2, ease: EASE }}
-          >
-            <motion.img src="/images/tower.jpg" alt="Modern glass office tower" className="absolute inset-x-0 -top-[5%] h-[115%] w-full object-cover" style={{ y: imgY }} />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy-950/45 via-transparent to-transparent" />
-          </motion.div>
+      <motion.div
+        className="pointer-events-none absolute bottom-20 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-olive-800/50 sm:flex"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.6, duration: 0.8 }}
+      >
+        <span className="text-[10px] font-medium uppercase tracking-[0.25em]">Scroll to explore</span>
+        <ChevronDown className="h-4 w-4 animate-bounce text-sage-500" />
+      </motion.div>
+    </section>
+  );
+}
 
-          <motion.div
-            style={{ y: cardY }}
-            className="absolute -left-3 bottom-8 w-[220px] rounded-2xl bg-white p-5 shadow-[0_30px_60px_-20px_rgba(11,42,91,0.35)] ring-1 ring-navy-800/5 sm:-left-12 sm:w-[250px]"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 1, ease: EASE }}
-          >
-            <p className="font-display text-sm font-bold text-navy-800">We handle it all</p>
-            <ul className="mt-3 space-y-2.5">
-              {heroChecklist.map((t, i) => (
-                <motion.li
-                  key={t}
-                  className="flex items-center gap-2.5 text-[13px] text-ink/75"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1.3 + i * 0.12, duration: 0.6, ease: EASE }}
-                >
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-gold-500" />
-                  {t}
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+// ───────────────────────── Feature strip ─────────────────────────
 
-          <motion.div
-            className="absolute -right-3 top-8 rounded-2xl bg-navy-800 px-5 py-4 text-white shadow-2xl shadow-navy-900/30 sm:-right-6"
-            initial={{ opacity: 0, y: -20, rotate: 6 }}
-            animate={{ opacity: 1, y: 0, rotate: 0 }}
-            transition={{ duration: 1, delay: 1.2, ease: EASE }}
-          >
-            <p className="font-display text-3xl font-extrabold text-gold-400">{services.length}+</p>
-            <p className="text-xs text-white/70">services under one roof</p>
-          </motion.div>
+const features = [
+  { icon: UserCheck, label: 'Expert-led Filings' },
+  { icon: BadgeIndianRupee, label: 'Transparent Pricing' },
+  { icon: Laptop, label: '100% Online Process' },
+];
 
-          <Scribble text={'From Registration\nto Growth'} arrow="down-right" className="absolute -top-20 left-2 hidden lg:block" />
-        </div>
+function FeatureStrip() {
+  return (
+    <section className="border-b border-mist-300/70">
+      <Container>
+        <motion.div className="grid divide-y divide-mist-300/70 sm:grid-cols-3 sm:divide-x sm:divide-y-0" variants={stagger} {...inView}>
+          {features.map((f) => (
+            <motion.div key={f.label} variants={fadeUp} className="flex items-center justify-center gap-3 py-6 sm:py-8">
+              <f.icon className="h-5 w-5 text-sage-600" strokeWidth={1.5} />
+              <span className="text-sm font-medium tracking-wide text-olive-800/75">{f.label}</span>
+            </motion.div>
+          ))}
+        </motion.div>
       </Container>
     </section>
   );
 }
 
-// ───────────────────────── Trust strip — industries we serve ─────────────────────────
+// ───────────────────────── Most-loved services ─────────────────────────
 
-const industries = [
-  { icon: Rocket, label: 'Startups' },
-  { icon: ShoppingBag, label: 'E-commerce' },
-  { icon: Utensils, label: 'Food & Restaurants' },
-  { icon: Factory, label: 'Manufacturing' },
-  { icon: Truck, label: 'Import / Export' },
-  { icon: HeartPulse, label: 'Healthcare' },
-  { icon: GraduationCap, label: 'Education' },
-  { icon: Building2, label: 'Real Estate' },
-  { icon: Store, label: 'Retail Shops' },
-  { icon: Briefcase, label: 'Consultants' },
-];
+const tints = ['from-sage-100 to-cream', 'from-olive-100 to-cream', 'from-sage-50 to-mist-200', 'from-mist-200 to-sage-100'];
 
-function TrustStrip() {
+function Favorites() {
+  const picks = popularServices.slice(0, 4);
   return (
-    <section className="border-y border-navy-800/5 bg-white py-10">
+    <section className="py-24 lg:py-32">
       <Container>
-        <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-subtle">Helping founders across every industry</p>
-      </Container>
-      <div className="marquee-mask mt-7 overflow-hidden">
-        <div className="flex w-max animate-marquee-slow">
-          {[...industries, ...industries].map(({ icon: Icon, label }, i) => (
-            <span key={i} className="mx-3 flex items-center gap-2.5 rounded-full border border-navy-800/10 bg-cream px-5 py-2.5 text-sm font-semibold text-navy-800/80">
-              <Icon className="h-4 w-4 text-gold-600" />
-              {label}
-            </span>
-          ))}
+        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <Leaf className="absolute -left-8 -top-8 hidden md:block" width={38} height={90} rotate={-30} opacity={0.4} float />
+          <SectionHeading eyebrow="Most-loved services" title="Registered with Confidence" highlight={['Confidence']} />
+          <Reveal delay={150} className="lg:max-w-xs">
+            <p className="text-sm leading-relaxed text-muted">The registrations our clients ask for most. Tap any card for documents, process and pricing.</p>
+            <Link
+              to="/services"
+              className="mt-4 inline-flex items-center gap-2 rounded-full bg-olive-800 px-6 py-3 text-sm font-semibold tracking-wide text-soft-white shadow-sm transition-colors duration-300 hover:bg-olive-950"
+            >
+              View All Services <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </Reveal>
         </div>
-      </div>
+
+        <motion.div className="mt-16 grid gap-7 sm:grid-cols-2 lg:grid-cols-4" variants={stagger} {...inView}>
+          {picks.map((s, i) => (
+            <motion.div key={s.slug} variants={rise} whileHover={lift}>
+              <Link
+                to={`/services/${s.slug}`}
+                className="group block h-full rounded-3xl border border-mist-300/80 bg-cream/50 p-4 shadow-sm transition-[background-color,box-shadow,border-color] duration-300 hover:border-sage-300 hover:bg-cream hover:shadow-xl hover:shadow-olive-900/10"
+              >
+                <div className={`relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br ${tints[i % tints.length]}`}>
+                  <Leaf className="absolute -bottom-10 -right-2" width={70} height={160} rotate={24} flip color="#83915F" opacity={0.25} />
+                  <Leaf className="absolute -left-3 -top-8" width={44} height={104} rotate={-150} color="#6E9094" opacity={0.2} />
+                  <span className="flex h-20 w-20 items-center justify-center rounded-full bg-soft-white/90 text-olive-800 shadow-lg shadow-olive-900/10 transition-transform duration-700 ease-out group-hover:scale-110">
+                    <ServiceIcon name={s.icon} className="h-8 w-8" />
+                  </span>
+                  <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-olive-800/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-soft-white backdrop-blur-md">
+                    <Star className="h-2.5 w-2.5 fill-sage-200 text-sage-200" /> Top pick
+                  </span>
+                  <span className="absolute bottom-3 right-3 inline-flex items-center gap-1 rounded-full bg-soft-white/95 px-2.5 py-0.5 text-xs font-semibold text-olive-800 shadow">
+                    <Clock3 className="h-3 w-3 text-sage-600" /> {s.timeline}
+                  </span>
+                </div>
+                <div className="px-1 pb-1 pt-4">
+                  <span className="mb-1 block text-[11px] font-medium uppercase tracking-wider text-sage-600">
+                    {categories.find((c) => c.id === s.category)?.short}
+                  </span>
+                  <div className="flex items-baseline justify-between gap-2">
+                    <h3 className="font-display text-2xl font-semibold leading-tight text-olive-800 transition-colors duration-300 group-hover:text-sage-700">{s.shortName}</h3>
+                    <span className="shrink-0 rounded-lg bg-sage-500/10 px-2 py-0.5 font-display text-xl font-semibold text-sage-700">{formatPrice(s.price)}*</span>
+                  </div>
+                  <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted">{s.summary}</p>
+                  <div className="mt-4 flex items-center justify-between border-t border-mist-300/70 pt-3 text-xs font-medium text-sage-700">
+                    <span className="group-hover:underline">View details</span>
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-sage-100 transition-colors group-hover:bg-olive-800 group-hover:text-soft-white">
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </motion.div>
+      </Container>
     </section>
   );
 }
 
 // ───────────────────────── Categories ─────────────────────────
 
-const categoryStyle: Record<CategoryId, { icon: typeof Rocket; tint: string; iconBg: string }> = {
-  business: { icon: Briefcase, tint: 'from-navy-50 to-white', iconBg: 'bg-navy-800 text-gold-400' },
-  government: { icon: FileCheck2, tint: 'from-gold-50 to-white', iconBg: 'bg-gold-500 text-white' },
-  other: { icon: ShieldCheck, tint: 'from-emerald-50 to-white', iconBg: 'bg-emerald-600 text-white' },
-};
+const categoryIcons: Record<CategoryId, typeof Rocket> = { business: Briefcase, government: FileCheck2, other: ShieldCheck };
 
 function Categories() {
   return (
-    <section className="relative bg-white py-20 sm:py-28">
+    <section className="sky relative overflow-hidden py-24 lg:py-32">
+      <Leaf className="absolute right-[8%] top-16 hidden lg:block" rotate={30} flip color="#6E9094" opacity={0.35} float />
       <Container>
-        <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
-          <SectionHeading
-            eyebrow="What we do"
-            title="Everything You Need to Start & Grow"
-            highlight={['Start', 'Grow']}
-            text="Registrations, licences and compliance — one partner, one point of contact, zero running around."
-          />
-          <Reveal delay={200}>
-            <Link
-              to="/services"
-              className="group inline-flex items-center gap-2 rounded-full border border-navy-800/15 bg-white px-6 py-3 text-sm font-semibold text-navy-800 shadow-sm transition hover:border-navy-800 hover:bg-navy-800 hover:text-white"
-            >
-              View All Services <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Reveal>
-        </div>
-
-        <motion.div className="mt-14 grid gap-6 md:grid-cols-3" variants={stagger} {...inView}>
+        <SectionHeading
+          center
+          eyebrow="What we do"
+          title="Everything You Need, in One Place"
+          highlight={['One', 'Place']}
+          text="Registrations, licences and compliance — one partner, one point of contact, zero running around."
+        />
+        <motion.div className="mt-16 grid gap-6 md:grid-cols-3" variants={stagger} {...inView}>
           {categories.map((cat) => {
-            const st = categoryStyle[cat.id];
+            const Icon = categoryIcons[cat.id];
             const list = servicesByCategory(cat.id);
             return (
-              <motion.div key={cat.id} variants={cardIn} whileHover={{ y: -8, transition: spring }} className="glass flex h-full flex-col overflow-hidden">
-                <div className={`bg-gradient-to-b ${st.tint} px-7 pb-6 pt-7`}>
-                  <span className={`flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg ${st.iconBg}`}>
-                    <st.icon className="h-5 w-5" />
-                  </span>
-                  <h3 className="mt-5 font-display text-xl font-bold text-navy-800">{cat.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{cat.description}</p>
-                </div>
-                <ul className="space-y-1 px-4 pb-4">
+              <motion.div key={cat.id} variants={rise} whileHover={lift} className="glass flex h-full flex-col p-8">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full border border-mist-300 bg-cream">
+                  <Icon className="h-6 w-6 text-sage-600" strokeWidth={1.5} />
+                </span>
+                <h3 className="mt-6 font-display text-[1.7rem] font-semibold leading-tight text-olive-800">{cat.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{cat.description}</p>
+                <ul className="mt-6 flex-1 space-y-1 border-t border-mist-300/70 pt-4">
                   {list.slice(0, 5).map((s) => (
                     <li key={s.slug}>
                       <Link
                         to={`/services/${s.slug}`}
-                        className="group flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-sm text-ink/80 transition-colors hover:bg-cream hover:text-navy-800"
+                        className="group flex items-center justify-between gap-3 rounded-xl px-2 py-2 text-sm text-olive-800/80 transition-colors hover:bg-sage-50 hover:text-olive-800"
                       >
                         <span className="flex items-center gap-2.5">
-                          <CheckCircle2 className="h-4 w-4 shrink-0 text-gold-500" />
+                          <CheckCircle2 className="h-4 w-4 shrink-0 text-sage-500" />
                           {s.shortName}
                         </span>
-                        <span className="shrink-0 text-xs font-semibold text-navy-800/60 group-hover:text-gold-700">{formatPrice(s.price)}*</span>
+                        <span className="shrink-0 text-xs font-semibold text-sage-700">{formatPrice(s.price)}*</span>
                       </Link>
                     </li>
                   ))}
                 </ul>
-                {list.length <= 2 && (
-                  <div className="mx-4 mb-4 mt-auto rounded-2xl bg-cream p-5">
-                    <p className="font-display text-sm font-bold text-navy-800">Need something else?</p>
-                    <p className="mt-1 text-sm text-muted">We handle many more documentation and compliance services.</p>
-                    <a
-                      href={whatsappLink('Hi Regpro, I need help with a service not listed on the website.')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-700 hover:text-navy-800"
-                    >
-                      Ask an expert <ArrowRight className="h-4 w-4" />
-                    </a>
-                  </div>
-                )}
-                {list.length > 5 && (
-                  <Link to="/services" className="mt-auto border-t border-navy-800/5 px-7 py-4 text-sm font-semibold text-navy-800 hover:text-gold-700">
+                {list.length > 5 ? (
+                  <Link to="/services" className="mt-3 px-2 text-sm font-semibold text-olive-800 hover:text-sage-600">
                     +{list.length - 5} more services →
                   </Link>
-                )}
+                ) : list.length <= 2 ? (
+                  <a
+                    href={whatsappLink('Hi Regpro, I need help with a service not listed on the website.')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 rounded-2xl bg-cream p-4 text-sm text-muted transition-colors hover:bg-sage-50"
+                  >
+                    <span className="block font-display text-lg font-semibold text-olive-800">Need something else?</span>
+                    We handle many more documentation services. <span className="font-semibold text-sage-700">Ask an expert →</span>
+                  </a>
+                ) : null}
               </motion.div>
             );
           })}
@@ -338,140 +330,152 @@ function Categories() {
   );
 }
 
-// ───────────────────────── Why choose ─────────────────────────
+// ───────────────────────── About ─────────────────────────
 
-const reasons = [
-  { icon: UserCheck, title: 'Expert-led, not DIY', text: 'Every application is prepared and reviewed by professionals who do this every day.' },
-  { icon: BadgeIndianRupee, title: 'Transparent pricing', text: 'Clear professional fees upfront. Government fees shown separately — no surprises.' },
-  { icon: Laptop, title: '100% online', text: 'Share documents on WhatsApp or email. No office visits, no queues.' },
-  { icon: MessageCircle, title: 'Updates on WhatsApp', text: 'Know exactly where your application stands, at every step.' },
-  { icon: Clock3, title: 'Fast turnaround', text: 'We file quickly and follow up with departments so you don’t have to.' },
-  { icon: ShieldCheck, title: 'Data privacy', text: 'Your documents are used only for your application — never shared.' },
+const benefits = [
+  { icon: UserCheck, label: 'Expert-assisted filing' },
+  { icon: MessageCircle, label: 'Updates on WhatsApp' },
+  { icon: ShieldCheck, label: 'Your data stays private' },
 ];
 
-function TrackerMock() {
-  const steps = ['Documents received', 'Expert review complete', 'Application filed — ARN generated', 'GSTIN approved'];
+function AboutBlock() {
   return (
-    <div className="glass relative p-7 sm:p-9">
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-navy-800 text-gold-400">
-            <ServiceIcon name="ReceiptIndianRupee" className="h-5 w-5" />
-          </span>
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-subtle">Application tracker</p>
-            <p className="mt-0.5 font-display font-bold text-navy-800">GST Registration</p>
+    <section className="py-24 lg:py-32">
+      <Container className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+        <motion.div
+          className="relative"
+          initial={{ opacity: 0, y: 50, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: '0px 0px -20% 0px' }}
+          transition={{ duration: 1.2, ease: EASE }}
+        >
+          <Leaf className="absolute -left-5 -top-7 z-10" rotate={-25} color="#65733F" opacity={0.85} float />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl shadow-olive-900/10">
+            <img src="/images/tower.jpg" alt="" className="h-full w-full object-cover" loading="lazy" />
           </div>
-        </div>
-        <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">On track</span>
-      </div>
-      <div className="mt-7 h-1.5 overflow-hidden rounded-full bg-navy-800/10">
-        <div className="tracker-fill h-full rounded-full bg-gradient-to-r from-navy-800 via-navy-600 to-gold-500" />
-      </div>
-      <ol className="mt-7 space-y-4">
-        {steps.map((s, i) => (
-          <li key={s} className="tracker-step flex items-center gap-3" style={{ animationDelay: `${0.4 + i * 0.45}s` }}>
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-              <CheckCircle2 className="h-4 w-4" />
-            </span>
-            <span className="text-sm text-ink/75">{s}</span>
-          </li>
-        ))}
-      </ol>
-      <div className="mt-7 flex items-center gap-3 rounded-2xl bg-[#25D366]/10 p-4">
-        <MessageCircle className="h-5 w-5 shrink-0 text-[#1a9e4b]" />
-        <p className="text-sm text-ink/70">“Good news! Your GST registration is approved. Certificate shared below.”</p>
-      </div>
-    </div>
-  );
-}
+          <motion.div
+            className="absolute -bottom-6 -right-3 rounded-2xl border border-mist-300/60 bg-soft-white p-5 shadow-xl shadow-olive-900/10 lg:-right-8"
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+          >
+            <p className="font-display text-xl italic leading-snug text-olive-800">
+              Register. Comply.
+              <br />
+              Grow. ♥
+            </p>
+          </motion.div>
+        </motion.div>
 
-function WhyChoose() {
-  return (
-    <section className="sky relative overflow-hidden py-20 sm:py-28">
-      <Container className="grid items-center gap-16 lg:grid-cols-2">
-        <div>
-          <SectionHeading
-            eyebrow="Why choose Regpro"
-            title="Paperwork handled by experts. Progress you can see."
-            highlight={['experts']}
-            text="Professional expertise with a simple, digital experience — so registrations feel effortless."
-          />
-          <motion.div className="mt-12 grid gap-4 sm:grid-cols-2" variants={stagger} {...inView}>
-            {reasons.map((r) => (
+        <motion.div className="relative" variants={stagger} {...inView}>
+          <Leaf className="absolute -top-10 right-0 hidden sm:block" rotate={35} flip color="#88A7AA" opacity={0.45} float delay={1} />
+          <motion.p variants={fadeUp} className={eyebrow}>
+            About Regpro
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="heading-cine mt-3" style={{ fontSize: 'clamp(2.4rem,4.2vw,3.6rem)' }}>
+            A Partner That
+            <br />
+            <span className="font-normal italic text-sage-600">Has Your Back</span>
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mt-6 max-w-lg text-base leading-relaxed text-muted">
+            {site.name} helps startups, entrepreneurs, professionals and small businesses with registrations, government documentation and
+            compliance. We tell you exactly what you need, prepare and file your applications, and keep you updated on WhatsApp until you
+            receive your certificate.
+          </motion.p>
+          <motion.div variants={fadeUp} className="mt-8">
+            <Link
+              to="/about"
+              className="inline-flex items-center gap-2 rounded-full bg-olive-800 px-6 py-3 text-sm font-semibold tracking-wide text-soft-white transition-colors duration-300 hover:bg-olive-950"
+            >
+              Our Story <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </motion.div>
+          <motion.div variants={stagger} className="mt-10 grid grid-cols-3 gap-3 sm:gap-4">
+            {benefits.map((b) => (
               <motion.div
-                key={r.title}
-                variants={cardIn}
-                whileHover={{ y: -4 }}
-                className="group flex gap-4 rounded-2xl border border-transparent bg-white/70 p-4 transition-colors hover:border-gold-200 hover:bg-white"
+                key={b.label}
+                variants={rise}
+                className="flex flex-col items-center rounded-2xl border border-mist-300/80 bg-cream/50 p-3 text-center sm:p-4 backdrop-blur-sm transition-all duration-300 hover:border-sage-300 hover:bg-soft-white"
               >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold-50 text-gold-600 ring-1 ring-gold-200 transition-colors duration-300 group-hover:bg-gold-500 group-hover:text-white">
-                  <r.icon className="h-5 w-5" />
+                <span className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-sage-50">
+                  <b.icon className="h-5 w-5 text-sage-600" strokeWidth={1.5} />
                 </span>
-                <div>
-                  <h3 className="font-display text-[15px] font-bold text-navy-800">{r.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted">{r.text}</p>
-                </div>
+                <span className="text-xs font-medium text-olive-800/75">{b.label}</span>
               </motion.div>
             ))}
           </motion.div>
-        </div>
-        <Reveal delay={150} className="relative">
-          <Scribble text="Track every step" arrow="down-right" className="absolute -top-20 left-6 hidden sm:block" />
-          <TrackerMock />
-        </Reveal>
+        </motion.div>
       </Container>
     </section>
   );
 }
 
-// ───────────────────────── Sticky-background CTA band ─────────────────────────
+// ───────────────────────── Why choose — deep olive ─────────────────────────
 
-const ctaFeatures = [
-  { icon: Search, t: 'Right structure advice' },
-  { icon: FileSignature, t: 'Documents prepared for you' },
-  { icon: Clock3, t: 'Quick, tracked filing' },
-  { icon: Headphones, t: 'Support after approval' },
+const reasons = [
+  { title: 'Expert-led, not DIY', text: 'Every application is prepared and reviewed by professionals who do this every day.' },
+  { title: 'Transparent pricing', text: 'Clear professional fees upfront. Government fees shown separately — no surprises.' },
+  { title: '100% online', text: 'Share documents on WhatsApp or email. No office visits, no queues.' },
+  { title: 'Updates on WhatsApp', text: 'Know exactly where your application stands, at every step.' },
+  { title: 'Fast turnaround', text: 'We file quickly and follow up with departments so you don’t have to.' },
+  { title: 'Data privacy', text: 'Your documents are used only for your application — never shared.' },
 ];
 
-function IdeaToReality() {
+function WhyChoose() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const g1 = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const g2 = useTransform(scrollYProgress, [0, 1], [-40, 40]);
   return (
-    <section id="enquiry" className="scroll-mt-20">
-      <StickyBg image="/images/city-dusk.jpg" overlay="bg-gradient-to-r from-navy-950/90 via-navy-950/75 to-navy-950/45">
-        <Container className="grid items-center gap-14 py-24 sm:py-32 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="text-white">
-            <span className="inline-flex rounded-full bg-white/10 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-gold-300 ring-1 ring-white/15">
-              Get started today
-            </span>
-            <h2 className="heading-cine mt-5 !text-white" style={{ fontSize: 'clamp(2.1rem,4.4vw,3.6rem)' }}>
-              <MaskedWords text="Turn Your Business Idea Into Reality" highlight={['Reality']} />
-            </h2>
-            <motion.p
-              className="mt-5 max-w-lg text-base leading-relaxed text-white/70 sm:text-lg"
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
-            >
-              Share a few details and an expert will reach out with the right plan and a clear, fixed quote.
-            </motion.p>
-            <motion.ul className="mt-10 grid max-w-lg gap-4 sm:grid-cols-2" variants={stagger} {...inView}>
-              {ctaFeatures.map(({ icon: Icon, t }) => (
-                <motion.li key={t} variants={cardIn} className="flex items-center gap-3 rounded-2xl bg-white/[0.07] p-3.5 ring-1 ring-white/10 backdrop-blur-sm">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold-500 text-navy-950">
-                    <Icon className="h-[18px] w-[18px]" />
-                  </span>
-                  <span className="text-sm font-medium text-white/90">{t}</span>
-                </motion.li>
-              ))}
-            </motion.ul>
-            <Scribble text="Let's Build Something Great" arrow="right" light className="mt-10 hidden lg:block" />
-          </div>
-          <Reveal delay={150}>
-            <LeadForm solid className="!bg-white" />
-          </Reveal>
-        </Container>
-      </StickyBg>
+    <section ref={ref} className="relative overflow-hidden bg-olive-900 py-28 lg:py-40">
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <motion.div style={{ y: g1 }} className="absolute left-[18%] top-10 h-72 w-72 rounded-full bg-sage-500/20 blur-3xl" />
+        <motion.div style={{ y: g2 }} className="absolute bottom-10 right-[12%] h-56 w-56 rounded-full bg-olive-300/15 blur-3xl" />
+      </div>
+      <Leaf className="absolute bottom-10 left-8 hidden lg:block" rotate={-20} color="#88A7AA" vein="#283019" opacity={0.3} float />
+      <Container className="relative grid items-center gap-16 lg:grid-cols-2">
+        <motion.div variants={stagger} {...inView}>
+          <motion.p variants={fadeUp} className="text-xs font-medium uppercase tracking-[0.3em] text-sage-300/80">
+            Why Regpro
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="mt-6 font-display font-semibold leading-[1.08] text-soft-white" style={{ fontSize: 'clamp(2.8rem,5.5vw,4.6rem)' }}>
+            Expert Help.
+            <br />
+            Clear Pricing.
+            <br />
+            Zero Stress.
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mt-8 font-display text-2xl italic text-soft-white/45">
+            It&apos;s more than paperwork.
+            <br />
+            It&apos;s peace of mind. ♥
+          </motion.p>
+        </motion.div>
+
+        <motion.div variants={stagger} {...inView}>
+          <motion.div variants={fadeUp} className="mb-8 border-l-2 border-sage-400/40 pl-8">
+            <p className="font-display text-2xl leading-relaxed text-soft-white/85">&ldquo;Paperwork handled by experts. Progress you can see.&rdquo;</p>
+            <div className="mt-4 flex items-center gap-3">
+              <span className="h-px w-8 bg-sage-400/50" />
+              <span className="text-sm font-medium tracking-wide text-sage-300/90">The Regpro promise</span>
+            </div>
+          </motion.div>
+          <motion.div variants={stagger} className="grid gap-4 sm:grid-cols-2">
+            {reasons.map((r) => (
+              <motion.div
+                key={r.title}
+                variants={rise}
+                whileHover={{ y: -4 }}
+                className="rounded-2xl border border-soft-white/10 bg-soft-white/5 p-5 backdrop-blur-sm transition-colors hover:bg-soft-white/10"
+              >
+                <span className="mb-1 block text-xs font-medium uppercase tracking-wider text-sage-300/90">{r.title}</span>
+                <p className="text-sm text-soft-white/65">{r.text}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </Container>
     </section>
   );
 }
@@ -479,33 +483,25 @@ function IdeaToReality() {
 // ───────────────────────── Process ─────────────────────────
 
 const steps = [
-  { icon: MessageCircle, title: 'Share your requirement', text: 'Message us on WhatsApp, call, or fill the enquiry form.', tint: 'bg-navy-50 text-navy-800' },
-  { icon: Lightbulb, title: 'Get advice & a quote', text: 'We confirm what you need, the documents and a fixed price.', tint: 'bg-gold-50 text-gold-700' },
-  { icon: FileCheck2, title: 'We prepare & file', text: 'Our experts prepare, review and file your application.', tint: 'bg-emerald-50 text-emerald-700' },
-  { icon: Rocket, title: 'Receive your certificate', text: 'Track progress on WhatsApp and receive your documents.', tint: 'bg-sky-50 text-sky-700' },
+  { icon: MessageCircle, title: 'Share your requirement', text: 'Message us on WhatsApp, call, or fill the enquiry form.' },
+  { icon: Lightbulb, title: 'Get advice & a quote', text: 'We confirm what you need, the documents and a fixed price.' },
+  { icon: FileCheck2, title: 'We prepare & file', text: 'Our experts prepare, review and file your application.' },
+  { icon: Rocket, title: 'Receive your certificate', text: 'Track progress on WhatsApp and receive your documents.' },
 ];
 
 function Process() {
   return (
-    <section className="relative bg-white py-20 sm:py-28">
+    <section className="py-24 lg:py-32">
       <Container>
-        <SectionHeading
-          center
-          eyebrow="How it works"
-          title="Simple 4 Step Process"
-          highlight={['4', 'Step']}
-          text="A clear, guided process — from first message to final certificate."
-        />
+        <SectionHeading center eyebrow="How it works" title="Four Simple Steps" highlight={['Simple', 'Steps']} text="A clear, guided process — from first message to final certificate." />
         <motion.div className="relative mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" variants={stagger} {...inView}>
           {steps.map((s, i) => (
-            <motion.div key={s.title} variants={cardIn} whileHover={{ y: -6, transition: spring }} className="glass relative p-7 text-center">
-              <span className={`relative mx-auto flex h-20 w-20 items-center justify-center rounded-3xl ${s.tint}`}>
-                <s.icon className="h-8 w-8" strokeWidth={1.6} />
-                <span className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full bg-navy-800 font-display text-xs font-bold text-gold-400 ring-4 ring-white">
-                  {i + 1}
-                </span>
+            <motion.div key={s.title} variants={rise} whileHover={lift} className="glass relative p-8 text-center">
+              <span className="absolute right-6 top-5 font-display text-5xl italic text-sage-200">0{i + 1}</span>
+              <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-mist-300 bg-cream">
+                <s.icon className="h-7 w-7 text-sage-600" strokeWidth={1.5} />
               </span>
-              <h3 className="mt-6 font-display text-lg font-bold text-navy-800">{s.title}</h3>
+              <h3 className="mt-6 font-display text-2xl font-semibold text-olive-800">{s.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
             </motion.div>
           ))}
@@ -519,103 +515,62 @@ function Process() {
   );
 }
 
-// ───────────────────────── Stats ─────────────────────────
-
-function CountUp({ to, prefix = '', suffix = '' }: { to: number; prefix?: string; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const seen = useInView(ref, { once: true });
-  const [n, setN] = useState(to);
-  useEffect(() => {
-    if (!seen) return;
-    const c = animate(0, to, { duration: 1.8, ease: EASE, onUpdate: (v) => setN(Math.round(v)) });
-    return () => c.stop();
-  }, [seen, to]);
-  return (
-    <span ref={ref}>
-      {prefix}
-      {n.toLocaleString('en-IN')}
-      {suffix}
-    </span>
-  );
-}
-
-function Stats() {
-  const minPrice = Math.min(...services.map((s) => s.price));
-  const stats = [
-    { value: <CountUp to={services.length} suffix="+" />, label: 'Registration & compliance services' },
-    { value: <CountUp to={minPrice} prefix="₹" />, label: 'Starting professional fee' },
-    { value: <CountUp to={100} suffix="%" />, label: 'Online — no office visits' },
-    { value: <CountUp to={6} suffix=" days" />, label: 'A week of expert support' },
-  ];
-  return (
-    <section className="bg-white pb-20 sm:pb-28">
-      <Container>
-        <motion.div className="dusk grid grid-cols-2 overflow-hidden rounded-[2rem] lg:grid-cols-4" variants={stagger} {...inView}>
-          {stats.map((s, i) => (
-            <motion.div key={i} variants={cardIn} className="relative px-4 py-8 text-center sm:px-8 sm:py-10">
-              {i > 0 && <span className="absolute left-0 top-1/2 hidden h-16 w-px -translate-y-1/2 bg-white/15 lg:block" />}
-              <p className="font-display text-3xl font-extrabold text-gold-400 sm:text-5xl">{s.value}</p>
-              <p className="mt-2 text-sm text-white/70">{s.label}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </Container>
-    </section>
-  );
-}
-
 // ───────────────────────── Pricing ─────────────────────────
 
 function PricingHighlights() {
   const featured = popularServices.slice(0, 3);
   return (
-    <section className="sky relative py-20 sm:py-28">
+    <section className="sky relative overflow-hidden py-24 lg:py-32">
+      <Leaf className="absolute left-[6%] top-24 hidden lg:block" rotate={-25} opacity={0.35} float />
       <Container>
         <SectionHeading
           center
           eyebrow="Transparent pricing"
-          title="Transparent Pricing, No Hidden Charges"
-          highlight={['No', 'Hidden', 'Charges']}
+          title="Honest Prices, No Surprises"
+          highlight={['No', 'Surprises']}
           text="Know what you pay before you start. Government fees, where applicable, are shown separately."
         />
-        <motion.div className="mt-16 grid gap-6 lg:grid-cols-3 lg:items-center" variants={stagger} {...inView}>
+        <motion.div className="mt-16 grid gap-7 lg:grid-cols-3 lg:items-center" variants={stagger} {...inView}>
           {featured.map((s, i) => {
             const hl = i === 1;
             return (
               <motion.div
                 key={s.slug}
-                variants={cardIn}
-                whileHover={{ y: -8, transition: spring }}
-                className={`relative flex h-full flex-col overflow-hidden p-8 ${hl ? 'dusk rounded-[2rem] text-white shadow-2xl shadow-navy-900/30 lg:py-12' : 'glass'}`}
+                variants={rise}
+                whileHover={lift}
+                className={`relative flex h-full flex-col overflow-hidden rounded-3xl p-8 ${hl ? 'bg-olive-800 text-soft-white shadow-2xl shadow-olive-900/25 lg:py-12' : 'glass'}`}
               >
                 {hl && (
-                  <span className="absolute right-6 top-6 rounded-full bg-gold-500 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-navy-950">
-                    Most popular
-                  </span>
+                  <>
+                    <Leaf className="absolute -bottom-10 -right-6" width={90} height={200} rotate={20} color="#FBFBF8" vein="#353F22" opacity={0.12} />
+                    <span className="absolute right-6 top-6 rounded-full bg-sage-200 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-olive-900">
+                      Most popular
+                    </span>
+                  </>
                 )}
-                <span className={`flex h-12 w-12 items-center justify-center rounded-2xl ${hl ? 'bg-white/10 text-gold-400' : 'bg-navy-50 text-navy-800'}`}>
+                <span className={`flex h-12 w-12 items-center justify-center rounded-full ${hl ? 'bg-soft-white/10 text-sage-200' : 'border border-mist-300 bg-cream text-sage-600'}`}>
                   <ServiceIcon name={s.icon} className="h-5 w-5" />
                 </span>
-                <h3 className={`mt-6 font-display text-lg font-bold ${hl ? 'text-white' : 'text-navy-800'}`}>{s.name}</h3>
-                <p className={`mt-1 text-sm ${hl ? 'text-white/55' : 'text-subtle'}`}>{s.timeline}</p>
-                <div className="mt-7">
-                  <p className={`text-xs font-semibold uppercase tracking-wider ${hl ? 'text-white/50' : 'text-subtle'}`}>Starting at</p>
-                  <p className={`mt-1 font-display text-5xl font-extrabold ${hl ? 'text-white' : 'text-navy-800'}`}>
+                <h3 className={`mt-6 font-display text-2xl font-semibold ${hl ? 'text-soft-white' : 'text-olive-800'}`}>{s.name}</h3>
+                <p className={`mt-1 text-sm ${hl ? 'text-soft-white/55' : 'text-subtle'}`}>{s.timeline}</p>
+                <div className="mt-6">
+                  <p className={`text-xs font-semibold uppercase tracking-wider ${hl ? 'text-soft-white/50' : 'text-subtle'}`}>Starting at</p>
+                  <p className={`mt-1 font-display text-5xl font-semibold ${hl ? 'text-soft-white' : 'text-olive-800'}`}>
                     {formatPrice(s.price)}
-                    <span className={`align-super text-base ${hl ? 'text-gold-400' : 'text-gold-600'}`}>*</span>
+                    <span className={`align-super text-base ${hl ? 'text-sage-200' : 'text-sage-600'}`}>*</span>
                   </p>
                 </div>
-                <ul className="mt-7 flex-1 space-y-3">
+                <ul className="mt-6 flex-1 space-y-3">
                   {s.includes.slice(0, 5).map((inc) => (
-                    <li key={inc} className={`flex items-start gap-2.5 text-sm ${hl ? 'text-white/75' : 'text-ink/70'}`}>
-                      <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${hl ? 'text-gold-400' : 'text-gold-600'}`} />
+                    <li key={inc} className={`flex items-start gap-2.5 text-sm ${hl ? 'text-soft-white/75' : 'text-ink/70'}`}>
+                      <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${hl ? 'text-sage-200' : 'text-sage-500'}`} />
                       {inc}
                     </li>
                   ))}
                 </ul>
-                <div className="mt-9 grid gap-3">
+                <div className="mt-8 grid gap-3">
                   <WhatsAppButton label="Get started" message={`Hi Regpro, I want to get started with ${s.name}.`} source={`pricing:${s.slug}`} />
-                  <Link to={`/services/${s.slug}`} className={`py-2 text-center text-sm font-semibold transition-opacity hover:opacity-70 ${hl ? 'text-white/80' : 'text-navy-800'}`}>
+                  <Link to={`/services/${s.slug}`} className={`py-2 text-center text-sm font-semibold transition-opacity hover:opacity-70 ${hl ? 'text-soft-white/80' : 'text-olive-800'}`}>
                     View details →
                   </Link>
                 </div>
@@ -627,7 +582,7 @@ function PricingHighlights() {
           <FeeNote />
           <Link
             to="/pricing"
-            className="group inline-flex items-center gap-2 rounded-full bg-navy-800 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-navy-900/20 transition hover:-translate-y-0.5 hover:bg-navy-900"
+            className="group inline-flex items-center gap-2 rounded-full bg-olive-800 px-6 py-3 text-sm font-semibold tracking-wide text-soft-white transition-colors hover:bg-olive-950"
           >
             See pricing for all services <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
@@ -668,29 +623,29 @@ const audiences = [
 
 function Audiences() {
   return (
-    <section className="relative bg-white py-20 sm:py-28">
+    <section className="py-24 lg:py-32">
       <Container>
         <SectionHeading
           eyebrow="Who we help"
-          title="Built for every stage of your business"
-          highlight={['every', 'stage']}
+          title="Built for Every Stage of Business"
+          highlight={['Every', 'Stage']}
           text="Whether you are launching a startup or running an established business, we make compliance simple."
         />
-        <motion.div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" variants={stagger} {...inView}>
+        <motion.div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" variants={stagger} {...inView}>
           {audiences.map((a) => (
-            <motion.div key={a.title} variants={cardIn} whileHover={{ y: -8, transition: spring }} className="glass group h-full p-7">
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 text-white shadow-lg shadow-gold-500/30 transition-transform duration-500 group-hover:rotate-3 group-hover:scale-110">
-                <a.icon className="h-5 w-5" />
+            <motion.div key={a.title} variants={rise} whileHover={lift} className="glass group h-full p-7">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-sage-50 text-sage-600 transition-colors duration-300 group-hover:bg-olive-800 group-hover:text-soft-white">
+                <a.icon className="h-5 w-5" strokeWidth={1.5} />
               </span>
-              <h3 className="mt-6 font-display text-lg font-bold text-navy-800">{a.title}</h3>
+              <h3 className="mt-6 font-display text-2xl font-semibold text-olive-800">{a.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{a.text}</p>
-              <ul className="mt-6 space-y-2.5 border-t border-navy-800/10 pt-5">
+              <ul className="mt-6 space-y-2.5 border-t border-mist-300/70 pt-5">
                 {a.slugs.map((slug) => {
                   const s = services.find((x) => x.slug === slug);
                   if (!s) return null;
                   return (
                     <li key={slug}>
-                      <Link to={`/services/${slug}`} className="flex items-center justify-between text-sm font-medium text-navy-800 transition-colors hover:text-gold-700">
+                      <Link to={`/services/${slug}`} className="flex items-center justify-between text-sm font-medium text-olive-800 transition-colors hover:text-sage-600">
                         {s.shortName}
                         <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
@@ -710,9 +665,9 @@ function Audiences() {
 
 function TestimonialsSection() {
   return (
-    <section className="sky relative overflow-hidden py-20 sm:py-28">
+    <section className="sky relative overflow-hidden py-24 lg:py-32">
       <Container>
-        <SectionHeading center eyebrow="Customer stories" title="Businesses that grew with Regpro" highlight={['grew']} />
+        <SectionHeading center eyebrow="Customer stories" title="What Our Clients Say" highlight={['Clients']} />
       </Container>
       <div className="relative mt-14">
         <Testimonials />
@@ -725,30 +680,81 @@ function TestimonialsSection() {
 
 function FaqSection() {
   return (
-    <section className="relative bg-white py-20 sm:py-28">
+    <section className="py-24 lg:py-32">
       <Container className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
-          <SectionHeading eyebrow="FAQs" title="Questions? We’ve got answers." highlight={['answers']} text="Everything you need to know before getting started." />
+          <SectionHeading eyebrow="FAQs" title="Questions? We’ve Got Answers." highlight={['Answers']} text="Everything you need to know before getting started." />
           <Reveal delay={100}>
-            <StickyBg image="/images/city-dusk.jpg" overlay="bg-navy-950/75" rounded="1.75rem" className="mt-10">
-              <div className="p-7 text-white sm:p-8">
-                <Headphones className="h-7 w-7 text-gold-400" strokeWidth={1.5} />
-                <p className="mt-5 font-display text-lg font-bold">Still have questions?</p>
-                <p className="mt-2 text-sm text-white/65">Our experts are available {site.hours}.</p>
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-                  <WhatsAppButton label="Ask on WhatsApp" source="faq" />
-                  <CallButton variant="light" source="faq" />
-                </div>
+            <div className="relative mt-10 overflow-hidden rounded-3xl bg-olive-800 p-8 text-soft-white">
+              <Leaf className="absolute -bottom-12 -right-4" width={90} height={200} rotate={20} color="#FBFBF8" vein="#353F22" opacity={0.12} />
+              <Headphones className="h-7 w-7 text-sage-200" strokeWidth={1.5} />
+              <p className="mt-5 font-display text-2xl font-semibold">Still have questions?</p>
+              <p className="mt-2 text-sm text-soft-white/65">Our experts are available {site.hours}.</p>
+              <div className="relative mt-6 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+                <WhatsAppButton label="Ask on WhatsApp" source="faq" />
+                <CallButton variant="light" source="faq" />
               </div>
-            </StickyBg>
+            </div>
           </Reveal>
         </div>
         <Reveal delay={100}>
           <FaqList faqs={generalFaqs.slice(0, 6)} />
-          <Link to="/faqs" className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold text-navy-800 hover:text-gold-700">
+          <Link to="/faqs" className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold text-olive-800 hover:text-sage-600">
             View all FAQs <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </Reveal>
+      </Container>
+    </section>
+  );
+}
+
+// ───────────────────────── CTA — fixed backdrop + glass card ─────────────────────────
+
+function Cta() {
+  return (
+    <section id="enquiry" className="relative scroll-mt-16 overflow-hidden py-28 lg:py-40" style={{ clipPath: 'inset(0)' }}>
+      <div className="pointer-events-none fixed inset-0" aria-hidden="true">
+        <img src="/images/city-dusk.jpg" alt="" className="h-full w-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-gradient-to-b from-olive-950/90 via-olive-900/85 to-olive-950/90" />
+      </div>
+      <Leaf className="absolute left-8 top-8 z-10 lg:left-16" rotate={-25} color="#A6BFC1" vein="#C9D2B5" opacity={0.6} float />
+      <Leaf className="absolute bottom-8 right-10 z-10 lg:right-20" width={55} height={130} rotate={30} flip color="#A6BFC1" vein="#C9D2B5" opacity={0.6} float delay={1.5} />
+
+      <Container className="relative z-10">
+        <motion.div
+          className="relative grid items-center gap-10 overflow-hidden rounded-3xl border border-soft-white/20 bg-soft-white/10 p-6 shadow-[0_30px_70px_rgba(0,0,0,0.35)] backdrop-blur-md sm:p-10 lg:grid-cols-[1.05fr_0.95fr] lg:p-14"
+          initial={{ opacity: 0, y: 40, scale: 0.96 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: '0px 0px -20% 0px' }}
+          transition={{ duration: 1.1, ease: EASE }}
+        >
+          <Leaf className="absolute -bottom-8 -left-8" width={130} height={280} rotate={-20} color="#FBFBF8" vein="#65733F" opacity={0.12} />
+          <motion.div className="relative text-center lg:text-left" variants={stagger} {...inView}>
+            <motion.div
+              variants={fadeUp}
+              className="inline-flex items-center gap-2 rounded-full border border-soft-white/25 bg-soft-white/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-soft-white/90"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-sage-200" /> Get started today
+            </motion.div>
+            <motion.h2 variants={fadeUp} className="mt-6 font-display font-semibold leading-[1.08] text-soft-white" style={{ fontSize: 'clamp(2.4rem,5vw,4rem)' }}>
+              <MaskedWords text="Your Business Deserves" />
+              <br />
+              <span className="font-normal italic text-sage-200">a Smooth Start</span>
+            </motion.h2>
+            <motion.p variants={fadeUp} className="mx-auto mt-5 max-w-md text-base leading-relaxed text-soft-white/80 sm:text-lg lg:mx-0">
+              Share a few details and an expert will reach out with the right plan and a clear, fixed quote.
+            </motion.p>
+            <motion.div variants={fadeUp} className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
+              <WhatsAppButton size="lg" source="cta" />
+              <a href={site.phoneHref} className="inline-flex items-center gap-2 text-sm text-soft-white/75 transition-colors hover:text-soft-white">
+                <Phone className="h-4 w-4 text-sage-200" /> Or call us: {site.phone}
+              </a>
+            </motion.div>
+          </motion.div>
+          <div className="relative">
+            <LeadForm solid className="!border-soft-white/40 !bg-cream" />
+          </div>
+        </motion.div>
       </Container>
     </section>
   );
@@ -764,16 +770,20 @@ export default function Home() {
         jsonLd={[organizationLd(), faqLd(generalFaqs)]}
       />
       <Hero />
-      <TrustStrip />
-      <Categories />
-      <WhyChoose />
-      <IdeaToReality />
-      <Process />
-      <Stats />
-      <PricingHighlights />
-      <Audiences />
-      <TestimonialsSection />
-      <FaqSection />
+      {/* Everything below slides up over the fixed hero backdrop on a rounded sheet */}
+      <div className="relative z-10 -mt-[54px] overflow-hidden rounded-t-[36px] bg-soft-white shadow-[0_-25px_60px_rgba(36,41,28,0.14)] sm:rounded-t-[54px]">
+        <FeatureStrip />
+        <Favorites />
+        <Categories />
+        <AboutBlock />
+        <WhyChoose />
+        <Process />
+        <PricingHighlights />
+        <Audiences />
+        <TestimonialsSection />
+        <FaqSection />
+        <Cta />
+      </div>
     </>
   );
 }

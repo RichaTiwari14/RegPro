@@ -6,7 +6,7 @@ import type { ReactNode } from 'react';
  */
 export function StickyBg({
   image,
-  overlay = 'bg-navy-950/70',
+  overlay = 'bg-olive-950/70',
   className = '',
   rounded = '',
   children,

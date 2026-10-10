@@ -35,7 +35,7 @@ export default function Contact() {
         crumbs={crumbs}
       />
 
-      <StickyBg image="/images/city-dusk.jpg" overlay="bg-gradient-to-b from-navy-950/85 to-navy-950/70">
+      <StickyBg image="/images/city-dusk.jpg" overlay="bg-gradient-to-b from-olive-950/85 to-olive-950/70">
         <Container className="grid gap-12 py-16 sm:py-24 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <Reveal>
@@ -49,7 +49,7 @@ export default function Contact() {
                   <WhatsAppGlyph className="h-8 w-8" />
                 </span>
                 <span>
-                  <span className="block font-display text-xl font-bold">Chat on WhatsApp</span>
+                  <span className="block font-display text-xl font-semibold">Chat on WhatsApp</span>
                   <span className="block text-sm text-white/85">Fastest response — {site.phone}</span>
                 </span>
               </a>
@@ -64,11 +64,11 @@ export default function Contact() {
               {cards.map((c) => {
                 const inner = (
                   <>
-                    <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gold-50 text-gold-700 ring-1 ring-gold-200">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sage-50 text-sage-700 ring-1 ring-sage-200">
                       <c.icon className="h-5 w-5" />
                     </span>
                     <p className="label-cine mt-4 text-subtle">{c.label}</p>
-                    <p className="mt-1 break-words font-semibold text-navy-800">{c.value}</p>
+                    <p className="mt-1 break-words font-semibold text-olive-800">{c.value}</p>
                   </>
                 );
                 const v = { hidden: { opacity: 0, y: 30 }, shown: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } } };
