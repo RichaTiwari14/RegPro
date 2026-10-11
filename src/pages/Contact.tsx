@@ -1,12 +1,13 @@
 import { motion } from 'motion/react';
-import { Clock, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowUpRight, Clock, Mail, MapPin, Phone } from 'lucide-react';
 import { Seo, breadcrumbLd, organizationLd } from '@/lib/seo';
-import { site, whatsappLink } from '@/config/site';
+import { site, whatsappLink, mapQuery, mapsLink } from '@/config/site';
 import { PageHero } from '@/components/PageHero';
 import { Container, WhatsAppGlyph } from '@/components/ui';
 import { Reveal } from '@/components/Reveal';
 import { EnquiryForm } from '@/components/forms/EnquiryForm';
 import { trackEvent } from '@/lib/analytics';
+import { Blob } from '@/components/Shapes';
 
 export default function Contact() {
   const crumbs = [
@@ -17,7 +18,7 @@ export default function Contact() {
     { icon: Phone, label: 'Call us', value: site.phone, sub: site.hours, href: site.phoneHref, ev: 'phone_click' as const },
     { icon: WhatsAppGlyph, label: 'WhatsApp', value: 'Chat with our experts', sub: 'Usually the fastest way to reach us', href: whatsappLink(), ev: 'whatsapp_click' as const, external: true },
     { icon: Mail, label: 'Email us', value: site.email, sub: 'We reply within working hours', href: `mailto:${site.email}`, ev: 'contact_click' as const },
-    { icon: MapPin, label: 'Location', value: site.streetAddress || site.address, sub: 'Assisting clients across India online' },
+    { icon: MapPin, label: 'Location', value: site.streetAddress || site.address, sub: 'Open in Google Maps', href: mapsLink(), ev: 'contact_click' as const, external: true },
   ];
   return (
     <>
@@ -89,6 +90,46 @@ export default function Contact() {
           </div>
           <Reveal delay={100}>
             <EnquiryForm title="Send us a message" />
+          </Reveal>
+        </Container>
+      </section>
+      <section id="location" aria-labelledby="location-heading" className="scroll-mt-24 pb-20 sm:pb-28">
+        <Container>
+          <Reveal className="relative z-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p className="eyebrow">Our location</p>
+              <h2 id="location-heading" className="heading mt-4" style={{ fontSize: 'clamp(1.8rem,3.2vw,2.6rem)' }}>
+                Find us on the map
+              </h2>
+            </div>
+            <a href={mapsLink()} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('contact_click', { label: 'map-open' })} className="link-arrow">
+              Open in Google Maps <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </Reveal>
+          <Reveal delay={100} className="relative mt-8">
+            <Blob variant="b" color="#D6DFCB" className="pointer-events-none absolute -right-20 -top-16 hidden h-72 w-72 md:block" float />
+            <div className="relative overflow-hidden rounded-[28px] border border-line bg-sage-100 shadow-lift">
+              <iframe
+                title={`Map showing ${mapQuery()}`}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(mapQuery())}&z=${site.streetAddress ? 16 : 11}&output=embed`}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="block h-[340px] w-full border-0 sm:h-[440px]"
+                allowFullScreen
+              />
+              <div className="pointer-events-none absolute inset-x-4 bottom-4 sm:inset-x-auto sm:left-6 sm:bottom-6">
+                <div className="pointer-events-auto flex max-w-sm items-start gap-3 rounded-2xl border border-line bg-white/95 p-4 shadow-lift backdrop-blur">
+                  <span className="icon-chip h-10 w-10 shrink-0">
+                    <MapPin className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="font-display text-[17px] font-semibold text-forest-900">{site.name}</p>
+                    <p className="text-sm text-muted">{site.streetAddress || site.address}</p>
+                    <p className="mt-1 text-xs text-subtle">{site.hours} · Serving clients across India online</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </Reveal>
         </Container>
       </section>

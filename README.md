@@ -25,6 +25,8 @@ Anything prefixed `VITE_` is bundled into public JavaScript — **never put secr
 | `VITE_GA_ID` | Google Analytics 4 measurement ID. Empty = disabled. |
 | `VITE_META_PIXEL_ID` | Meta Pixel ID. Empty = disabled. |
 
+The Contact page map shows `site.streetAddress` once it is filled in `src/config/site.ts` (city-level map until then).
+
 ## Enquiry backend (required for the form to work)
 
 The frontend only sends data; email delivery and storage happen on your backend (e.g. Django REST Framework).
@@ -90,9 +92,9 @@ Client-supplied photos are used for the corporate building, GST and office/works
 To generate the full library (32 images, prompts already art-directed):
 
 ```bash
-npm i -D sharp                       # optional: writes WebP (otherwise PNG)
-OPENAI_API_KEY=sk-... node scripts/generate-images.mjs          # all
-OPENAI_API_KEY=sk-... node scripts/generate-images.mjs services # filter by name
+GEMINI_API_KEY=... node scripts/generate-images.mjs            # Google Imagen (preferred)
+OPENAI_API_KEY=sk-... node scripts/generate-images.mjs          # or OpenAI
+GEMINI_API_KEY=... node scripts/generate-images.mjs services   # filter by name
 ```
 
 Prompts and target files live in `scripts/image-prompts.json`. Entries marked `"provided": true` already use client-supplied photos and are skipped (pass `--force` to regenerate them). Run this locally or in CI — the key is never part of the site.

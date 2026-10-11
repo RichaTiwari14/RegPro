@@ -32,6 +32,10 @@ export const site = {
   feeNote: 'Government / statutory fees, if applicable, are extra.',
 };
 
+/** What the contact-page map shows: the street address once verified, otherwise the city. */
+export const mapQuery = () => site.streetAddress || site.address;
+export const mapsLink = () => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery())}`;
+
 export const whatsappLink = (message = 'Hi Regpro, I would like to know more about your services.') =>
   `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
