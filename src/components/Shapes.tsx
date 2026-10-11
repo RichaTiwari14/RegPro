@@ -48,24 +48,38 @@ export function Sparkle({ className = '', color = '#3E6B48' }: { className?: str
   );
 }
 
-/** Faint botanical branch used as a watermark at section edges. */
-export function LeafBranch({ className = '', color = '#C9D4BD' }: { className?: string; color?: string }) {
-  const leaves = [
-    [120, 260, -40],
-    [150, 215, -55],
-    [185, 175, -35],
-    [222, 140, -60],
-    [96, 205, -120],
-    [128, 160, -110],
-    [165, 120, -125],
-    [205, 90, -100],
-  ];
+/**
+ * Line-art watermark for a registration firm: a stack of documents with text lines,
+ * a signature stroke and a certificate seal with a tick. Draws itself in on scroll.
+ */
+export function DocumentMotif({ className = '', color = '#BFCDB1' }: { className?: string; color?: string }) {
+  const draw = (delay: number) => ({
+    initial: { pathLength: 0, opacity: 0 },
+    whileInView: { pathLength: 1, opacity: 1 },
+    viewport: { once: true, margin: '0px 0px -10% 0px' },
+    transition: { duration: 1.4, delay, ease: [0.65, 0, 0.35, 1] as const },
+  });
   return (
-    <svg viewBox="0 0 300 320" className={`pointer-events-none select-none ${className}`} aria-hidden="true">
-      <path d="M40 320 C90 250 150 170 250 60" stroke={color} strokeWidth="4" fill="none" strokeLinecap="round" />
-      {leaves.map(([x, y, r], i) => (
-        <ellipse key={i} cx={x} cy={y} rx="34" ry="12" transform={`rotate(${r} ${x} ${y})`} fill={color} />
-      ))}
+    <svg viewBox="0 0 280 320" className={`pointer-events-none select-none ${className}`} fill="none" aria-hidden="true">
+      <g stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        {/* back sheets */}
+        <motion.rect x="70" y="20" width="150" height="196" rx="12" transform="rotate(8 145 118)" {...draw(0)} />
+        <motion.rect x="56" y="34" width="150" height="196" rx="12" transform="rotate(-4 131 132)" {...draw(0.15)} />
+        {/* front document */}
+        <motion.path d="M40 60 h104 l34 34 v160 a12 12 0 0 1 -12 12 H40 a12 12 0 0 1 -12 -12 V72 a12 12 0 0 1 12 -12 Z" {...draw(0.3)} />
+        <motion.path d="M144 60 v26 a8 8 0 0 0 8 8 h26" {...draw(0.5)} />
+        {[110, 132, 154, 176].map((y, i) => (
+          <motion.path key={y} d={`M52 ${y} H${i === 3 ? 120 : 156}`} {...draw(0.6 + i * 0.1)} />
+        ))}
+        {/* signature */}
+        <motion.path d="M52 222 c10 -14 18 -14 20 -2 s10 10 18 -6 s12 -6 16 4" {...draw(1)} />
+        {/* seal with tick */}
+        <motion.circle cx="206" cy="232" r="38" {...draw(0.9)} />
+        <motion.circle cx="206" cy="232" r="28" strokeDasharray="4 6" {...draw(1.1)} />
+        <motion.path d="M192 232 l10 10 l18 -20" strokeWidth="4" {...draw(1.4)} />
+        <motion.path d="M186 266 l-10 34 l18 -8 l10 16 l6 -34" {...draw(1.3)} />
+        <motion.path d="M226 266 l10 34 l-18 -8 l-10 16" {...draw(1.3)} />
+      </g>
     </svg>
   );
 }

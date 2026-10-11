@@ -13,7 +13,7 @@ import { ServiceIcon } from '@/components/ServiceIcon';
 import { FaqAccordion } from '@/components/FaqAccordion';
 import { EnquiryForm } from '@/components/forms/EnquiryForm';
 import { CtaBanner } from '@/components/CtaBanner';
-import { Blob, Sparkle, LeafBranch, CurveLine, DottedArrow } from '@/components/Shapes';
+import { Blob, Sparkle, DocumentMotif, CurveLine, DottedArrow } from '@/components/Shapes';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const stagger = { hidden: {}, shown: { transition: { staggerChildren: 0.09 } } };
@@ -131,7 +131,7 @@ function ServicesGrid() {
   const list = featured.map((slug) => getService(slug)).filter((s): s is NonNullable<typeof s> => Boolean(s));
   return (
     <section className="relative overflow-hidden py-20 lg:py-28">
-      <LeafBranch className="absolute -left-10 top-10 hidden h-72 w-64 opacity-70 md:block" />
+      <DocumentMotif className="absolute -left-6 top-12 hidden h-64 w-56 opacity-80 md:block lg:left-4" />
       <Container className="relative">
         <SectionHeading center eyebrow="Our Services" title="Everything You Need for Business Growth" text="From company registration to government compliance, we’ve got you covered." />
         <motion.div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" variants={stagger} {...inView}>
