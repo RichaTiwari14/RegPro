@@ -47,7 +47,7 @@ export default function About() {
         text="We help entrepreneurs and businesses navigate registrations, government documentation and compliance with clarity and care."
         crumbs={crumbs}
         image="/assets/about-workspace.webp"
-        imageAlt="A calm, premium office workspace"
+        imageAlt="An office corner with document files and a plant"
       />
 
       <section className="py-20 lg:py-28">

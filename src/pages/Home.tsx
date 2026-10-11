@@ -212,7 +212,7 @@ function WhyChoose() {
                 transition={{ duration: 1.3, ease: EASE }}
                 className="relative aspect-[4/3] overflow-hidden border-[6px] border-ivory bg-sage-100 shadow-lift"
               >
-                <img src="/assets/about-workspace.webp" alt="A calm workspace with a laptop and plant" loading="lazy" className="h-full w-full object-cover" />
+                <img src="/assets/about-workspace.webp" alt="An office corner with document files and a plant" loading="lazy" className="h-full w-full object-cover" />
               </motion.div>
             </div>
           </div>

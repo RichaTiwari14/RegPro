@@ -84,7 +84,7 @@ A CMS or API can replace these data files later — pages only read the exported
 The official logo (supplied artwork, background removed — not redrawn) is in `public/assets/brand/`.
 
 AI image generation was **not available** in the build environment (no image-generation tool, and stock/AI image hosts were blocked by the network).
-Every photo slot therefore holds a clearly labelled **“Image pending”** placeholder at its final path, e.g. `public/assets/regpro-hero.webp`.
+Client-supplied photos are used for the corporate building, GST and office/workspace images. Every other photo slot holds a clearly labelled **“Image pending”** placeholder at its final path, e.g. `public/assets/regpro-hero.webp`.
 `cta-architecture.webp` is a finished abstract navy background.
 
 To generate the full library (32 images, prompts already art-directed):
@@ -95,7 +95,7 @@ OPENAI_API_KEY=sk-... node scripts/generate-images.mjs          # all
 OPENAI_API_KEY=sk-... node scripts/generate-images.mjs services # filter by name
 ```
 
-Prompts and target files live in `scripts/image-prompts.json`. Run this locally or in CI — the key is never part of the site.
+Prompts and target files live in `scripts/image-prompts.json`. Entries marked `"provided": true` already use client-supplied photos and are skipped (pass `--force` to regenerate them). Run this locally or in CI — the key is never part of the site.
 You can also drop in real photography at the same paths and sizes.
 
 ## Project structure

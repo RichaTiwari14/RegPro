@@ -1,37 +1,203 @@
 {
   "style": "Realistic high-end commercial photography for a premium Indian business-registration and compliance firm. Natural warm daylight, realistic Indian professionals and modern Indian offices, sophisticated navy, cream and warm gold colour accents, clean editorial composition with negative space, shallow depth of field, authentic and candid. No text, no watermarks, no logos, no signage, no readable documents.",
   "images": [
-    { "file": "regpro-hero.webp", "size": "1536x1024", "subject": "Business consultation", "prompt": "A friendly Indian business consultant in a navy blazer explaining a registration document to a young Indian entrepreneur across a light oak desk with a laptop, in a bright premium office with large windows and a potted plant" },
-    { "file": "business-documents.webp", "size": "1536x1024", "subject": "Reviewing registration documents", "prompt": "Two Indian business professionals reviewing neatly organised registration documents and a tablet at a meeting table, hands and paperwork in focus, cream and navy palette" },
-    { "file": "company-registration.webp", "size": "1024x1536", "subject": "Modern corporate building", "prompt": "Looking up at a modern glass and stone corporate building in an Indian city at golden hour, clean architectural lines, deep navy sky reflected in glass" },
-    { "file": "gst-registration.webp", "size": "1536x1024", "subject": "GST & tax documentation", "prompt": "Close-up of a tidy desk with invoices, a calculator, a fountain pen and a laptop showing an unreadable spreadsheet, warm light, an Indian accountant's hands in a cream shirt" },
-    { "file": "msme-registration.webp", "size": "1536x1024", "subject": "Small-business owner at work", "prompt": "A confident Indian woman small-business owner working on a laptop in her modern small workshop-studio, shelves with products softly blurred behind her" },
-    { "file": "startup-founders.webp", "size": "1536x1024", "subject": "Startup founders collaborating", "prompt": "Three young Indian startup founders collaborating around a laptop in a bright modern co-working space, natural candid moment, warm daylight" },
-    { "file": "trademark-registration.webp", "size": "1536x1024", "subject": "Brand & trademark work", "prompt": "An Indian designer reviewing printed brand identity sheets and colour swatches on a desk, with a blank unbranded notebook, elegant studio light" },
-    { "file": "consultation-meeting.webp", "size": "1536x1024", "subject": "Consultation meeting", "prompt": "A professional consultation meeting in a premium Indian office conference room, a consultant and two clients smiling, navy chairs and cream walls" },
-    { "file": "about-workspace.webp", "size": "1536x1024", "subject": "Premium workspace", "prompt": "An elegant, calm modern Indian office workspace with a wooden desk, navy accents, brass lamp, plants and soft morning light, no people" },
-    { "file": "cta-architecture.webp", "size": "1536x1024", "subject": "Architectural background", "prompt": "Abstract architectural detail of a modern building facade with repeating vertical fins at dusk, deep navy tones with subtle warm gold light, minimal and dark, suitable as a background" },
-    { "file": "contact-office.webp", "size": "1024x1536", "subject": "Friendly support", "prompt": "A friendly Indian client-support professional with a headset smiling at a laptop in a bright, premium office" },
-    { "file": "services/private-limited-company-registration.webp", "size": "1536x1024", "subject": "Company incorporation", "prompt": "Indian co-founders signing incorporation papers at a polished table in a modern office" },
-    { "file": "services/llp-registration.webp", "size": "1536x1024", "subject": "Partners in a meeting", "prompt": "Two Indian professional partners discussing an agreement in a modern office" },
-    { "file": "services/opc-registration.webp", "size": "1536x1024", "subject": "Solo founder", "prompt": "A focused young Indian solo founder working on a laptop in a home office with warm light" },
-    { "file": "services/partnership-firm-registration.webp", "size": "1536x1024", "subject": "Partners shaking hands", "prompt": "Two Indian business partners shaking hands across a desk in a bright office" },
-    { "file": "services/gst-registration.webp", "size": "1536x1024", "subject": "GST documentation", "prompt": "Indian shop owner reviewing invoices with a laptop at a counter, warm daylight" },
-    { "file": "services/gst-amendment.webp", "size": "1536x1024", "subject": "Updating business records", "prompt": "An Indian accountant updating business records on a laptop beside neatly filed folders" },
-    { "file": "services/gst-cancellation.webp", "size": "1536x1024", "subject": "Closing the books", "prompt": "Neatly closed ledgers and folders on a desk with a pen and reading glasses, calm warm light" },
-    { "file": "services/udyam-msme-registration.webp", "size": "1536x1024", "subject": "Small manufacturer", "prompt": "An Indian small manufacturer inspecting products in a clean modern workshop" },
-    { "file": "services/dpiit-startup-india-recognition.webp", "size": "1536x1024", "subject": "Startup team brainstorming", "prompt": "Young Indian startup team brainstorming with sticky notes on a glass wall" },
-    { "file": "services/iec-registration.webp", "size": "1536x1024", "subject": "Import & export", "prompt": "An Indian exporter checking cartons in a tidy warehouse, soft daylight" },
-    { "file": "services/fssai-registration.webp", "size": "1536x1024", "subject": "Food business owner", "prompt": "An Indian food business owner in a spotless modern commercial kitchen" },
-    { "file": "services/shop-establishment-registration.webp", "size": "1536x1024", "subject": "Shop owner", "prompt": "A smiling Indian shop owner at the counter of a neat modern retail store" },
-    { "file": "services/pan-tan.webp", "size": "1536x1024", "subject": "Identity documents", "prompt": "A professional organising identity and tax paperwork in a folder on a clean desk, documents unreadable" },
-    { "file": "services/digital-signature-certificate.webp", "size": "1536x1024", "subject": "Digital signing", "prompt": "A professional using a USB token with a laptop to sign a document digitally, close-up, warm light" },
-    { "file": "services/trademark-registration.webp", "size": "1536x1024", "subject": "Brand protection", "prompt": "An Indian designer reviewing a brand identity board in a bright studio" },
-    { "file": "resources/structure-guide.webp", "size": "1536x1024", "subject": "Choosing a business structure", "prompt": "Notebook, pen and laptop on a desk with three neat stacks of papers, editorial flat-lay, cream and navy" },
-    { "file": "resources/gst-guide.webp", "size": "1536x1024", "subject": "GST guide", "prompt": "Editorial flat-lay of invoices, a calculator and a coffee cup on a light wooden desk" },
-    { "file": "resources/udyam-guide.webp", "size": "1536x1024", "subject": "MSME guide", "prompt": "An Indian artisan entrepreneur packing products for dispatch in a bright small studio" },
-    { "file": "resources/startup-india-guide.webp", "size": "1536x1024", "subject": "Startup India guide", "prompt": "Young Indian founders presenting on a laptop in a modern meeting room" },
-    { "file": "resources/fssai-guide.webp", "size": "1536x1024", "subject": "Food licence guide", "prompt": "Fresh ingredients and a chef's hands in a clean Indian cloud kitchen" },
-    { "file": "resources/compliance-calendar.webp", "size": "1536x1024", "subject": "Compliance calendar", "prompt": "A desk calendar with a pen and a laptop, neatly organised, editorial calm light" }
+    {
+      "file": "regpro-hero.webp",
+      "size": "1536x1024",
+      "subject": "Business consultation",
+      "prompt": "A friendly Indian business consultant in a navy blazer explaining a registration document to a young Indian entrepreneur across a light oak desk with a laptop, in a bright premium office with large windows and a potted plant"
+    },
+    {
+      "file": "business-documents.webp",
+      "size": "1536x1024",
+      "subject": "Reviewing registration documents",
+      "prompt": "Two Indian business professionals reviewing neatly organised registration documents and a tablet at a meeting table, hands and paperwork in focus, cream and navy palette"
+    },
+    {
+      "file": "company-registration.webp",
+      "size": "1024x1536",
+      "subject": "Modern corporate building",
+      "prompt": "Looking up at a modern glass and stone corporate building in an Indian city at golden hour, clean architectural lines, deep navy sky reflected in glass",
+      "provided": true
+    },
+    {
+      "file": "gst-registration.webp",
+      "size": "1536x1024",
+      "subject": "GST & tax documentation",
+      "prompt": "Close-up of a tidy desk with invoices, a calculator, a fountain pen and a laptop showing an unreadable spreadsheet, warm light, an Indian accountant's hands in a cream shirt",
+      "provided": true
+    },
+    {
+      "file": "msme-registration.webp",
+      "size": "1536x1024",
+      "subject": "Small-business owner at work",
+      "prompt": "A confident Indian woman small-business owner working on a laptop in her modern small workshop-studio, shelves with products softly blurred behind her"
+    },
+    {
+      "file": "startup-founders.webp",
+      "size": "1536x1024",
+      "subject": "Startup founders collaborating",
+      "prompt": "Three young Indian startup founders collaborating around a laptop in a bright modern co-working space, natural candid moment, warm daylight"
+    },
+    {
+      "file": "trademark-registration.webp",
+      "size": "1536x1024",
+      "subject": "Brand & trademark work",
+      "prompt": "An Indian designer reviewing printed brand identity sheets and colour swatches on a desk, with a blank unbranded notebook, elegant studio light"
+    },
+    {
+      "file": "consultation-meeting.webp",
+      "size": "1536x1024",
+      "subject": "Consultation meeting",
+      "prompt": "A professional consultation meeting in a premium Indian office conference room, a consultant and two clients smiling, navy chairs and cream walls"
+    },
+    {
+      "file": "about-workspace.webp",
+      "size": "1536x1024",
+      "subject": "Premium workspace",
+      "prompt": "An elegant, calm modern Indian office workspace with a wooden desk, navy accents, brass lamp, plants and soft morning light, no people",
+      "provided": true
+    },
+    {
+      "file": "cta-architecture.webp",
+      "size": "1536x1024",
+      "subject": "Architectural background",
+      "prompt": "Abstract architectural detail of a modern building facade with repeating vertical fins at dusk, deep navy tones with subtle warm gold light, minimal and dark, suitable as a background"
+    },
+    {
+      "file": "contact-office.webp",
+      "size": "1024x1536",
+      "subject": "Friendly support",
+      "prompt": "A friendly Indian client-support professional with a headset smiling at a laptop in a bright, premium office"
+    },
+    {
+      "file": "services/private-limited-company-registration.webp",
+      "size": "1536x1024",
+      "subject": "Company incorporation",
+      "prompt": "Indian co-founders signing incorporation papers at a polished table in a modern office",
+      "provided": true
+    },
+    {
+      "file": "services/llp-registration.webp",
+      "size": "1536x1024",
+      "subject": "Partners in a meeting",
+      "prompt": "Two Indian professional partners discussing an agreement in a modern office"
+    },
+    {
+      "file": "services/opc-registration.webp",
+      "size": "1536x1024",
+      "subject": "Solo founder",
+      "prompt": "A focused young Indian solo founder working on a laptop in a home office with warm light"
+    },
+    {
+      "file": "services/partnership-firm-registration.webp",
+      "size": "1536x1024",
+      "subject": "Partners shaking hands",
+      "prompt": "Two Indian business partners shaking hands across a desk in a bright office"
+    },
+    {
+      "file": "services/gst-registration.webp",
+      "size": "1536x1024",
+      "subject": "GST documentation",
+      "prompt": "Indian shop owner reviewing invoices with a laptop at a counter, warm daylight",
+      "provided": true
+    },
+    {
+      "file": "services/gst-amendment.webp",
+      "size": "1536x1024",
+      "subject": "Updating business records",
+      "prompt": "An Indian accountant updating business records on a laptop beside neatly filed folders"
+    },
+    {
+      "file": "services/gst-cancellation.webp",
+      "size": "1536x1024",
+      "subject": "Closing the books",
+      "prompt": "Neatly closed ledgers and folders on a desk with a pen and reading glasses, calm warm light"
+    },
+    {
+      "file": "services/udyam-msme-registration.webp",
+      "size": "1536x1024",
+      "subject": "Small manufacturer",
+      "prompt": "An Indian small manufacturer inspecting products in a clean modern workshop"
+    },
+    {
+      "file": "services/dpiit-startup-india-recognition.webp",
+      "size": "1536x1024",
+      "subject": "Startup team brainstorming",
+      "prompt": "Young Indian startup team brainstorming with sticky notes on a glass wall"
+    },
+    {
+      "file": "services/iec-registration.webp",
+      "size": "1536x1024",
+      "subject": "Import & export",
+      "prompt": "An Indian exporter checking cartons in a tidy warehouse, soft daylight"
+    },
+    {
+      "file": "services/fssai-registration.webp",
+      "size": "1536x1024",
+      "subject": "Food business owner",
+      "prompt": "An Indian food business owner in a spotless modern commercial kitchen"
+    },
+    {
+      "file": "services/shop-establishment-registration.webp",
+      "size": "1536x1024",
+      "subject": "Shop owner",
+      "prompt": "A smiling Indian shop owner at the counter of a neat modern retail store"
+    },
+    {
+      "file": "services/pan-tan.webp",
+      "size": "1536x1024",
+      "subject": "Identity documents",
+      "prompt": "A professional organising identity and tax paperwork in a folder on a clean desk, documents unreadable"
+    },
+    {
+      "file": "services/digital-signature-certificate.webp",
+      "size": "1536x1024",
+      "subject": "Digital signing",
+      "prompt": "A professional using a USB token with a laptop to sign a document digitally, close-up, warm light"
+    },
+    {
+      "file": "services/trademark-registration.webp",
+      "size": "1536x1024",
+      "subject": "Brand protection",
+      "prompt": "An Indian designer reviewing a brand identity board in a bright studio"
+    },
+    {
+      "file": "resources/structure-guide.webp",
+      "size": "1536x1024",
+      "subject": "Choosing a business structure",
+      "prompt": "Notebook, pen and laptop on a desk with three neat stacks of papers, editorial flat-lay, cream and navy"
+    },
+    {
+      "file": "resources/gst-guide.webp",
+      "size": "1536x1024",
+      "subject": "GST guide",
+      "prompt": "Editorial flat-lay of invoices, a calculator and a coffee cup on a light wooden desk",
+      "provided": true
+    },
+    {
+      "file": "resources/udyam-guide.webp",
+      "size": "1536x1024",
+      "subject": "MSME guide",
+      "prompt": "An Indian artisan entrepreneur packing products for dispatch in a bright small studio"
+    },
+    {
+      "file": "resources/startup-india-guide.webp",
+      "size": "1536x1024",
+      "subject": "Startup India guide",
+      "prompt": "Young Indian founders presenting on a laptop in a modern meeting room"
+    },
+    {
+      "file": "resources/fssai-guide.webp",
+      "size": "1536x1024",
+      "subject": "Food licence guide",
+      "prompt": "Fresh ingredients and a chef's hands in a clean Indian cloud kitchen"
+    },
+    {
+      "file": "resources/compliance-calendar.webp",
+      "size": "1536x1024",
+      "subject": "Compliance calendar",
+      "prompt": "A desk calendar with a pen and a laptop, neatly organised, editorial calm light"
+    }
   ]
 }

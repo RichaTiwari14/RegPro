@@ -25,8 +25,10 @@ try {
   console.warn('sharp not installed — saving PNG files instead of WebP.');
 }
 
-const filter = process.argv[2];
-for (const img of images.filter((i) => !filter || i.file.includes(filter))) {
+const filter = process.argv.slice(2).find((a) => !a.startsWith('--'));
+const force = process.argv.includes('--force');
+// Entries marked "provided" already use client-supplied photos — skipped unless --force.
+for (const img of images.filter((i) => (!filter || i.file.includes(filter)) && (force || !i.provided))) {
   const out = path.join(root, 'public/assets', img.file);
   fs.mkdirSync(path.dirname(out), { recursive: true });
   process.stdout.write(`→ ${img.file} … `);

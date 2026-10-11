@@ -21,7 +21,7 @@ const img = (slug: string) => `/assets/services/${slug}.webp`;
 export const serviceDetails: Record<string, ServiceDetail> = {
   'private-limited-company-registration': {
     image: img('private-limited-company-registration'),
-    imageAlt: 'Co-founders signing company incorporation papers',
+    imageAlt: 'A modern corporate office building',
     considerations: [
       'At least 2 directors and 2 shareholders are required (the same people can be both); a private company can have up to 200 members.',
       'At least one director must be resident in India.',
@@ -70,7 +70,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   'gst-registration': {
     image: img('gst-registration'),
-    imageAlt: 'A business owner reviewing invoices with a laptop',
+    imageAlt: 'GST letter blocks on a desk beside a laptop and plant',
     considerations: [
       'Registration is required once aggregate turnover crosses the prescribed threshold — generally ₹40 lakh for goods and ₹20 lakh for services, with lower limits in some special-category states.',
       'Some businesses must register regardless of turnover — for example inter-state suppliers of goods and certain e-commerce sellers.',
