@@ -28,10 +28,10 @@ html.lenis {
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    @apply bg-navy-800 text-white;
+    @apply bg-forest-800 text-white;
   }
   *:focus-visible {
-    outline: 2px solid #b58a42;
+    outline: 2px solid #3E6B48;
     outline-offset: 2px;
   }
   h1,
@@ -43,55 +43,54 @@ html.lenis {
 }
 
 @layer components {
-  /* Editorial eyebrow: gold small caps */
+  /* Small sage pill above section titles (reference style) */
   .eyebrow {
-    @apply inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold-600;
-  }
-  .eyebrow-rule::before {
-    content: '';
-    @apply h-px w-8 bg-gold-500;
+    @apply inline-flex items-center gap-2 rounded-full bg-sage-100 px-3.5 py-1 text-[12px] font-medium text-forest-800 ring-1 ring-sage-200;
   }
   .heading {
-    @apply font-display font-medium leading-[1.1] tracking-[-0.01em] text-navy-800;
+    @apply font-display font-semibold leading-[1.12] tracking-[-0.01em] text-forest-900;
   }
   .card {
-    @apply rounded-xl border border-line bg-white shadow-card;
+    @apply rounded-2xl border border-line bg-white shadow-card;
   }
   .gold-rule {
-    @apply block h-px w-12 bg-gold-500;
+    @apply block h-px w-12 bg-sage-400;
   }
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-medium transition-all duration-300 active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-medium transition-all duration-300 active:scale-[0.98];
   }
-  .btn-navy {
-    @apply btn bg-navy-800 text-white shadow-sm hover:bg-navy-900 hover:shadow-lg hover:shadow-navy-900/20;
+  .btn-primary {
+    @apply btn bg-forest-800 text-white shadow-sm hover:-translate-y-0.5 hover:bg-forest-900 hover:shadow-lg hover:shadow-forest-900/20;
   }
   .btn-gold {
-    @apply btn bg-gold-500 text-white shadow-sm hover:bg-gold-600 hover:shadow-lg hover:shadow-gold-700/25;
+    @apply btn bg-forest-800 text-white shadow-sm hover:bg-forest-900;
   }
   .btn-outline {
-    @apply btn border border-navy-800/20 bg-white text-navy-800 hover:border-navy-800;
+    @apply btn border border-forest-800/25 bg-white text-forest-800 hover:-translate-y-0.5 hover:border-forest-800;
   }
   .btn-outline-light {
     @apply btn border border-white/30 text-white hover:border-white hover:bg-white/5;
   }
   .btn-whatsapp {
-    @apply btn bg-[#25D366] text-white shadow-sm hover:bg-[#1fbe5a];
+    @apply btn bg-forest-800 text-white shadow-sm hover:-translate-y-0.5 hover:bg-forest-900 hover:shadow-lg hover:shadow-forest-900/20;
   }
   .link-arrow {
-    @apply inline-flex items-center gap-1.5 text-sm font-medium text-navy-800 transition-colors hover:text-gold-600;
+    @apply inline-flex items-center gap-1.5 text-sm font-medium text-forest-800 transition-colors hover:text-forest-600;
+  }
+  .icon-chip {
+    @apply flex items-center justify-center rounded-full bg-clay-50 text-clay-500 ring-1 ring-clay-100;
   }
   .prose-regpro p {
     @apply mt-4 leading-relaxed text-muted;
   }
   .prose-regpro h2 {
-    @apply mt-10 font-display text-2xl text-navy-800;
+    @apply mt-10 font-display text-2xl font-semibold text-forest-900;
   }
   .prose-regpro h3 {
-    @apply mt-8 font-display text-xl text-navy-800;
+    @apply mt-8 font-display text-xl text-forest-900;
   }
   .prose-regpro ul {
-    @apply mt-4 list-disc space-y-2 pl-5 text-muted marker:text-gold-500;
+    @apply mt-4 list-disc space-y-2 pl-5 text-muted marker:text-forest-500;
   }
 }
 

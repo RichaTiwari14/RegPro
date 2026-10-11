@@ -24,13 +24,13 @@ export function ConsentBanner() {
         >
           <p className="text-sm text-ink">
             We use analytics cookies to understand how visitors use this site. See our{' '}
-            <Link to="/privacy-policy" className="text-navy-800 underline underline-offset-2">
+            <Link to="/privacy-policy" className="text-forest-800 underline underline-offset-2">
               Privacy Policy
             </Link>
             .
           </p>
           <div className="mt-4 flex gap-2">
-            <button type="button" onClick={() => choose('granted')} className="btn-navy !py-2">
+            <button type="button" onClick={() => choose('granted')} className="btn-primary !py-2">
               Accept
             </button>
             <button type="button" onClick={() => choose('denied')} className="btn-outline !py-2">

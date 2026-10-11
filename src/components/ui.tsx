@@ -13,7 +13,7 @@ export function Container({ children, className = '' }: { children: ReactNode; c
 export function Eyebrow({ children, light = false, rule = true }: { children: ReactNode; light?: boolean; rule?: boolean }) {
   return (
     <motion.span
-      className={`eyebrow ${rule ? 'eyebrow-rule' : ''} ${light ? '!text-gold-300 before:!bg-gold-300' : ''}`}
+      className={`eyebrow ${rule ? 'eyebrow-rule' : ''} ${light ? '!bg-white/10 !text-white !ring-white/15' : ''}`}
       initial={{ opacity: 0, x: -10 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '0px 0px -10% 0px' }}
@@ -114,7 +114,7 @@ export function CallButton({
   className?: string;
   source?: string;
 }) {
-  const style = { outline: 'btn-outline', light: 'btn-outline-light', navy: 'btn-navy' }[variant];
+  const style = { outline: 'btn-outline', light: 'btn-outline-light', navy: 'btn-primary' }[variant];
   return (
     <a href={site.phoneHref} onClick={() => trackEvent('phone_click', { label: source })} className={`${style} ${sizes[size]} ${className}`}>
       <Phone className="h-4 w-4" />
@@ -127,9 +127,9 @@ export function PriceTag({ price, quote = false, light = false, className = '' }
   return (
     <div className={className}>
       <span className={`text-xs uppercase tracking-[0.14em] ${light ? 'text-white/55' : 'text-subtle'}`}>Starting at</span>
-      <div className={`font-display text-3xl ${light ? 'text-white' : 'text-navy-800'}`}>
+      <div className={`font-display text-3xl ${light ? 'text-white' : 'text-forest-800'}`}>
         {formatPrice(price)}
-        <span className={`ml-0.5 align-super text-sm ${light ? 'text-gold-300' : 'text-gold-500'}`}>*</span>
+        <span className={`ml-0.5 align-super text-sm ${light ? 'text-sage-300' : 'text-forest-500'}`}>*</span>
       </div>
       {quote && <span className={`text-xs ${light ? 'text-white/55' : 'text-subtle'}`}>Final quote depends on your requirement</span>}
     </div>

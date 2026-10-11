@@ -45,7 +45,7 @@ export default function Resources() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search articles…"
-            className="w-full rounded-lg border border-line bg-white py-3.5 pl-11 pr-4 text-[15px] outline-none transition focus:border-navy-800 focus:ring-4 focus:ring-navy-800/10"
+            className="w-full rounded-lg border border-line bg-white py-3.5 pl-11 pr-4 text-[15px] outline-none transition focus:border-forest-800 focus:ring-4 focus:ring-forest-800/10"
           />
         </label>
       </PageHero>
@@ -58,9 +58,9 @@ export default function Resources() {
               type="button"
               aria-pressed={cat === c}
               onClick={() => setCat(c)}
-              className={`relative whitespace-nowrap rounded-full border px-4 py-2 text-sm transition-colors ${cat === c ? 'border-navy-800 text-white' : 'border-line bg-white text-ink/75 hover:border-navy-800/40'}`}
+              className={`relative whitespace-nowrap rounded-full border px-4 py-2 text-sm transition-colors ${cat === c ? 'border-forest-800 text-white' : 'border-line bg-white text-ink/75 hover:border-forest-800/40'}`}
             >
-              {cat === c && <motion.span layoutId="res-tab" className="absolute inset-0 rounded-full bg-navy-800" transition={{ type: 'spring', stiffness: 400, damping: 34 }} />}
+              {cat === c && <motion.span layoutId="res-tab" className="absolute inset-0 rounded-full bg-forest-800" transition={{ type: 'spring', stiffness: 400, damping: 34 }} />}
               <span className="relative">{c}</span>
             </button>
           ))}

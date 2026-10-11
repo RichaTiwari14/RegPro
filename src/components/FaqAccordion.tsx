@@ -24,10 +24,10 @@ export function FaqAccordion({ faqs, defaultOpen = 0 }: { faqs: Faq[]; defaultOp
                 onClick={() => setOpen(isOpen ? null : i)}
                 className="group flex w-full items-center justify-between gap-6 px-5 py-5 text-left sm:px-6"
               >
-                <span className={`text-[15.5px] font-medium transition-colors ${isOpen ? 'text-navy-800' : 'text-ink group-hover:text-navy-800'}`}>{f.q}</span>
+                <span className={`text-[15.5px] font-medium transition-colors ${isOpen ? 'text-forest-800' : 'text-ink group-hover:text-forest-800'}`}>{f.q}</span>
                 <span
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
-                    isOpen ? 'rotate-45 border-gold-500 bg-gold-500 text-white' : 'border-line text-navy-800'
+                    isOpen ? 'rotate-45 border-forest-800 bg-forest-800 text-white' : 'border-line text-forest-800'
                   }`}
                 >
                   <Plus className="h-4 w-4" />

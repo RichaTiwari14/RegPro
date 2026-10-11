@@ -18,7 +18,7 @@ export function ImageFrame({
 }) {
   return (
     <div className={`relative ${className}`}>
-      {frame && <span className="absolute -bottom-3 -right-3 h-full w-full rounded-xl border border-gold-300/80" aria-hidden="true" />}
+      {frame && <span className="absolute -bottom-3 -right-3 h-full w-full rounded-xl border border-sage-300/80" aria-hidden="true" />}
       <motion.div
         className={`relative overflow-hidden rounded-xl bg-beige shadow-lift ${aspect}`}
         initial={{ clipPath: 'inset(8% 8% 8% 8% round 12px)', opacity: 0 }}

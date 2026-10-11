@@ -82,7 +82,7 @@ export function EnquiryForm({
 
   const id = (n: string) => `${uid}-${n}`;
   const field =
-    'w-full rounded-lg border bg-white px-4 py-3 text-[15px] text-ink placeholder:text-subtle outline-none transition focus:border-navy-800 focus:ring-4 focus:ring-navy-800/10';
+    'w-full rounded-lg border bg-white px-4 py-3 text-[15px] text-ink placeholder:text-subtle outline-none transition focus:border-forest-800 focus:ring-4 focus:ring-forest-800/10';
   const border = (bad?: unknown) => (bad ? 'border-red-400' : 'border-line');
   const label = 'mb-1.5 block text-[13px] font-medium text-ink';
   const err = (m?: string) => (m ? <p className="mt-1.5 text-xs text-red-600">{m}</p> : null);
@@ -117,19 +117,19 @@ export function EnquiryForm({
     <form onSubmit={handleSubmit(onSubmit)} noValidate className={`rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8 ${className}`} aria-busy={isSubmitting}>
       <h3 className="font-display text-2xl text-ink">{title}</h3>
       {subtitle && <p className="mt-1.5 text-sm text-muted">{subtitle}</p>}
-      <span className="mt-4 block h-px w-12 bg-gold-500" aria-hidden="true" />
+      <span className="mt-4 block h-px w-12 bg-forest-800" aria-hidden="true" />
 
       <div className={`mt-6 grid gap-4 ${compact ? '' : 'sm:grid-cols-2'}`}>
         <div>
           <label htmlFor={id('name')} className={label}>
-            Full name <span className="text-gold-600">*</span>
+            Full name <span className="text-forest-600">*</span>
           </label>
           <input id={id('name')} autoComplete="name" placeholder="Your full name" aria-invalid={!!errors.full_name} className={`${field} ${border(errors.full_name)}`} {...register('full_name')} />
           {err(errors.full_name?.message)}
         </div>
         <div>
           <label htmlFor={id('mobile')} className={label}>
-            Mobile number <span className="text-gold-600">*</span>
+            Mobile number <span className="text-forest-600">*</span>
           </label>
           <div className="flex">
             <span className="flex items-center rounded-l-lg border border-r-0 border-line bg-ivory px-3 text-sm text-muted">+91</span>
@@ -148,14 +148,14 @@ export function EnquiryForm({
         </div>
         <div>
           <label htmlFor={id('email')} className={label}>
-            Email address <span className="text-gold-600">*</span>
+            Email address <span className="text-forest-600">*</span>
           </label>
           <input id={id('email')} type="email" autoComplete="email" placeholder="you@example.com" aria-invalid={!!errors.email} className={`${field} ${border(errors.email)}`} {...register('email')} />
           {err(errors.email?.message)}
         </div>
         <div>
           <label htmlFor={id('service')} className={label}>
-            Service required <span className="text-gold-600">*</span>
+            Service required <span className="text-forest-600">*</span>
           </label>
           <select id={id('service')} aria-invalid={!!errors.service} className={`${field} ${border(errors.service)} appearance-none bg-[length:16px] bg-[right_1rem_center] bg-no-repeat pr-10`} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2368717D' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")" }} {...register('service')}>
             <option value="">Select a service</option>
@@ -193,10 +193,10 @@ export function EnquiryForm({
       </div>
 
       <label className="mt-5 flex cursor-pointer items-start gap-3 text-sm text-muted">
-        <input type="checkbox" className="mt-0.5 h-4 w-4 shrink-0 rounded border-line accent-navy-800" aria-invalid={!!errors.consent} {...register('consent')} />
+        <input type="checkbox" className="mt-0.5 h-4 w-4 shrink-0 rounded border-line accent-forest-800" aria-invalid={!!errors.consent} {...register('consent')} />
         <span>
           I agree to the{' '}
-          <Link to="/privacy-policy" className="text-navy-800 underline underline-offset-2">
+          <Link to="/privacy-policy" className="text-forest-800 underline underline-offset-2">
             Privacy Policy
           </Link>{' '}
           and consent to Regpro contacting me about this enquiry.
@@ -205,22 +205,22 @@ export function EnquiryForm({
       {err(errors.consent?.message)}
 
       {status.kind === 'error' && (
-        <div className="mt-5 rounded-xl border border-gold-200 bg-gold-50 p-4 text-sm text-ink" role="alert">
+        <div className="mt-5 rounded-xl border border-clay-200 bg-clay-50 p-4 text-sm text-ink" role="alert">
           <p className="flex items-start gap-2">
-            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-gold-700" /> {status.message}
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-clay-700" /> {status.message}
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('whatsapp_click', { label: 'form-fallback' })} className="inline-flex items-center gap-1.5 rounded-full bg-[#25D366] px-4 py-2 text-xs font-medium text-white">
               <WhatsAppGlyph className="h-3.5 w-3.5" /> WhatsApp us
             </a>
-            <a href={site.phoneHref} onClick={() => trackEvent('phone_click', { label: 'form-fallback' })} className="inline-flex items-center gap-1.5 rounded-full border border-navy-800/20 px-4 py-2 text-xs font-medium text-navy-800">
+            <a href={site.phoneHref} onClick={() => trackEvent('phone_click', { label: 'form-fallback' })} className="inline-flex items-center gap-1.5 rounded-full border border-forest-800/20 px-4 py-2 text-xs font-medium text-forest-800">
               <Phone className="h-3.5 w-3.5" /> Call {site.phone}
             </a>
           </div>
         </div>
       )}
 
-      <button type="submit" disabled={isSubmitting} className="btn-navy mt-6 w-full disabled:cursor-wait disabled:opacity-70">
+      <button type="submit" disabled={isSubmitting} className="btn-primary mt-6 w-full disabled:cursor-wait disabled:opacity-70">
         {isSubmitting ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" /> Submitting…

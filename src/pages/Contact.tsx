@@ -51,11 +51,11 @@ export default function Contact() {
               {cards.map((c) => {
                 const inner = (
                   <>
-                    <span className="flex h-11 w-11 items-center justify-center rounded-full border border-gold-300 text-gold-600">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full border border-sage-300 text-forest-600">
                       <c.icon className="h-5 w-5" />
                     </span>
                     <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-subtle">{c.label}</p>
-                    <p className="mt-1 break-words font-display text-lg text-navy-800">{c.value}</p>
+                    <p className="mt-1 break-words font-display text-lg text-forest-800">{c.value}</p>
                     <p className="mt-1 text-xs text-muted">{c.sub}</p>
                   </>
                 );
@@ -80,9 +80,9 @@ export default function Contact() {
               })}
             </motion.div>
             <Reveal className="mt-6 flex items-start gap-3 rounded-xl border border-line bg-white p-5 text-sm text-muted">
-              <Clock className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
+              <Clock className="mt-0.5 h-4 w-4 shrink-0 text-forest-500" />
               <span>
-                Working hours: <span className="text-navy-800">{site.hours}</span>. Messages received outside these hours are answered on the next working
+                Working hours: <span className="text-forest-800">{site.hours}</span>. Messages received outside these hours are answered on the next working
                 day.
               </span>
             </Reveal>

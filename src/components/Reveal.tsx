@@ -58,7 +58,7 @@ export function MaskedWords({
       {words.map((w, i) => (
         <span key={i} className="inline-block overflow-hidden pb-[0.12em] align-top -mb-[0.12em]" aria-hidden="true">
           <motion.span
-            className={`inline-block ${highlight.includes(w.replace(/[.,!?]$/, '')) ? 'text-gold-500' : ''}`}
+            className={`inline-block ${highlight.includes(w.replace(/[.,!?]$/, '')) ? 'text-forest-500' : ''}`}
             variants={{ hidden: { y: '110%', rotate: 3 }, shown: { y: '0%', rotate: 0 } }}
             transition={{ duration: 0.9, ease: EASE }}
           >

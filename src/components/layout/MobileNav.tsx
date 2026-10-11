@@ -31,7 +31,7 @@ export function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => 
     <AnimatePresence>
       {open && (
         <motion.div className="fixed inset-0 z-[70] lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <div className="absolute inset-0 bg-navy-950/45 backdrop-blur-[2px]" onClick={onClose} />
+          <div className="absolute inset-0 bg-forest-950/45 backdrop-blur-[2px]" onClick={onClose} />
           <motion.aside
             role="dialog"
             aria-modal="true"
@@ -45,7 +45,7 @@ export function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => 
           >
             <div className="flex h-[72px] items-center justify-between border-b border-line px-5">
               <Logo className="h-10 w-auto" />
-              <button type="button" onClick={onClose} aria-label="Close menu" className="flex h-10 w-10 items-center justify-center rounded-md border border-line bg-white text-navy-800">
+              <button type="button" onClick={onClose} aria-label="Close menu" className="flex h-10 w-10 items-center justify-center rounded-md border border-line bg-white text-forest-800">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -58,10 +58,10 @@ export function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => 
                         type="button"
                         onClick={() => setSection(section === item.menu ? null : item.menu!)}
                         aria-expanded={section === item.menu}
-                        className="flex w-full items-center justify-between px-3 py-4 font-display text-xl text-navy-800"
+                        className="flex w-full items-center justify-between px-3 py-4 font-display text-xl text-forest-800"
                       >
                         {item.label}
-                        <ChevronDown className={`h-4 w-4 text-gold-500 transition-transform ${section === item.menu ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`h-4 w-4 text-forest-600 transition-transform ${section === item.menu ? 'rotate-180' : ''}`} />
                       </button>
                       <AnimatePresence initial={false}>
                         {section === item.menu && (
@@ -71,7 +71,7 @@ export function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => 
                                 <>
                                   {categories.map((c) => (
                                     <div key={c.id}>
-                                      <p className="eyebrow">{c.title}</p>
+                                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-forest-600">{c.title}</p>
                                       <ul className="mt-2">
                                         {servicesByCategory(c.id).map((s) => (
                                           <li key={s.slug}>
@@ -100,7 +100,7 @@ export function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => 
                       </AnimatePresence>
                     </>
                   ) : (
-                    <NavLink to={item.to} end={item.to === '/'} className={({ isActive }) => `block px-3 py-4 font-display text-xl ${isActive ? 'text-gold-600' : 'text-navy-800'}`}>
+                    <NavLink to={item.to} end={item.to === '/'} className={({ isActive }) => `block px-3 py-4 font-display text-xl ${isActive ? 'text-forest-500' : 'text-forest-800'}`}>
                       {item.label}
                     </NavLink>
                   )}
@@ -108,7 +108,7 @@ export function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => 
               ))}
             </nav>
             <div className="space-y-3 border-t border-line p-5">
-              <Link to="/contact#enquiry" className="btn-navy w-full">
+              <Link to="/contact#enquiry" className="btn-primary w-full">
                 Talk to an Expert
               </Link>
               <div className="grid grid-cols-2 gap-3">
@@ -141,7 +141,7 @@ export function TabBar({ onOpenMenu }: { onOpenMenu: () => void }) {
   return (
     <nav
       aria-label="Quick navigation"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-white/95 px-2 pb-[max(0.4rem,env(safe-area-inset-bottom))] pt-1 shadow-[0_-10px_30px_rgba(16,41,69,0.08)] backdrop-blur-xl md:hidden"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-white/95 px-2 pb-[max(0.4rem,env(safe-area-inset-bottom))] pt-1 shadow-[0_-10px_30px_rgba(20,48,32,0.08)] backdrop-blur-xl md:hidden"
     >
       <div className="mx-auto grid max-w-md grid-cols-5 items-end">
         {tabs.map((t) =>
@@ -150,10 +150,10 @@ export function TabBar({ onOpenMenu }: { onOpenMenu: () => void }) {
               {({ isActive }) => (
                 <>
                   <span className="relative flex h-7 w-12 items-center justify-center">
-                    {isActive && <motion.span layoutId="tab-pill" className="absolute inset-0 rounded-full bg-navy-50" transition={{ type: 'spring', stiffness: 420, damping: 32 }} />}
-                    <t.icon className={`relative h-5 w-5 ${isActive ? 'text-navy-800' : 'text-ink/50'}`} strokeWidth={isActive ? 2.1 : 1.8} />
+                    {isActive && <motion.span layoutId="tab-pill" className="absolute inset-0 rounded-full bg-forest-50" transition={{ type: 'spring', stiffness: 420, damping: 32 }} />}
+                    <t.icon className={`relative h-5 w-5 ${isActive ? 'text-forest-800' : 'text-ink/50'}`} strokeWidth={isActive ? 2.1 : 1.8} />
                   </span>
-                  <span className={`text-[10.5px] ${isActive ? 'font-semibold text-navy-800' : 'text-ink/55'}`}>{t.label}</span>
+                  <span className={`text-[10.5px] ${isActive ? 'font-semibold text-forest-800' : 'text-ink/55'}`}>{t.label}</span>
                 </>
               )}
             </NavLink>
@@ -196,7 +196,7 @@ export function FloatingWhatsApp() {
       onClick={() => trackEvent('whatsapp_click', { label: 'floating' })}
       className="group fixed bottom-6 right-6 z-40 hidden items-center md:flex"
     >
-      <span className="mr-3 translate-x-2 rounded-full bg-white px-4 py-2 text-sm text-navy-800 opacity-0 shadow-lg transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
+      <span className="mr-3 translate-x-2 rounded-full bg-white px-4 py-2 text-sm text-forest-800 opacity-0 shadow-lg transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
         Questions? Chat with an expert
       </span>
       <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-[#25D366]/35 transition-transform duration-300 group-hover:scale-105">

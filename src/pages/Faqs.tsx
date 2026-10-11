@@ -53,7 +53,7 @@ export default function Faqs() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search questions…"
-            className="w-full rounded-lg border border-line bg-white py-3.5 pl-11 pr-4 text-[15px] outline-none transition focus:border-navy-800 focus:ring-4 focus:ring-navy-800/10"
+            className="w-full rounded-lg border border-line bg-white py-3.5 pl-11 pr-4 text-[15px] outline-none transition focus:border-forest-800 focus:ring-4 focus:ring-forest-800/10"
           />
         </label>
       </PageHero>
@@ -68,7 +68,7 @@ export default function Faqs() {
                   onClick={() => setActive(g.id)}
                   aria-pressed={active === g.id}
                   className={`w-full whitespace-nowrap rounded-md px-4 py-2.5 text-left text-sm transition-colors ${
-                    active === g.id ? 'bg-navy-800 text-white' : 'text-ink/75 hover:bg-white hover:text-navy-800'
+                    active === g.id ? 'bg-forest-800 text-white' : 'text-ink/75 hover:bg-white hover:text-forest-800'
                   }`}
                 >
                   {g.title}
@@ -80,18 +80,18 @@ export default function Faqs() {
         <div className="min-w-0 space-y-12">
           {filtered.length === 0 && (
             <p className="rounded-xl border border-line bg-white p-6 text-muted">
-              No questions match “{q}”. Try another word, or <Link to="/contact" className="text-navy-800 underline">ask us directly</Link>.
+              No questions match “{q}”. Try another word, or <Link to="/contact" className="text-forest-800 underline">ask us directly</Link>.
             </p>
           )}
           {filtered.map((g) => (
             <section key={g.id} aria-labelledby={`faq-${g.id}`}>
-              <h2 id={`faq-${g.id}`} className="mb-5 font-display text-2xl text-navy-800">
+              <h2 id={`faq-${g.id}`} className="mb-5 font-display text-2xl text-forest-800">
                 {g.title}
               </h2>
               <FaqAccordion key={`${g.id}-${q}`} faqs={g.faqs} defaultOpen={null} />
             </section>
           ))}
-          <Reveal className="relative overflow-hidden rounded-2xl bg-navy-900 p-8 text-white sm:p-10">
+          <Reveal className="relative overflow-hidden rounded-2xl bg-forest-900 p-8 text-white sm:p-10">
             <img src="/assets/cta-architecture.webp" alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-40" />
             <div className="relative">
               <p className="font-display text-2xl">Still have a question?</p>

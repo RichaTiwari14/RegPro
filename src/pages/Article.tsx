@@ -41,7 +41,7 @@ export default function ArticlePage() {
           <Container className="max-w-4xl pb-12 pt-8 sm:pt-10">
             <Breadcrumbs crumbs={crumbs} />
             <div className="mt-8 flex flex-wrap items-center gap-3 text-xs text-subtle">
-              <span className="font-semibold uppercase tracking-[0.16em] text-gold-600">{a.category}</span>
+              <span className="font-semibold uppercase tracking-[0.16em] text-forest-600">{a.category}</span>
               <span>·</span>
               <time dateTime={a.date}>{formatDate(a.date)}</time>
               <span className="flex items-center gap-1">
@@ -58,7 +58,7 @@ export default function ArticlePage() {
         <Container className="max-w-4xl py-12">
           <ImageFrame src={a.image} alt={a.imageAlt} aspect="aspect-[16/9]" priority frame={false} />
           {a.status === 'draft' && (
-            <p className="mt-8 rounded-lg border border-gold-200 bg-gold-50 p-4 text-sm text-gold-800">
+            <p className="mt-8 rounded-lg border border-clay-200 bg-clay-50 p-4 text-sm text-clay-800">
               This article is a draft awaiting professional review. It is general information, not legal or tax advice.
             </p>
           )}
@@ -76,7 +76,7 @@ export default function ArticlePage() {
               return <p key={i}>{b.p}</p>;
             })}
             <Reveal className="mt-12 rounded-xl border border-line bg-white p-6">
-              <p className="font-display text-xl text-navy-800">Need help with this?</p>
+              <p className="font-display text-xl text-forest-800">Need help with this?</p>
               <p className="mt-1 text-sm text-muted">Our team can guide you on what applies to your business.</p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <WhatsAppButton label="Ask an expert" source={`article:${a.slug}`} />
@@ -92,7 +92,7 @@ export default function ArticlePage() {
       {relatedServices.length > 0 && (
         <section className="border-t border-line bg-white py-14">
           <Container>
-            <h2 className="font-display text-2xl text-navy-800">Related services</h2>
+            <h2 className="font-display text-2xl text-forest-800">Related services</h2>
             <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {relatedServices.map((s) => (
                 <ServiceTile key={s.slug} service={s} />
@@ -104,7 +104,7 @@ export default function ArticlePage() {
       <section className="py-14 sm:py-20">
         <Container>
           <div className="flex items-end justify-between gap-4">
-            <h2 className="font-display text-2xl text-navy-800">Related articles</h2>
+            <h2 className="font-display text-2xl text-forest-800">Related articles</h2>
             <Link to="/resources" className="link-arrow">
               All resources <ArrowRight className="h-4 w-4" />
             </Link>

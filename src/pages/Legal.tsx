@@ -25,7 +25,7 @@ function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
           <ol className="mt-4 space-y-1 border-l border-line">
             {content.map((s, i) => (
               <li key={s.id}>
-                <a href={`#${s.id}`} className="-ml-px block border-l border-transparent py-1.5 pl-4 text-sm text-muted transition-colors hover:border-gold-500 hover:text-navy-800">
+                <a href={`#${s.id}`} className="-ml-px block border-l border-transparent py-1.5 pl-4 text-sm text-muted transition-colors hover:border-forest-800 hover:text-forest-800">
                   {i + 1}. {s.h}
                 </a>
               </li>
@@ -33,7 +33,7 @@ function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
           </ol>
         </nav>
         <div className="min-w-0 max-w-3xl">
-          <div className="flex items-start gap-3 rounded-xl border border-gold-200 bg-gold-50 p-5 text-sm text-gold-800">
+          <div className="flex items-start gap-3 rounded-xl border border-clay-200 bg-clay-50 p-5 text-sm text-clay-800">
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
             <p>
               Draft for client review. This page is an editable starting point, not legal advice, and is not guaranteed to be legally compliant. Sections
@@ -43,9 +43,9 @@ function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
           {content.map((s, i) => (
             <Reveal key={s.id}>
               <section id={s.id} className="scroll-mt-32 border-b border-line py-8">
-                <h2 className="flex flex-wrap items-center gap-3 font-display text-2xl text-navy-800">
-                  <span className="text-gold-500">{i + 1}.</span> {s.h}
-                  {s.review && <span className="rounded-full border border-gold-300 px-2.5 py-0.5 font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-gold-700">Requires review</span>}
+                <h2 className="flex flex-wrap items-center gap-3 font-display text-2xl text-forest-800">
+                  <span className="text-forest-500">{i + 1}.</span> {s.h}
+                  {s.review && <span className="rounded-full border border-sage-300 px-2.5 py-0.5 font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-clay-700">Requires review</span>}
                 </h2>
                 {s.p.map((p) => (
                   <p key={p} className="mt-3 leading-relaxed text-muted">

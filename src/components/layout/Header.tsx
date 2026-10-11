@@ -42,7 +42,7 @@ export function Header({ onOpenMenu }: { onOpenMenu: () => void }) {
   return (
     <header
       className={`sticky top-0 z-50 transition-[background-color,box-shadow,border-color] duration-300 ${
-        scrolled || open ? 'border-b border-line bg-white/95 shadow-[0_8px_30px_-20px_rgba(16,41,69,0.35)] backdrop-blur-md' : 'border-b border-transparent bg-ivory'
+        scrolled || open ? 'border-b border-line bg-white/95 shadow-[0_8px_30px_-20px_rgba(20,48,32,0.35)] backdrop-blur-md' : 'border-b border-transparent bg-ivory/80 backdrop-blur-sm'
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-site items-center justify-between gap-6 px-5 sm:px-6 lg:h-[84px] lg:px-8">
@@ -60,7 +60,7 @@ export function Header({ onOpenMenu }: { onOpenMenu: () => void }) {
                   aria-haspopup="true"
                   onClick={() => setOpen(open === item.menu ? null : item.menu!)}
                   className={`flex items-center gap-1 px-3.5 py-2 text-[14.5px] transition-colors ${
-                    pathname.startsWith(item.to) || (item.menu === 'resources' && pathname.startsWith('/faqs')) ? 'text-navy-800' : 'text-ink/75 hover:text-navy-800'
+                    pathname.startsWith(item.to) || (item.menu === 'resources' && pathname.startsWith('/faqs')) ? 'text-forest-800' : 'text-ink/75 hover:text-forest-800'
                   }`}
                 >
                   {item.label}
@@ -85,12 +85,12 @@ export function Header({ onOpenMenu }: { onOpenMenu: () => void }) {
                 key={item.to}
                 to={item.to}
                 end={item.to === '/'}
-                className={({ isActive }) => `relative px-3.5 py-2 text-[14.5px] transition-colors ${isActive ? 'text-navy-800' : 'text-ink/75 hover:text-navy-800'}`}
+                className={({ isActive }) => `relative px-3.5 py-2 text-[14.5px] transition-colors ${isActive ? 'text-forest-800' : 'text-ink/75 hover:text-forest-800'}`}
               >
                 {({ isActive }) => (
                   <>
                     {item.label}
-                    {isActive && <motion.span layoutId="nav-active" className="absolute inset-x-3.5 -bottom-0.5 h-px bg-gold-500" />}
+                    {isActive && <motion.span layoutId="nav-active" className="absolute inset-x-3.5 -bottom-0.5 h-[2px] rounded-full bg-forest-700" />}
                   </>
                 )}
               </NavLink>
@@ -99,14 +99,14 @@ export function Header({ onOpenMenu }: { onOpenMenu: () => void }) {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link to="/contact#enquiry" className="btn-navy hidden !px-5 !py-2.5 sm:inline-flex">
-            Talk to an Expert
+          <Link to="/contact#enquiry" className="btn-primary hidden !rounded-full !px-5 !py-2.5 sm:inline-flex">
+            Get a Free Consultation <ArrowRight className="h-4 w-4" />
           </Link>
           <button
             type="button"
             onClick={onOpenMenu}
             aria-label="Open menu"
-            className="flex h-11 w-11 items-center justify-center rounded-md border border-line bg-white text-navy-800 lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-md border border-line bg-white text-forest-800 lg:hidden"
           >
             <Menu className="h-5 w-5" />
           </button>
@@ -122,11 +122,11 @@ function ServicesMenu() {
       <div className="grid grid-cols-3 gap-6 p-7">
         {categories.map((c) => (
           <div key={c.id}>
-            <p className="eyebrow">{c.title}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-forest-600">{c.title}</p>
             <ul className="mt-4 space-y-1">
               {servicesByCategory(c.id).map((s) => (
                 <li key={s.slug}>
-                  <Link to={`/services/${s.slug}`} className="block rounded-md px-2 py-1.5 text-sm text-ink/80 transition-colors hover:bg-ivory hover:text-navy-800">
+                  <Link to={`/services/${s.slug}`} className="block rounded-md px-2 py-1.5 text-sm text-ink/80 transition-colors hover:bg-ivory hover:text-forest-800">
                     {s.name}
                   </Link>
                 </li>
@@ -150,7 +150,7 @@ function ResourcesMenu() {
     <div className="w-72 rounded-xl border border-line bg-white p-3 shadow-lift">
       {resourcesNav.map((r) => (
         <Link key={r.to} to={r.to} className="block rounded-lg px-3 py-3 transition-colors hover:bg-ivory">
-          <span className="block text-sm font-medium text-navy-800">{r.label}</span>
+          <span className="block text-sm font-medium text-forest-800">{r.label}</span>
           <span className="block text-xs text-muted">{r.text}</span>
         </Link>
       ))}

@@ -48,7 +48,7 @@ export default function Pricing() {
       >
         <div className="mt-8 flex flex-wrap gap-2">
           {categories.map((c) => (
-            <a key={c.id} href={`#${c.id}`} className="rounded-full border border-line bg-white px-4 py-2 text-sm text-navy-800 transition-colors hover:border-gold-400">
+            <a key={c.id} href={`#${c.id}`} className="rounded-full border border-line bg-white px-4 py-2 text-sm text-forest-800 transition-colors hover:border-sage-400">
               {c.title}
             </a>
           ))}
@@ -59,8 +59,8 @@ export default function Pricing() {
         {categories.map((c) => (
           <section key={c.id} id={c.id} className="scroll-mt-28">
             <Reveal>
-              <h2 className="font-display text-2xl text-navy-800 sm:text-3xl">{c.title} pricing</h2>
-              <span className="gold-rule mt-3" />
+              <h2 className="font-display text-2xl text-forest-800 sm:text-3xl">{c.title} pricing</h2>
+              <span className="clay-rule mt-3" />
             </Reveal>
             <motion.div
               className="mt-6 overflow-hidden rounded-xl border border-line bg-white shadow-card"
@@ -83,7 +83,7 @@ export default function Pricing() {
                   {servicesByCategory(c.id).map((s) => (
                     <tr key={s.slug} className="grid gap-3 px-5 py-5 transition-colors hover:bg-ivory/60 md:table-row md:p-0">
                       <th scope="row" className="font-normal md:px-6 md:py-5">
-                        <Link to={`/services/${s.slug}`} className="font-display text-[17px] text-navy-800 hover:text-gold-600">
+                        <Link to={`/services/${s.slug}`} className="font-display text-[17px] text-forest-800 hover:text-forest-600">
                           {s.name}
                         </Link>
                         <span className="mt-0.5 block text-xs text-subtle">{s.timeline}</span>
@@ -92,13 +92,13 @@ export default function Pricing() {
                         <ul className="space-y-1">
                           {s.includes.slice(0, 3).map((inc) => (
                             <li key={inc} className="flex items-start gap-2 text-[13px] text-muted">
-                              <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold-500" /> {inc}
+                              <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-forest-500" /> {inc}
                             </li>
                           ))}
                         </ul>
                       </td>
                       <td className="whitespace-nowrap md:px-6 md:py-5">
-                        <span className="font-display text-xl text-navy-800">{formatPrice(s.price)}*</span>
+                        <span className="font-display text-xl text-forest-800">{formatPrice(s.price)}*</span>
                         {s.quote && <span className="block text-xs text-subtle">Varies — get a quote</span>}
                       </td>
                       <td className="md:px-6 md:py-5 md:text-right">

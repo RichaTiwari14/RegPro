@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { AlertCircle, CheckCircle2, Clock, FileText, Info, Sparkles, Users } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Clock, FileText, Headset, Info, Landmark, Sparkles, Users } from 'lucide-react';
 import { Seo, faqLd, breadcrumbLd } from '@/lib/seo';
 import { site } from '@/config/site';
 import { getService, legacySlugs, services, categories, formatPrice } from '@/data/services';
@@ -13,6 +13,7 @@ import { ProcessSteps } from '@/components/services/ProcessSteps';
 import { FaqAccordion } from '@/components/FaqAccordion';
 import { ServiceTile } from '@/components/services/ServiceCard';
 import { CtaBanner } from '@/components/CtaBanner';
+import { Blob } from '@/components/Shapes';
 import { trackEvent } from '@/lib/analytics';
 import NotFound from '@/pages/NotFound';
 
@@ -74,31 +75,41 @@ export default function ServiceDetail() {
       />
 
       <PageHero eyebrow={category.title} title={service.name} text={service.intro} crumbs={crumbs} image={service.image} imageAlt={service.imageAlt}>
-        <div className="mt-8 flex flex-wrap items-stretch gap-4">
-          <div className="rounded-lg border border-line bg-white px-5 py-3">
-            <p className="text-[11px] uppercase tracking-[0.16em] text-subtle">Starting at</p>
-            <p className="font-display text-2xl text-navy-800">
-              {formatPrice(service.price)}
-              <span className="align-super text-sm text-gold-500">*</span>
-            </p>
-          </div>
-          <div className="rounded-lg border border-line bg-white px-5 py-3">
-            <p className="text-[11px] uppercase tracking-[0.16em] text-subtle">Typical timeline</p>
-            <p className="mt-1.5 flex items-center gap-2 text-sm text-navy-800">
-              <Clock className="h-4 w-4 text-gold-500" /> {service.timeline}
-            </p>
-          </div>
-        </div>
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <WhatsAppButton size="lg" message={wa} source={`service-hero:${service.slug}`} />
           <CallButton size="lg" label="Call an expert" source={`service-hero:${service.slug}`} />
         </div>
       </PageHero>
 
+      <Container>
+        <motion.ul
+          className="grid divide-y divide-line border-y border-line sm:grid-cols-3 sm:divide-x sm:divide-y-0"
+          initial="hidden"
+          animate="shown"
+          variants={{ hidden: {}, shown: { transition: { staggerChildren: 0.1, delayChildren: 0.5 } } }}
+        >
+          {[
+            { icon: Clock, t: service.timeline, s: 'Typical processing time' },
+            { icon: Landmark, t: 'Government fees', s: service.govtFeeNote.startsWith('There is no') ? 'None for this service' : 'Extra, as applicable' },
+            { icon: Headset, t: 'Expert support', s: 'End-to-end assistance' },
+          ].map((x) => (
+            <motion.li key={x.s} variants={{ hidden: { opacity: 0, y: 16 }, shown: { opacity: 1, y: 0 } }} className="flex items-center justify-center gap-3 px-4 py-6 text-center sm:flex-col sm:gap-2">
+              <span className="icon-chip h-10 w-10">
+                <x.icon className="h-5 w-5" />
+              </span>
+              <span>
+                <span className="block text-sm font-semibold text-forest-900">{x.t}</span>
+                <span className="block text-xs text-muted">{x.s}</span>
+              </span>
+            </motion.li>
+          ))}
+        </motion.ul>
+      </Container>
+
       <div className="sticky top-[72px] z-30 border-b border-line bg-white/95 backdrop-blur lg:top-[84px]">
         <Container className="flex gap-1 overflow-x-auto py-1.5">
           {sections.map(([id, label]) => (
-            <a key={id} href={`#${id}`} className="whitespace-nowrap rounded-md px-3 py-2.5 text-[13px] text-muted transition-colors hover:bg-ivory hover:text-navy-800">
+            <a key={id} href={`#${id}`} className="whitespace-nowrap rounded-md px-3 py-2.5 text-[13px] text-muted transition-colors hover:bg-ivory hover:text-forest-800">
               {label}
             </a>
           ))}
@@ -113,7 +124,7 @@ export default function ServiceDetail() {
               {service.whoNeeds.map((w, i) => (
                 <Reveal key={w} delay={i * 60}>
                   <div className="flex h-full items-start gap-3 rounded-xl border border-line bg-white p-4">
-                    <Users className="mt-0.5 h-4 w-4 shrink-0 text-gold-500" />
+                    <Users className="mt-0.5 h-4 w-4 shrink-0 text-forest-500" />
                     <p className="text-sm leading-relaxed text-ink/80">{w}</p>
                   </div>
                 </Reveal>
@@ -127,7 +138,7 @@ export default function ServiceDetail() {
               <ul className="space-y-3.5">
                 {service.considerations.map((c) => (
                   <li key={c} className="flex items-start gap-3 text-sm leading-relaxed text-ink/80">
-                    <Info className="mt-0.5 h-4 w-4 shrink-0 text-navy-500" /> {c}
+                    <Info className="mt-0.5 h-4 w-4 shrink-0 text-forest-500" /> {c}
                   </li>
                 ))}
               </ul>
@@ -142,9 +153,9 @@ export default function ServiceDetail() {
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {service.benefits.map((b, i) => (
                 <Reveal key={b.title} delay={i * 70}>
-                  <div className="group h-full rounded-xl border border-line bg-white p-6 transition-colors duration-500 hover:border-gold-300">
-                    <span className="font-display text-sm text-gold-500">0{i + 1}</span>
-                    <h3 className="mt-2 font-display text-xl text-navy-800">{b.title}</h3>
+                  <div className="group h-full rounded-xl border border-line bg-white p-6 transition-colors duration-500 hover:border-sage-300">
+                    <span className="font-display text-sm text-forest-500">0{i + 1}</span>
+                    <h3 className="mt-2 font-display text-xl text-forest-800">{b.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted">{b.text}</p>
                   </div>
                 </Reveal>
@@ -158,7 +169,7 @@ export default function ServiceDetail() {
               <ul className="divide-y divide-line overflow-hidden rounded-xl border border-line bg-white">
                 {service.documents.map((d) => (
                   <li key={d} className="flex items-center gap-3 px-5 py-4 text-sm text-ink/80">
-                    <FileText className="h-4 w-4 shrink-0 text-gold-500" /> {d}
+                    <FileText className="h-4 w-4 shrink-0 text-forest-500" /> {d}
                   </li>
                 ))}
               </ul>
@@ -175,15 +186,16 @@ export default function ServiceDetail() {
 
           <section id="pricing" className="scroll-mt-40">
             <Reveal>
-              <div className="overflow-hidden rounded-2xl bg-navy-900 text-white">
-                <div className="grid gap-8 p-7 sm:p-10 md:grid-cols-2">
+              <div className="relative overflow-hidden rounded-[28px] bg-forest-900 text-white">
+                <Blob variant="b" color="#22482D" className="pointer-events-none absolute -right-32 -top-40 h-[420px] w-[420px]" float />
+                <div className="relative grid gap-8 p-7 sm:p-10 md:grid-cols-2">
                   <div>
-                    <p className="eyebrow !text-gold-300">Pricing</p>
+                    <p className="eyebrow !bg-white/10 !text-white !ring-white/15">Pricing</p>
                     <h2 className="mt-3 font-display text-2xl">{service.name}</h2>
                     <p className="mt-6 text-xs uppercase tracking-[0.16em] text-white/55">Starting at</p>
                     <p className="font-display text-5xl">
                       {formatPrice(service.price)}
-                      <span className="align-super text-lg text-gold-300">*</span>
+                      <span className="align-super text-lg text-sage-300">*</span>
                     </p>
                     {service.quote && <p className="mt-2 text-sm text-white/60">Final fee depends on your requirement — ask for a quote.</p>}
                     <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -192,20 +204,20 @@ export default function ServiceDetail() {
                     </div>
                   </div>
                   <div>
-                    <p className="flex items-center gap-2 text-sm text-gold-300">
+                    <p className="flex items-center gap-2 text-sm text-sage-300">
                       <Sparkles className="h-4 w-4" /> Included in our professional fee
                     </p>
                     <ul className="mt-4 space-y-2.5">
                       {service.includes.map((inc) => (
                         <li key={inc} className="flex items-start gap-2.5 text-sm text-white/80">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" /> {inc}
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sage-300" /> {inc}
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 border-t border-white/10 bg-navy-950/40 px-7 py-5 text-xs leading-relaxed text-white/65 sm:px-10">
-                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" />
+                <div className="relative flex items-start gap-3 border-t border-white/10 bg-forest-950/40 px-7 py-5 text-xs leading-relaxed text-white/65 sm:px-10">
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-sage-300" />
                   <span>
                     * Regpro&rsquo;s professional service fee. {service.govtFeeNote} Third-party charges, where applicable, are extra and shared with you
                     before you proceed.
@@ -220,7 +232,7 @@ export default function ServiceDetail() {
             <Reveal className="mt-8 grid gap-4 sm:grid-cols-[auto_1fr]">
               <div className="rounded-xl border border-line bg-white px-6 py-5">
                 <p className="text-[11px] uppercase tracking-[0.16em] text-subtle">Typically</p>
-                <p className="mt-1 font-display text-2xl text-navy-800">{service.timeline}</p>
+                <p className="mt-1 font-display text-2xl text-forest-800">{service.timeline}</p>
               </div>
               <div className="rounded-xl border border-line bg-white px-6 py-5 text-sm leading-relaxed text-muted">
                 {service.processingNote} Timelines are estimates and cannot be guaranteed; approval is decided by the relevant authority.

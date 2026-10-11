@@ -11,7 +11,7 @@ export function ProcessSteps({ steps, light = false }: { steps: { title: string;
       variants={{ hidden: {}, shown: { transition: { staggerChildren: 0.14 } } }}
     >
       <motion.span
-        className={`absolute left-6 right-[12%] top-6 hidden h-px origin-left lg:block ${light ? 'bg-gold-300/60' : 'bg-gold-500/60'}`}
+        className={`absolute left-6 right-[12%] top-6 hidden h-px origin-left lg:block ${light ? 'bg-sage-300/60' : 'bg-sage-400'}`}
         variants={{ hidden: { scaleX: 0 }, shown: { scaleX: 1, transition: { duration: 1.4, ease: [0.65, 0, 0.35, 1] } } }}
         aria-hidden="true"
       />
@@ -23,12 +23,12 @@ export function ProcessSteps({ steps, light = false }: { steps: { title: string;
         >
           <span
             className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full border font-display text-lg ${
-              light ? 'border-gold-300/60 bg-navy-900 text-gold-300' : 'border-gold-400 bg-ivory text-gold-600'
+              light ? 'border-sage-300/60 bg-forest-900 text-sage-300' : 'border-sage-400 bg-ivory text-forest-600'
             }`}
           >
             {String(i + 1).padStart(2, '0')}
           </span>
-          <h3 className={`mt-5 font-display text-xl ${light ? 'text-white' : 'text-navy-800'}`}>{s.title}</h3>
+          <h3 className={`mt-5 font-display text-xl ${light ? 'text-white' : 'text-forest-800'}`}>{s.title}</h3>
           <p className={`mt-2 text-sm leading-relaxed ${light ? 'text-white/65' : 'text-muted'}`}>{s.text}</p>
         </motion.li>
       ))}

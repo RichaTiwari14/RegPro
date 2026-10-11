@@ -86,10 +86,10 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: i * 0.12, ease: EASE }}
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-navy-800 text-gold-300">
+              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-forest-800 text-sage-300">
                 <m.icon className="h-5 w-5" />
               </span>
-              <h2 className="mt-6 font-display text-2xl text-navy-800">{m.label}</h2>
+              <h2 className="mt-6 font-display text-2xl text-forest-800">{m.label}</h2>
               <p className="mt-3 leading-relaxed text-muted">{m.text}</p>
             </motion.div>
           ))}
@@ -105,7 +105,7 @@ export default function About() {
         </Container>
       </section>
 
-      <section className="bg-navy-900 py-20 text-white lg:py-28">
+      <section className="bg-forest-900 py-20 text-white lg:py-28">
         <Container>
           <SectionHeading light center eyebrow="Core values" title="What guides our work" />
           <motion.div
@@ -121,7 +121,7 @@ export default function About() {
                 variants={{ hidden: { opacity: 0, y: 24 }, shown: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } } }}
                 className="rounded-xl border border-white/10 bg-white/[0.04] p-7"
               >
-                <v.icon className="h-6 w-6 text-gold-300" strokeWidth={1.6} />
+                <v.icon className="h-6 w-6 text-sage-300" strokeWidth={1.6} />
                 <h3 className="mt-5 font-display text-xl">{v.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/65">{v.text}</p>
               </motion.div>
@@ -142,14 +142,14 @@ export default function About() {
                   { icon: ShieldCheck, t: 'Professional fee and any government charges shared upfront' },
                 ].map((x) => (
                   <li key={x.t} className="flex items-center gap-4 text-ink/85">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold-300 text-gold-600">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-sage-300 text-forest-600">
                       <x.icon className="h-4 w-4" />
                     </span>
                     {x.t}
                   </li>
                 ))}
               </ul>
-              <Link to="/contact#enquiry" className="btn-navy mt-9">
+              <Link to="/contact#enquiry" className="btn-primary mt-9">
                 Talk to an expert <ArrowRight className="h-4 w-4" />
               </Link>
             </Reveal>
