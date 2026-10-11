@@ -2,36 +2,39 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Container, WhatsAppButton } from '@/components/ui';
 import { MaskedWords, Reveal } from '@/components/Reveal';
-import { Leaf } from '@/components/Leaf';
 
-/** Closing call-to-action: a deep green panel with a big serif line and two calm buttons. */
+/** Navy conversion banner over a restrained architectural image, with a gold primary CTA. */
 export function CtaBanner({
-  title = 'Ready to register your business?',
-  text = 'Talk to a Regpro expert today. Get the right advice, a clear quote and a hassle-free process — all on WhatsApp.',
+  title = 'Ready to Get Your Business Moving?',
+  text = 'Talk to an expert for clear guidance on the right registration, documents and fees for your business.',
   message,
+  highlight = ['Moving?'],
 }: {
   title?: string;
   text?: string;
   message?: string;
+  highlight?: string[];
 }) {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-16 sm:py-20">
       <Container>
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl bg-olive-800 px-6 py-16 text-center sm:px-12 sm:py-20">
-            <Leaf className="absolute -bottom-6 left-8 hidden sm:block" rotate={-25} width={48} height={114} color="#97A38B" vein="#2C4432" opacity={0.6} float />
-            <Leaf className="absolute right-10 top-8 hidden sm:block" rotate={30} width={36} height={86} color="#B0B9A6" vein="#2C4432" opacity={0.5} float delay={1.2} />
-            <div className="relative mx-auto max-w-2xl">
-              <p className="eyebrow !text-soft-white/75 after:!bg-soft-white/40">Let’s get started</p>
-              <h2 className="mt-5 font-display text-soft-white" style={{ fontSize: 'clamp(2rem,4vw,3.3rem)', lineHeight: 1.1 }}>
-                <MaskedWords text={title} />
-              </h2>
-              <p className="mt-5 text-soft-white/70">{text}</p>
-              <div className="mt-9 flex flex-wrap justify-center gap-3">
-                <WhatsAppButton size="lg" message={message} source="cta-banner" />
-                <Link to="/contact#enquiry" className="btn-light !ring-0">
-                  Send an enquiry <ArrowRight className="h-4 w-4" />
+          <div className="relative overflow-hidden rounded-2xl bg-navy-900">
+            <img src="/assets/cta-architecture.webp" alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-60" />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy-900 via-navy-900/85 to-navy-900/40" />
+            <div className="relative grid items-center gap-8 px-6 py-14 sm:px-12 sm:py-16 lg:grid-cols-[1.4fr_1fr]">
+              <div>
+                <p className="eyebrow eyebrow-rule !text-gold-300 before:!bg-gold-300">Get expert assistance</p>
+                <h2 className="mt-4 font-display text-white" style={{ fontSize: 'clamp(1.9rem,3.4vw,2.9rem)', lineHeight: 1.12 }}>
+                  <MaskedWords text={title} highlight={highlight} />
+                </h2>
+                <p className="mt-4 max-w-xl text-white/70">{text}</p>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
+                <Link to="/contact#enquiry" className="btn-gold !px-7 !py-3.5">
+                  Get Expert Assistance <ArrowRight className="h-4 w-4" />
                 </Link>
+                <WhatsAppButton size="lg" label="WhatsApp Us" message={message} source="cta-banner" />
               </div>
             </div>
           </div>

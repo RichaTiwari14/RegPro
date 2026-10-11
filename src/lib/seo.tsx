@@ -7,6 +7,9 @@ export interface HeadData {
   path: string;
   jsonLd?: object[];
   noindex?: boolean;
+  /** Absolute path of the share image, e.g. /assets/gst-registration.webp. */
+  image?: string;
+  type?: 'website' | 'article';
 }
 
 /** During prerendering the server passes a collector object; on the client this is null. */
@@ -28,12 +31,12 @@ export function renderHead(d: HeadData): string {
     `<title data-seo>${title}</title>`,
     `<meta data-seo name="description" content="${desc}">`,
     `<link data-seo rel="canonical" href="${url}">`,
-    `<meta data-seo property="og:type" content="website">`,
+    `<meta data-seo property="og:type" content="${d.type ?? 'website'}">`,
     `<meta data-seo property="og:site_name" content="${site.name}">`,
     `<meta data-seo property="og:title" content="${title}">`,
     `<meta data-seo property="og:description" content="${desc}">`,
     `<meta data-seo property="og:url" content="${url}">`,
-    `<meta data-seo property="og:image" content="${site.url}/og-image.jpg">`,
+    `<meta data-seo property="og:image" content="${site.url}${d.image ?? '/og-image.jpg'}">`,
     `<meta data-seo name="twitter:card" content="summary_large_image">`,
   ];
   if (d.noindex) tags.push(`<meta data-seo name="robots" content="noindex">`);
@@ -69,7 +72,7 @@ export const organizationLd = () => ({
   '@type': 'ProfessionalService',
   name: site.name,
   url: site.url,
-  logo: `${site.url}/favicon.svg`,
+  logo: `${site.url}/assets/brand/regpro-logo.png`,
   image: `${site.url}/og-image.jpg`,
   description: site.description,
   telephone: site.phone,
@@ -94,4 +97,15 @@ export const breadcrumbLd = (items: { name: string; path: string }[]) => ({
     name: it.name,
     item: `${site.url}${it.path === '/' ? '' : it.path}`,
   })),
+});
+
+export const articleLd = (a: { title: string; excerpt: string; date: string; slug: string; image: string }) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: a.title,
+  description: a.excerpt,
+  datePublished: a.date,
+  image: `${site.url}${a.image}`,
+  mainEntityOfPage: `${site.url}/resources/${a.slug}`,
+  publisher: { '@type': 'Organization', name: site.name, logo: { '@type': 'ImageObject', url: `${site.url}/assets/brand/regpro-logo.png` } },
 });

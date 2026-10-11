@@ -226,3 +226,7 @@ dist-ssr/
 
 # Python template above ignores lib/ — keep the app source folder
 !src/lib/
+
+# Local env files
+.env.local
+.env.*.local

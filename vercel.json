@@ -4,7 +4,34 @@
   "headers": [
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/blog",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/resources/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/services/dpiit-startup-india-registration",
+      "destination": "/services/dpiit-startup-india-recognition",
+      "permanent": true
+    },
+    {
+      "source": "/services/pan-tan-registration",
+      "destination": "/services/pan-tan",
+      "permanent": true
     }
   ]
 }

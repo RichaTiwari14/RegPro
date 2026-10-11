@@ -3,8 +3,11 @@
  * To change a price, edit `price` (a number in ₹). To add a service, copy an entry,
  * give it a unique `slug`, and it automatically gets a page, menu link and sitemap entry.
  *
- * TODO: prices below are indicative placeholders — replace with the client's final pricing.
+ * Page images, eligibility notes and fee notes live in serviceDetails.ts.
+ *
+ * TODO (client): prices below are starting prices pending final confirmation — update `price` here only.
  */
+import { serviceDetails, legacySlugs, type ServiceDetail } from '@/data/serviceDetails';
 
 export type CategoryId = 'business' | 'government' | 'other';
 
@@ -15,7 +18,7 @@ export interface Category {
   description: string;
 }
 
-export interface Service {
+export interface Service extends ServiceDetail {
   slug: string;
   category: CategoryId;
   name: string;
@@ -35,6 +38,7 @@ export interface Service {
   includes: string[];
   faqs: { q: string; a: string }[];
 }
+
 
 export const categories: Category[] = [
   {
@@ -57,7 +61,7 @@ export const categories: Category[] = [
   },
 ];
 
-export const services: Service[] = [
+const baseServices: Omit<Service, keyof ServiceDetail>[] = [
   // ───────────────────────── Business registrations ─────────────────────────
   {
     slug: 'private-limited-company-registration',
@@ -406,7 +410,7 @@ export const services: Service[] = [
     ],
   },
   {
-    slug: 'dpiit-startup-india-registration',
+    slug: 'dpiit-startup-india-recognition',
     category: 'government',
     name: 'DPIIT / Startup India Recognition',
     shortName: 'DPIIT / Startup India',
@@ -550,7 +554,7 @@ export const services: Service[] = [
     ],
   },
   {
-    slug: 'pan-tan-registration',
+    slug: 'pan-tan',
     category: 'government',
     name: 'PAN / TAN Application',
     shortName: 'PAN / TAN',
@@ -647,7 +651,10 @@ export const services: Service[] = [
   },
 ];
 
-export const getService = (slug: string) => services.find((s) => s.slug === slug);
+export const services: Service[] = baseServices.map((s) => ({ ...s, ...serviceDetails[s.slug] }));
+
+export const getService = (slug: string) => services.find((s) => s.slug === (legacySlugs[slug] ?? slug));
+export { legacySlugs };
 export const servicesByCategory = (id: CategoryId) => services.filter((s) => s.category === id);
 export const popularServices = services.filter((s) => s.popular);
 

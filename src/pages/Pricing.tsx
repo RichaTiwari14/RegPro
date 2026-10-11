@@ -1,117 +1,136 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'motion/react';
-import { BadgeCheck, Clock, Laptop, ReceiptIndianRupee } from 'lucide-react';
-import { Seo, breadcrumbLd } from '@/lib/seo';
-import { categories, services, servicesByCategory, formatPrice, type CategoryId } from '@/data/services';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Seo, breadcrumbLd, faqLd } from '@/lib/seo';
+import { categories, servicesByCategory, formatPrice } from '@/data/services';
+import { faqGroups } from '@/data/faqs';
 import { PageHero } from '@/components/PageHero';
-import { Container, FeeNote, WhatsAppButton } from '@/components/ui';
-import { ServiceIcon } from '@/components/ServiceIcon';
+import { Container, SectionHeading, FeeNote, WhatsAppButton } from '@/components/ui';
+import { Reveal } from '@/components/Reveal';
+import { FaqAccordion } from '@/components/FaqAccordion';
 import { CtaBanner } from '@/components/CtaBanner';
+import { trackEvent } from '@/lib/analytics';
 
-type Filter = 'all' | CategoryId;
+const pricingFaqs = [
+  ...faqGroups.find((g) => g.id === 'pricing')!.faqs,
+  {
+    q: 'Why is the price shown as “starting at”?',
+    a: 'Some services vary with your business type, state, number of classes or licence type. We confirm the exact professional fee for your case before you proceed.',
+  },
+  {
+    q: 'When do I pay government fees?',
+    a: 'Government or statutory fees are paid at the time of filing on the official portal. We tell you the applicable amount in advance.',
+  },
+];
 
 export default function Pricing() {
-  const [filter, setFilter] = useState<Filter>('all');
   const crumbs = [
     { name: 'Home', path: '/' },
     { name: 'Pricing', path: '/pricing' },
   ];
-  const list = filter === 'all' ? services : servicesByCategory(filter);
-  const tabs: { id: Filter; label: string }[] = [{ id: 'all', label: 'All' }, ...categories.map((c) => ({ id: c.id as Filter, label: c.title }))];
+  useEffect(() => trackEvent('view_pricing', { page: 'pricing' }), []);
 
   return (
     <>
       <Seo
         title="Pricing — Business Registration & Compliance Fees"
-        description="Transparent pricing for company registration, GST, MSME, DPIIT, FSSAI, IEC, trademark and more. Government fees, if applicable, are extra."
+        description="Transparent starting prices for company registration, GST, Udyam/MSME, DPIIT, FSSAI, IEC, trademark and more. Government and statutory fees are extra where applicable."
         path="/pricing"
-        jsonLd={[breadcrumbLd(crumbs)]}
+        jsonLd={[breadcrumbLd(crumbs), faqLd(pricingFaqs)]}
       />
       <PageHero
-        eyebrow="Transparent pricing"
+        eyebrow="Pricing"
         title="Transparent Pricing, No Hidden Charges"
         highlight={['No', 'Hidden', 'Charges']}
-        text="Our professional fees are shown upfront. Government or statutory fees, where applicable, are charged separately at actuals."
+        text="Simple starting prices for our professional services. Government or statutory fees, where applicable, are charged separately — and always shared upfront."
         crumbs={crumbs}
       >
-        <div className="mt-9 flex flex-wrap gap-3">
-          {[
-            { icon: BadgeCheck, t: 'Fixed professional fee' },
-            { icon: ReceiptIndianRupee, t: 'Govt. fees at actuals' },
-            { icon: Laptop, t: '100% online' },
-          ].map(({ icon: Icon, t }) => (
-            <span key={t} className="inline-flex items-center gap-2 rounded-full bg-soft-white px-4 py-2 text-sm font-medium text-olive-800 shadow-sm ring-1 ring-olive-800/10">
-              <Icon className="h-4 w-4 text-sage-600" /> {t}
-            </span>
+        <div className="mt-8 flex flex-wrap gap-2">
+          {categories.map((c) => (
+            <a key={c.id} href={`#${c.id}`} className="rounded-full border border-line bg-white px-4 py-2 text-sm text-navy-800 transition-colors hover:border-gold-400">
+              {c.title}
+            </a>
           ))}
         </div>
       </PageHero>
 
-      <section className="bg-soft-white py-16 sm:py-20">
-        <Container>
-          <div className="-mx-1 flex gap-2 overflow-x-auto rounded-full bg-cream p-1.5 ring-1 ring-olive-800/5 sm:mx-auto sm:w-fit">
-            {tabs.map((t) => (
-              <button
-                key={t.id}
-                type="button"
-                onClick={() => setFilter(t.id)}
-                className={`relative whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${filter === t.id ? 'text-white' : 'text-olive-800/70 hover:text-olive-800'}`}
-              >
-                {filter === t.id && (
-                  <motion.span layoutId="price-tab" className="absolute inset-0 rounded-full bg-olive-800" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />
-                )}
-                <span className="relative">{t.label}</span>
-              </button>
-            ))}
-          </div>
+      <Container className="space-y-16 py-14 sm:py-20">
+        {categories.map((c) => (
+          <section key={c.id} id={c.id} className="scroll-mt-28">
+            <Reveal>
+              <h2 className="font-display text-2xl text-navy-800 sm:text-3xl">{c.title} pricing</h2>
+              <span className="gold-rule mt-3" />
+            </Reveal>
+            <motion.div
+              className="mt-6 overflow-hidden rounded-xl border border-line bg-white shadow-card"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <table className="w-full text-left text-sm">
+                <caption className="sr-only">{c.title} — starting prices</caption>
+                <thead className="hidden bg-ivory text-[11px] uppercase tracking-[0.16em] text-subtle md:table-header-group">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 font-medium">Service</th>
+                    <th scope="col" className="px-6 py-3 font-medium">What’s included</th>
+                    <th scope="col" className="px-6 py-3 font-medium">Starting at</th>
+                    <th scope="col" className="px-6 py-3 font-medium"><span className="sr-only">Action</span></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-line">
+                  {servicesByCategory(c.id).map((s) => (
+                    <tr key={s.slug} className="grid gap-3 px-5 py-5 transition-colors hover:bg-ivory/60 md:table-row md:p-0">
+                      <th scope="row" className="font-normal md:px-6 md:py-5">
+                        <Link to={`/services/${s.slug}`} className="font-display text-[17px] text-navy-800 hover:text-gold-600">
+                          {s.name}
+                        </Link>
+                        <span className="mt-0.5 block text-xs text-subtle">{s.timeline}</span>
+                      </th>
+                      <td className="md:max-w-sm md:px-6 md:py-5">
+                        <ul className="space-y-1">
+                          {s.includes.slice(0, 3).map((inc) => (
+                            <li key={inc} className="flex items-start gap-2 text-[13px] text-muted">
+                              <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold-500" /> {inc}
+                            </li>
+                          ))}
+                        </ul>
+                      </td>
+                      <td className="whitespace-nowrap md:px-6 md:py-5">
+                        <span className="font-display text-xl text-navy-800">{formatPrice(s.price)}*</span>
+                        {s.quote && <span className="block text-xs text-subtle">Varies — get a quote</span>}
+                      </td>
+                      <td className="md:px-6 md:py-5 md:text-right">
+                        <div className="flex flex-wrap items-center gap-3 md:justify-end">
+                          <Link to={`/services/${s.slug}`} className="link-arrow whitespace-nowrap">
+                            Details <ArrowRight className="h-3.5 w-3.5" />
+                          </Link>
+                          {s.quote && (
+                            <WhatsAppButton label="Get a Quote" message={`Hi Regpro, please share a quote for ${s.name}.`} source={`pricing-quote:${s.slug}`} className="!px-4 !py-2 !text-xs" />
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </motion.div>
+          </section>
+        ))}
+        <FeeNote />
+      </Container>
 
-          <motion.div layout className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            <AnimatePresence mode="popLayout">
-              {list.map((s, i) => (
-                <motion.div
-                  key={s.slug}
-                  layout
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0, transition: { delay: i * 0.04, duration: 0.6, ease: [0.16, 1, 0.3, 1] } }}
-                  exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-                  whileHover={{ y: -6 }}
-                  className="glass flex flex-col p-6"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <Link to={`/services/${s.slug}`} className="group flex items-center gap-3">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-olive-50 text-olive-800 transition-colors group-hover:bg-olive-800 group-hover:text-sage-400">
-                        <ServiceIcon name={s.icon} className="h-5 w-5" />
-                      </span>
-                      <span className="font-display text-xl leading-snug text-olive-800 group-hover:text-sage-700">{s.name}</span>
-                    </Link>
-                    {s.popular && (
-                      <span className="shrink-0 rounded-full bg-sage-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-sage-700 ring-1 ring-sage-200">
-                        Popular
-                      </span>
-                    )}
-                  </div>
-                  <div className="mt-6 flex items-end justify-between gap-3 border-t border-olive-800/10 pt-5">
-                    <div>
-                      <p className="label-cine text-subtle">Starting at</p>
-                      <p className="font-display text-3xl text-olive-800">
-                        {formatPrice(s.price)}
-                        <span className="align-super text-xs text-sage-600">*</span>
-                      </p>
-                      <p className="mt-1 flex items-center gap-1 text-xs text-subtle">
-                        <Clock className="h-3 w-3" /> {s.timeline}
-                      </p>
-                    </div>
-                    <WhatsAppButton label="Enquire" message={`Hi Regpro, I want to know more about ${s.name} pricing.`} source={`pricing-table:${s.slug}`} />
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-          <FeeNote className="mt-10 text-center" />
+      <section className="border-t border-line bg-white py-16 sm:py-20">
+        <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <SectionHeading eyebrow="Pricing FAQs" title="Questions about fees" text="Not sure what applies to you? Ask us for a quote — there is no obligation." />
+          <Reveal>
+            <FaqAccordion faqs={pricingFaqs} />
+          </Reveal>
         </Container>
       </section>
-      <CtaBanner title="Need a custom package?" text="Starting multiple registrations together? Ask us for a bundled quote." />
+
+      <CtaBanner title="Need a Quote for Your Business?" highlight={['Quote']} text="Starting several registrations together, or not sure what you need? Tell us and we will confirm the fee before you proceed." />
     </>
   );
 }

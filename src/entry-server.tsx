@@ -5,7 +5,7 @@ import App from '@/App';
 import { HeadContext, renderHead, type HeadData } from '@/lib/seo';
 import { site } from '@/config/site';
 
-export { staticRoutes } from '@/routes';
+export { staticRoutes, sitemapRoutes } from '@/routes';
 export const siteUrl = site.url;
 
 export function render(url: string) {

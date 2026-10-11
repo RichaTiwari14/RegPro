@@ -13,10 +13,12 @@ export const site = {
   phone: '+91 96060 30573',
   phoneHref: 'tel:+919606030573',
   whatsappNumber: '919606030573',
-  // TODO: replace with the client's final email address.
+  // TODO (client): confirm the business email address before launch.
   email: 'hello@regpro.in',
-  // TODO: replace with the client's registered office address.
+  // TODO (client): add the full registered office address once verified. Only the city is shown until then.
   address: 'Bengaluru, Karnataka, India',
+  /** Full street address — leave empty until verified; the map and address schema stay hidden while empty. */
+  streetAddress: '',
   city: 'Bengaluru',
   hours: 'Mon – Sat, 10:00 AM – 7:00 PM',
 
@@ -34,13 +36,17 @@ export const whatsappLink = (message = 'Hi Regpro, I would like to know more abo
   `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
 /**
- * Third-party keys come from environment variables (set them in Vercel → Project → Settings → Environment Variables).
- *  VITE_WEB3FORMS_KEY  – Web3Forms access key; enquiries are emailed to the address registered with it.
- *  VITE_GA_ID          – Google Analytics 4 measurement ID (G-XXXXXXX).
- *  VITE_META_PIXEL_ID  – Meta Pixel ID.
+ * Environment-based configuration (see .env.example). Never put secret keys here — everything
+ * prefixed VITE_ ends up in the public JavaScript bundle.
+ *  VITE_API_BASE_URL   – base URL of the backend that receives enquiries (POST /api/enquiries/).
+ *  VITE_GA_ID          – Google Analytics 4 measurement ID (G-XXXXXXX). Leave empty to disable.
+ *  VITE_META_PIXEL_ID  – Meta Pixel ID. Leave empty to disable.
  */
 export const integrations = {
-  web3formsKey: import.meta.env.VITE_WEB3FORMS_KEY as string | undefined,
+  apiBaseUrl: (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, '') || '',
   gaId: import.meta.env.VITE_GA_ID as string | undefined,
   metaPixelId: import.meta.env.VITE_META_PIXEL_ID as string | undefined,
 };
+
+/** Show draft resources (articles awaiting review). Drafts are always excluded from the sitemap. */
+export const showDraftContent = true;

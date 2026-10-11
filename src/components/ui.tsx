@@ -1,23 +1,23 @@
 import type { ReactNode } from 'react';
-import { ArrowRight, Phone } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import { motion } from 'motion/react';
 import { MaskedWords } from '@/components/Reveal';
 import { site, whatsappLink } from '@/config/site';
-import { trackConversion } from '@/lib/analytics';
+import { trackEvent } from '@/lib/analytics';
 import { formatPrice } from '@/data/services';
 
 export function Container({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8 ${className}`}>{children}</div>;
+  return <div className={`mx-auto w-full max-w-site px-5 sm:px-6 lg:px-8 ${className}`}>{children}</div>;
 }
 
-export function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
+export function Eyebrow({ children, light = false, rule = true }: { children: ReactNode; light?: boolean; rule?: boolean }) {
   return (
     <motion.span
-      className={`eyebrow ${light ? '!text-soft-white/80 after:!bg-soft-white/50' : ''}`}
-      initial={{ opacity: 0, x: -12 }}
+      className={`eyebrow ${rule ? 'eyebrow-rule' : ''} ${light ? '!text-gold-300 before:!bg-gold-300' : ''}`}
+      initial={{ opacity: 0, x: -10 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '0px 0px -10% 0px' }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.span>
@@ -31,28 +31,30 @@ export function SectionHeading({
   center = false,
   light = false,
   highlight = [],
+  as: Tag = 'h2',
 }: {
   eyebrow?: string;
   title: ReactNode;
   text?: ReactNode;
   center?: boolean;
   light?: boolean;
-  /** Words in `title` set in sage italic. */
+  /** Words in `title` set in champagne gold. */
   highlight?: string[];
+  as?: 'h1' | 'h2';
 }) {
   return (
     <div className={`max-w-3xl ${center ? 'mx-auto text-center' : ''}`}>
-      {eyebrow && <Eyebrow light={light}>{eyebrow}</Eyebrow>}
-      <h2 className={`heading-cine mt-5 ${light ? '!text-soft-white' : ''}`} style={{ fontSize: 'clamp(2.2rem,4vw,3.4rem)' }}>
-        {typeof title === 'string' ? <MaskedWords text={title} delay={100} highlight={highlight} /> : title}
-      </h2>
+      {eyebrow && <Eyebrow light={light} rule={!center}>{eyebrow}</Eyebrow>}
+      <Tag className={`heading mt-4 ${light ? '!text-white' : ''}`} style={{ fontSize: Tag === 'h1' ? 'clamp(2.4rem,5vw,4rem)' : 'clamp(1.9rem,3.4vw,2.9rem)' }}>
+        {typeof title === 'string' ? <MaskedWords text={title} delay={80} highlight={highlight} /> : title}
+      </Tag>
       {text && (
         <motion.p
-          className={`mt-5 text-base leading-relaxed ${light ? 'text-white/70' : 'text-muted'}`}
-          initial={{ opacity: 0, y: 20 }}
+          className={`mt-4 text-base leading-relaxed ${light ? 'text-white/70' : 'text-muted'} ${center ? 'mx-auto max-w-2xl' : 'max-w-2xl'}`}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '0px 0px -10% 0px' }}
-          transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
         >
           {text}
         </motion.p>
@@ -70,14 +72,11 @@ export function WhatsAppGlyph({ className = '' }: { className?: string }) {
 }
 
 type BtnSize = 'md' | 'lg';
-const sizes: Record<BtnSize, string> = {
-  md: 'px-6 py-3 text-sm',
-  lg: 'px-7 py-3.5 text-[15px]',
-};
+const sizes: Record<BtnSize, string> = { md: '', lg: '!px-7 !py-3.5 !text-[15px]' };
 
 export function WhatsAppButton({
   message,
-  label = 'Chat on WhatsApp',
+  label = 'WhatsApp an Expert',
   size = 'md',
   className = '',
   source = 'button',
@@ -93,8 +92,8 @@ export function WhatsAppButton({
       href={whatsappLink(message)}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => trackConversion('contact', `whatsapp:${source}`)}
-      className={`group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#25D366] font-medium text-white shadow-lg shadow-[#25D366]/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1fbe5a] hover:shadow-xl hover:shadow-[#25D366]/25 ${sizes[size]} ${className}`}
+      onClick={() => trackEvent('whatsapp_click', { label: source })}
+      className={`btn-whatsapp ${sizes[size]} ${className}`}
     >
       <WhatsAppGlyph className="h-4 w-4" />
       {label}
@@ -103,7 +102,7 @@ export function WhatsAppButton({
 }
 
 export function CallButton({
-  label = 'Call now',
+  label = 'Call us',
   size = 'md',
   variant = 'outline',
   className = '',
@@ -115,62 +114,32 @@ export function CallButton({
   className?: string;
   source?: string;
 }) {
-  const styles = {
-    outline: 'bg-soft-white text-ink shadow-sm ring-1 ring-mist-300 hover:ring-ink/30',
-    light: 'bg-soft-white text-ink hover:bg-white',
-    navy: 'bg-olive-800 text-soft-white hover:bg-olive-950 hover:shadow-xl hover:shadow-olive-900/20',
-  }[variant];
+  const style = { outline: 'btn-outline', light: 'btn-outline-light', navy: 'btn-navy' }[variant];
   return (
-    <a
-      href={site.phoneHref}
-      onClick={() => trackConversion('contact', `call:${source}`)}
-      className={`inline-flex items-center justify-center gap-2.5 rounded-full font-medium transition-all duration-300 hover:-translate-y-0.5 ${styles} ${sizes[size]} ${className}`}
-    >
-      <Phone className="h-3.5 w-3.5" />
+    <a href={site.phoneHref} onClick={() => trackEvent('phone_click', { label: source })} className={`${style} ${sizes[size]} ${className}`}>
+      <Phone className="h-4 w-4" />
       {label}
     </a>
   );
 }
 
-export function PriceTag({ price, light = false, className = '' }: { price: number; light?: boolean; className?: string }) {
+export function PriceTag({ price, quote = false, light = false, className = '' }: { price: number; quote?: boolean; light?: boolean; className?: string }) {
   return (
     <div className={className}>
-      <span className={`text-[13px] ${light ? 'text-white/60' : 'text-ink/50'}`}>Starting at</span>
-      <div className={`font-display text-3xl ${light ? 'text-white' : 'text-olive-800'}`}>
+      <span className={`text-xs uppercase tracking-[0.14em] ${light ? 'text-white/55' : 'text-subtle'}`}>Starting at</span>
+      <div className={`font-display text-3xl ${light ? 'text-white' : 'text-navy-800'}`}>
         {formatPrice(price)}
-        <span className={`ml-1 align-super text-xs font-semibold ${light ? 'text-sage-300' : 'text-sage-600'}`}>*</span>
+        <span className={`ml-0.5 align-super text-sm ${light ? 'text-gold-300' : 'text-gold-500'}`}>*</span>
       </div>
+      {quote && <span className={`text-xs ${light ? 'text-white/55' : 'text-subtle'}`}>Final quote depends on your requirement</span>}
     </div>
   );
 }
 
 export function FeeNote({ light = false, className = '' }: { light?: boolean; className?: string }) {
   return (
-    <p className={`text-xs ${light ? 'text-white/55' : 'text-ink/55'} ${className}`}>
-      * Professional fee. {site.feeNote}
+    <p className={`text-xs leading-relaxed ${light ? 'text-white/55' : 'text-subtle'} ${className}`}>
+      * Regpro&rsquo;s professional fee. {site.feeNote} Third-party charges, where applicable, are extra.
     </p>
-  );
-}
-
-/** Outline circle with an arrow — the landing page's signature control. */
-export function CircleArrow({
-  icon: Icon = ArrowRight,
-  light = false,
-  size = 'md',
-  className = '',
-}: {
-  icon?: typeof ArrowRight;
-  light?: boolean;
-  size?: 'sm' | 'md';
-  className?: string;
-}) {
-  return (
-    <span
-      className={`flex shrink-0 items-center justify-center rounded-full border transition-all duration-500 ${
-        size === 'sm' ? 'h-10 w-10' : 'h-12 w-12'
-      } ${light ? 'border-white/40 text-white' : 'border-olive-800/30 text-olive-800'} ${className}`}
-    >
-      <Icon size={size === 'sm' ? 16 : 18} />
-    </span>
   );
 }

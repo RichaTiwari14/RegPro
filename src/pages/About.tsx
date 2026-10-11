@@ -1,20 +1,29 @@
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { CheckCircle2, Eye, HeartHandshake, Target } from 'lucide-react';
+import { ArrowRight, Compass, Eye, FileSearch, Handshake, MessagesSquare, Scale, ShieldCheck, Target } from 'lucide-react';
 import { Seo, breadcrumbLd, organizationLd } from '@/lib/seo';
 import { site } from '@/config/site';
-import { services } from '@/data/services';
 import { PageHero } from '@/components/PageHero';
 import { Container, SectionHeading } from '@/components/ui';
 import { Reveal } from '@/components/Reveal';
-import { Leaf } from '@/components/Leaf';
+import { ImageFrame } from '@/components/ImageFrame';
+import { ProcessSteps } from '@/components/services/ProcessSteps';
 import { CtaBanner } from '@/components/CtaBanner';
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 const values = [
-  { icon: Target, title: 'Our mission', text: 'Make business registration and compliance simple, affordable and transparent for every Indian entrepreneur.', tint: 'bg-olive-50 text-olive-800' },
-  { icon: Eye, title: 'Our vision', text: 'To be the most trusted compliance partner for startups and small businesses across India.', tint: 'bg-sage-50 text-sage-700' },
-  { icon: HeartHandshake, title: 'Our promise', text: 'Honest advice, upfront pricing and an expert who stays with you until the job is done.', tint: 'bg-emerald-50 text-emerald-700' },
+  { icon: Scale, title: 'Integrity', text: 'Honest advice, even when the answer is that you do not need a service.' },
+  { icon: Compass, title: 'Clarity', text: 'Plain-language guidance on requirements, fees and timelines.' },
+  { icon: Handshake, title: 'Client first', text: 'We listen to your situation before recommending anything.' },
+  { icon: ShieldCheck, title: 'Care with data', text: 'Your documents are handled carefully and used only for your application.' },
+];
+
+const approach = [
+  { title: 'Understand', text: 'We learn about your business and goals before suggesting a registration.' },
+  { title: 'Document', text: 'You receive a clear checklist and our professional fee upfront.' },
+  { title: 'Prepare & file', text: 'We prepare the application and assist with filing on the relevant portal.' },
+  { title: 'Follow through', text: 'We keep you updated and help respond to any queries from the authority.' },
 ];
 
 export default function About() {
@@ -22,117 +31,134 @@ export default function About() {
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
   ];
-  const minPrice = Math.min(...services.map((s) => s.price));
-  const stats = [
-    [`${services.length}+`, 'Services'],
-    [`₹${minPrice}`, 'Starting fee'],
-    ['100%', 'Online process'],
-    ['6 days', 'Weekly support'],
-  ];
   return (
     <>
       <Seo
         title="About Us"
-        description="Regpro is a business registration and compliance partner for startups, entrepreneurs and small businesses in India. Register. Comply. Grow."
+        description="Regpro is a business registration and compliance assistance firm helping startups, entrepreneurs and businesses across India. Register. Comply. Grow."
         path="/about"
+        image="/assets/about-workspace.webp"
         jsonLd={[organizationLd(), breadcrumbLd(crumbs)]}
       />
       <PageHero
         eyebrow="About Regpro"
-        title="Register. Comply. Grow."
-        highlight={['Grow']}
-        text="We help Indian businesses get started and stay compliant — without the paperwork stress."
+        title="Your Partner in Business Registration"
+        highlight={['Business', 'Registration']}
+        text="We help entrepreneurs and businesses navigate registrations, government documentation and compliance with clarity and care."
         crumbs={crumbs}
-        image="/photos/about-hero.jpg"
-        scribble={"Built for founders ♡"}
+        image="/assets/about-workspace.webp"
+        imageAlt="A calm, premium office workspace"
       />
 
-      {/* Stats band */}
-      <section className="bg-olive-800">
-        <Container className="grid grid-cols-2 gap-y-10 py-16 lg:grid-cols-4">
-          {stats.map(([v, l], i) => (
+      <section className="py-20 lg:py-28">
+        <Container className="grid items-center gap-14 lg:grid-cols-2">
+          <ImageFrame src="/assets/business-documents.webp" alt="Professionals reviewing registration documents" aspect="aspect-[5/4]" />
+          <div>
+            <SectionHeading eyebrow="Our story" title="Why Regpro exists" />
+            <Reveal delay={120}>
+              <div className="mt-6 space-y-4 leading-relaxed text-muted">
+                <p>
+                  Starting or formalising a business in India involves many portals, forms and departments. For most founders, the hardest part is knowing
+                  what is actually required — and in what order.
+                </p>
+                <p>
+                  {site.name} was set up to make that journey simpler: explain what applies to you, organise the documents, assist with the application and
+                  keep you informed until the authority decides.
+                </p>
+              </div>
+              {/* TODO (client): add verified founding year, team and experience details here once available. */}
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-y border-line bg-white py-20 lg:py-28">
+        <Container className="grid gap-6 md:grid-cols-2">
+          {[
+            { icon: Target, label: 'Our mission', text: 'To make business registration and compliance clear, organised and accessible for every entrepreneur in India.' },
+            { icon: Eye, label: 'Our vision', text: 'To be a trusted first call for businesses that want to get their registrations and documentation right.' },
+          ].map((m, i) => (
             <motion.div
-              key={l}
-              className="text-center"
+              key={m.label}
+              className="rounded-xl border border-line bg-ivory/60 p-8"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: i * 0.1, ease: EASE }}
+              transition={{ duration: 0.8, delay: i * 0.12, ease: EASE }}
             >
-              <p className="font-display text-4xl text-soft-white sm:text-5xl">{v}</p>
-              <p className="mt-2 text-sm text-soft-white/65">{l}</p>
+              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-navy-800 text-gold-300">
+                <m.icon className="h-5 w-5" />
+              </span>
+              <h2 className="mt-6 font-display text-2xl text-navy-800">{m.label}</h2>
+              <p className="mt-3 leading-relaxed text-muted">{m.text}</p>
             </motion.div>
           ))}
         </Container>
       </section>
 
-      <section className="py-16 sm:py-24">
-        <Container className="grid items-center gap-14 lg:grid-cols-2">
-          <div>
-            <SectionHeading eyebrow="Who we are" title="Your partner for registrations and compliance" highlight={['partner']} />
-            <Reveal delay={100}>
-              <div className="mt-6 space-y-4 text-base leading-relaxed text-muted">
-                <p>
-                  {site.name} helps startups, entrepreneurs, professionals and small businesses with business registrations, government
-                  documentation and compliance assistance.
-                </p>
-                <p>
-                  Starting a business in India means dealing with multiple portals, forms and departments. We simplify that journey — we tell
-                  you exactly what you need, prepare and file your applications, and keep you updated on WhatsApp until you receive your
-                  certificate.
-                </p>
-              </div>
-              <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-                {['Expert-assisted filing', 'Transparent, upfront pricing', '100% online process', 'Dedicated support'].map((t) => (
-                  <li key={t} className="flex items-center gap-2 text-sm font-semibold text-olive-800">
-                    <CheckCircle2 className="h-5 w-5 text-sage-500" /> {t}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
+      <section className="py-20 lg:py-28">
+        <Container>
+          <SectionHeading eyebrow="Our approach" title="How we work with you" highlight={['you']} />
+          <div className="mt-14">
+            <ProcessSteps steps={approach} />
           </div>
-          <Reveal delay={150} className="relative mx-auto w-full max-w-md">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-30px_rgba(44,68,50,0.45)]">
-              <img src="/photos/about.jpg" alt="" className="h-full w-full object-cover" loading="lazy" />
-            </div>
-            <div className="absolute -bottom-6 -right-4 rounded-2xl bg-soft-white p-5 shadow-2xl shadow-olive-900/20 sm:-right-10">
-              <p className="font-display text-2xl text-olive-800">Register.</p>
-              <p className="font-display text-2xl text-olive-800">Comply.</p>
-              <p className="font-display text-2xl text-sage-500">Grow.</p>
-            </div>
-            <Leaf className="absolute -left-5 -top-7 z-10" rotate={-25} color="#66755D" opacity={0.85} float />
-          </Reveal>
         </Container>
       </section>
 
-      <section className="sky relative overflow-hidden py-16 sm:py-24">
+      <section className="bg-navy-900 py-20 text-white lg:py-28">
         <Container>
-          <SectionHeading center eyebrow="What drives us" title="Mission, vision & promise" highlight={['promise']} />
+          <SectionHeading light center eyebrow="Core values" title="What guides our work" />
           <motion.div
-            className="mt-14 grid gap-6 md:grid-cols-3"
+            className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
             initial="hidden"
             whileInView="shown"
             viewport={{ once: true, margin: '0px 0px -10% 0px' }}
-            variants={{ hidden: {}, shown: { transition: { staggerChildren: 0.12 } } }}
+            variants={{ hidden: {}, shown: { transition: { staggerChildren: 0.1 } } }}
           >
             {values.map((v) => (
               <motion.div
                 key={v.title}
-                variants={{ hidden: { opacity: 0, y: 40 }, shown: { opacity: 1, y: 0, transition: { duration: 0.9, ease: EASE } } }}
-                whileHover={{ y: -8 }}
-                className="glass h-full p-8"
+                variants={{ hidden: { opacity: 0, y: 24 }, shown: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } } }}
+                className="rounded-xl border border-white/10 bg-white/[0.04] p-7"
               >
-                <span className={`flex h-14 w-14 items-center justify-center rounded-2xl ${v.tint}`}>
-                  <v.icon className="h-6 w-6" />
-                </span>
-                <h3 className="mt-6 font-display text-2xl text-olive-800">{v.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{v.text}</p>
+                <v.icon className="h-6 w-6 text-gold-300" strokeWidth={1.6} />
+                <h3 className="mt-5 font-display text-xl">{v.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/65">{v.text}</p>
               </motion.div>
             ))}
           </motion.div>
         </Container>
       </section>
-      <CtaBanner />
+
+      <section className="py-20 lg:py-28">
+        <Container className="grid items-center gap-12 lg:grid-cols-2">
+          <div>
+            <SectionHeading eyebrow="Documentation & consultation" title="Clear, organised and on record" />
+            <Reveal delay={120}>
+              <ul className="mt-8 space-y-5">
+                {[
+                  { icon: MessagesSquare, t: 'A consultation to understand your requirement' },
+                  { icon: FileSearch, t: 'A document checklist specific to your service' },
+                  { icon: ShieldCheck, t: 'Professional fee and any government charges shared upfront' },
+                ].map((x) => (
+                  <li key={x.t} className="flex items-center gap-4 text-ink/85">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold-300 text-gold-600">
+                      <x.icon className="h-4 w-4" />
+                    </span>
+                    {x.t}
+                  </li>
+                ))}
+              </ul>
+              <Link to="/contact#enquiry" className="btn-navy mt-9">
+                Talk to an expert <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Reveal>
+          </div>
+          <ImageFrame src="/assets/startup-founders.webp" alt="Founders collaborating" aspect="aspect-[5/4]" />
+        </Container>
+      </section>
+
+      <CtaBanner title="Let’s Build Something Great Together" highlight={['Great']} />
     </>
   );
 }

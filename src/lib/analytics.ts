@@ -9,6 +9,31 @@ declare global {
   }
 }
 
+export type AnalyticsEvent = 'generate_lead' | 'contact_click' | 'whatsapp_click' | 'phone_click' | 'view_service' | 'view_pricing';
+
+const CONSENT_KEY = 'rp-consent';
+export type Consent = 'granted' | 'denied' | null;
+
+export const analyticsConfigured = () => Boolean(integrations.gaId || integrations.metaPixelId);
+
+export function getConsent(): Consent {
+  try {
+    const v = localStorage.getItem(CONSENT_KEY);
+    return v === 'granted' || v === 'denied' ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+export function setConsent(value: 'granted' | 'denied') {
+  try {
+    localStorage.setItem(CONSENT_KEY, value);
+  } catch {
+    /* storage blocked — treat as session-only */
+  }
+  if (value === 'granted') initAnalytics();
+}
+
 let started = false;
 
 function loadScript(src: string) {
@@ -18,12 +43,12 @@ function loadScript(src: string) {
   document.head.appendChild(s);
 }
 
-/** Loads Google Analytics 4 and Meta Pixel when their IDs are configured. */
+/** Loads GA4 and Meta Pixel — only when an ID is configured AND the visitor has consented. */
 export function initAnalytics() {
-  if (started || typeof window === 'undefined') return;
-  started = true;
-
+  if (started || typeof window === 'undefined' || getConsent() !== 'granted') return;
   const { gaId, metaPixelId } = integrations;
+  if (!gaId && !metaPixelId) return;
+  started = true;
 
   if (gaId) {
     loadScript(`https://www.googletagmanager.com/gtag/js?id=${gaId}`);
@@ -52,15 +77,44 @@ export function initAnalytics() {
     loadScript('https://connect.facebook.net/en_US/fbevents.js');
     window.fbq('init', metaPixelId);
   }
+  trackPageView(window.location.pathname);
 }
 
+let lastPage = '';
 export function trackPageView(path: string) {
+  if (!started || path === lastPage) return;
+  lastPage = path;
   window.gtag?.('event', 'page_view', { page_path: path, page_location: window.location.href });
   window.fbq?.('track', 'PageView');
 }
 
-/** kind: 'lead' for form submissions, 'contact' for WhatsApp / call clicks. */
+const pixelMap: Partial<Record<AnalyticsEvent, string>> = {
+  generate_lead: 'Lead',
+  contact_click: 'Contact',
+  whatsapp_click: 'Contact',
+  phone_click: 'Contact',
+  view_service: 'ViewContent',
+  view_pricing: 'ViewContent',
+};
+
+const recent = new Map<string, number>();
+
+/** Sends one event to GA4 and Meta Pixel. Identical events within 1.5 s are dropped (double clicks, StrictMode). */
+export function trackEvent(name: AnalyticsEvent, params: Record<string, string> = {}) {
+  if (!started) return;
+  const key = `${name}:${JSON.stringify(params)}`;
+  const now = Date.now();
+  if (now - (recent.get(key) ?? 0) < 1500) return;
+  recent.set(key, now);
+  window.gtag?.('event', name, params);
+  const px = pixelMap[name];
+  if (px) window.fbq?.('track', px, { content_name: params.label || params.service || name });
+}
+
+/** Back-compat helper used by buttons: 'contact' labels starting with whatsapp:/call: map to the right event. */
 export function trackConversion(kind: 'lead' | 'contact', label: string) {
-  window.gtag?.('event', kind === 'lead' ? 'generate_lead' : 'contact', { method: label });
-  window.fbq?.('track', kind === 'lead' ? 'Lead' : 'Contact', { content_name: label });
+  if (kind === 'lead') return trackEvent('generate_lead', { service: label });
+  if (label.startsWith('whatsapp')) return trackEvent('whatsapp_click', { label });
+  if (label.startsWith('call')) return trackEvent('phone_click', { label });
+  trackEvent('contact_click', { label });
 }

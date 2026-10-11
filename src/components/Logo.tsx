@@ -1,41 +1,19 @@
-import { useId } from 'react';
-
-/** Vector recreation of the Regpro mark: three rising bars with a tick-arrow (deep olive + sage blue). */
-export function LogoMark({ className = '', animated = false, light = false }: { className?: string; animated?: boolean; light?: boolean }) {
-  const clipId = `regpro-bars-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
+/** The official REGPRO logo (supplied artwork, background removed — not redrawn). */
+export function Logo({ className = 'h-12 w-auto', priority = false }: { className?: string; priority?: boolean }) {
   return (
-    <svg viewBox="0 0 120 100" className={className} aria-hidden="true">
-      <defs>
-        <clipPath id={clipId}>
-          <polygon points="0,0 100,0 100,13 30,79 0,51" />
-        </clipPath>
-      </defs>
-      <g clipPath={`url(#${clipId})`} fill={light ? '#FFFFFF' : '#2C4432'}>
-        <rect x="22" y="40" width="10" height="60" className={animated ? 'bar-rise' : ''} style={{ animationDelay: '0.1s' }} />
-        <rect x="36" y="28" width="10" height="72" className={animated ? 'bar-rise' : ''} style={{ animationDelay: '0.22s' }} />
-        <rect x="50" y="16" width="10" height="84" className={animated ? 'bar-rise' : ''} style={{ animationDelay: '0.34s' }} />
-      </g>
-      <polyline
-        points="6,66 30,88 98,24"
-        fill="none"
-        stroke="#7E8E74"
-        strokeWidth="10"
-        strokeLinejoin="miter"
-        className={animated ? 'tick-draw' : ''}
-      />
-      <polygon points="110,12 92.2,14.2 107.8,29.8" fill="#7E8E74" className={animated ? 'tick-head' : ''} />
-    </svg>
+    <img
+      src="/assets/brand/regpro-logo.png"
+      alt="REGPRO — Register. Comply. Grow."
+      width={784}
+      height={528}
+      className={className}
+      loading={priority ? 'eager' : 'lazy'}
+      decoding="async"
+    />
   );
 }
 
-export function Logo({ light = false, className = '' }: { light?: boolean; className?: string }) {
-  return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <LogoMark light={light} className="h-9 w-auto" />
-      <span className="flex flex-col leading-none">
-        <span className={`font-display text-[1.6rem] font-medium tracking-tight ${light ? 'text-soft-white' : 'text-ink'}`}>Regpro</span>
-        <span className={`mt-1 text-[0.52rem] font-semibold uppercase tracking-[0.22em] ${light ? 'text-soft-white/60' : 'text-ink/70'}`}>Register • Comply • Grow</span>
-      </span>
-    </span>
-  );
+/** The bars-and-arrow mark on its own, cropped from the official logo. */
+export function LogoMark({ className = 'h-8 w-auto' }: { className?: string }) {
+  return <img src="/assets/brand/regpro-mark.png" alt="" width={623} height={338} className={className} loading="lazy" decoding="async" />;
 }

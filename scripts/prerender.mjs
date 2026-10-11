@@ -8,7 +8,7 @@ const dist = path.join(root, 'dist');
 const ssrDir = path.join(root, 'dist-ssr');
 
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
-const { render, staticRoutes, siteUrl } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href);
+const { render, staticRoutes, sitemapRoutes, siteUrl } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href);
 
 const write = (file, html) => {
   fs.mkdirSync(path.dirname(file), { recursive: true });
@@ -29,7 +29,7 @@ write(path.join(dist, '404.html'), page('/404'));
 const today = new Date().toISOString().slice(0, 10);
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${staticRoutes
+${sitemapRoutes
   .map((u) => `  <url><loc>${siteUrl}${u === '/' ? '' : u}</loc><lastmod>${today}</lastmod><priority>${u === '/' ? '1.0' : u.startsWith('/services') ? '0.9' : '0.7'}</priority></url>`)
   .join('\n')}
 </urlset>
