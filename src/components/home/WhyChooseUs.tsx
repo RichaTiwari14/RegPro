@@ -15,11 +15,11 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenConsultation }) 
   ];
 
   return (
-    <section className="py-16 sm:py-24 bg-[#FAF9F5] overflow-hidden">
+    <section className="py-16 sm:py-24 bg-[#FAF9F5] overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Deep Olive Green Card (7 cols) matching mock */}
-          <div className="lg:col-span-7 bg-[#162A1D] rounded-3xl sm:rounded-4xl p-8 sm:p-12 lg:p-14 text-white shadow-card relative overflow-hidden">
+          {/* Left Deep Olive Green Card (7 cols) matching reference */}
+          <div className="lg:col-span-7 bg-[#162A1D] rounded-[32px] sm:rounded-4xl p-8 sm:p-12 lg:p-14 text-white shadow-card relative overflow-hidden z-10">
             {/* Subtle organic light accent inside card */}
             <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-2xl pointer-events-none" />
 
@@ -60,19 +60,30 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenConsultation }) 
             </div>
           </div>
 
-          {/* Right Arched Workspace Photo (5 cols) matching mock */}
+          {/* Right Arched Workspace Photo & Exact Organic Shapes (5 cols) */}
           <div className="lg:col-span-5 relative flex justify-center">
-            {/* Background organic shape */}
-            <div className="absolute inset-0 bg-[#E8EFE9] rounded-3xl transform rotate-2 -z-10 hidden sm:block" />
-
-            {/* Arched Photo Frame with desk, laptop, and plant */}
-            <div className="w-full max-w-md h-[360px] sm:h-[440px] arch-mask-top overflow-hidden shadow-card border-4 border-white bg-slate-100">
-              <img
-                src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80"
-                alt="Professional desk setup with laptop, notebook and potted green plant"
-                className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
-                loading="lazy"
+            <div className="relative w-full max-w-sm sm:max-w-md">
+              {/* Organic sand/beige curved arc shape wrapping the top-right */}
+              <div
+                className="absolute -top-6 -right-6 w-64 sm:w-72 h-72 sm:h-80 bg-[#E8DFD3] rounded-[45%_55%_65%_35%/50%_45%_55%_50%] -z-10 transform rotate-6"
+                aria-hidden="true"
               />
+
+              {/* Deep olive green accent curve in the top right corner matching mock */}
+              <div
+                className="absolute -top-10 right-2 w-36 h-36 bg-[#213B2A] rounded-[60%_40%_50%_50%/50%_60%_40%_50%] -z-20 opacity-90 transform -rotate-12"
+                aria-hidden="true"
+              />
+
+              {/* Arched Photo Frame with generated workspace photo */}
+              <div className="w-full h-[380px] sm:h-[450px] rounded-t-[170px] rounded-b-[32px] overflow-hidden shadow-float border-4 border-white bg-[#FAF9F5]">
+                <img
+                  src="/images/workspace-laptop.jpg"
+                  alt="Modern clean workspace with laptop and healthy green plant"
+                  className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -80,4 +91,3 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onOpenConsultation }) 
     </section>
   );
 };
-

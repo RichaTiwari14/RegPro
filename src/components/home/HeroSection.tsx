@@ -8,17 +8,38 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenConsultation }) => {
   return (
-    <section className="relative pt-6 pb-16 lg:pt-12 lg:pb-24 overflow-hidden">
-      {/* Subtle organic background decoration */}
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none -z-10">
-        <div className="absolute -top-10 right-10 w-96 h-96 bg-[#E8EFE9]/60 rounded-full blur-3xl" />
-        <div className="absolute top-40 left-10 w-80 h-80 bg-[#FAF1E8]/50 rounded-full blur-3xl" />
+    <section className="relative pt-6 pb-16 lg:pt-14 lg:pb-24 overflow-hidden bg-[#FAF9F5]">
+      {/* Organic Background Curves across hero */}
+      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+        {/* Soft sage curved ambient wave from top right */}
+        <svg
+          className="absolute -top-12 -right-24 w-[650px] h-[650px] text-[#E8EFE9] opacity-70"
+          viewBox="0 0 600 600"
+          fill="none"
+        >
+          <path
+            d="M300,50 C450,40 550,150 560,300 C570,450 440,560 300,550 C160,540 50,440 40,300 C30,160 150,60 300,50 Z"
+            fill="currentColor"
+          />
+        </svg>
+
+        {/* Faint warm cream organic curve on left */}
+        <svg
+          className="absolute top-1/3 -left-32 w-[500px] h-[500px] text-[#F5EFE6] opacity-60"
+          viewBox="0 0 500 500"
+          fill="none"
+        >
+          <path
+            d="M250,40 C380,30 460,130 470,250 C480,370 380,470 250,460 C120,450 40,360 30,250 C20,140 120,50 250,40 Z"
+            fill="currentColor"
+          />
+        </svg>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Editorial Headline & Copy (7 cols) */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+          <div className="lg:col-span-7 space-y-6 sm:space-y-8 z-10">
             {/* Tag / Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8EFE9] border border-[#D4E2D6] text-xs font-semibold text-[#27412E]">
               <Sparkles className="w-3.5 h-3.5 text-[#C87D55]" />
@@ -38,7 +59,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenConsultation }) 
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
               <a
                 href={getWhatsAppLink()}
                 target="_blank"
@@ -75,32 +96,42 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenConsultation }) 
             </div>
           </div>
 
-          {/* Right Column: Architectural Skyscraper Visual & Floating Trust Card (5 cols) */}
+          {/* Right Column: Architectural Skyscraper Visual & Exact Organic Shapes (5 cols) */}
           <div className="lg:col-span-5 relative flex justify-center lg:justify-end">
-            {/* Decorative organic background shape behind arch */}
-            <div className="absolute -top-6 -right-6 w-72 h-80 bg-[#E8EFE9] rounded-[48px] -z-10 transform rotate-3" />
-            <div className="absolute -bottom-6 -left-6 w-60 h-60 bg-[#F4EFE6] rounded-full -z-10" />
-
-            {/* Main Arched Architectural Image Frame */}
-            <div className="relative w-full max-w-sm sm:max-w-md h-[420px] sm:h-[480px] arch-mask-top overflow-hidden shadow-card border-4 border-white bg-slate-200">
-              <img
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
-                alt="Modern corporate glass skyscrapers representing corporate growth"
-                className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
-                loading="eager"
+            <div className="relative w-full max-w-[340px] sm:max-w-[400px]">
+              {/* 1. Organic Sage Green Shape curving behind top-right of the building */}
+              <div
+                className="absolute -top-7 -right-6 w-56 sm:w-64 h-72 sm:h-80 bg-[#B2C4B5]/80 rounded-[48%_52%_60%_40%/42%_45%_55%_58%] -z-10 transform rotate-12 transition-transform duration-700 hover:rotate-6"
+                aria-hidden="true"
               />
 
-              {/* Floating Trust Card over Image - Exactly matching design reference */}
-              <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-md px-5 py-3.5 rounded-2xl shadow-float border border-[#DEE8E0] flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF1E8] flex items-center justify-center text-[#C87D55] shrink-0">
-                  <ShieldCheck className="w-5 h-5 text-[#C87D55]" />
-                </div>
-                <div>
-                  <div className="text-[10px] uppercase font-bold tracking-wider text-[#7E9081]">
-                    Trusted by
+              {/* 2. Organic Warm Sand/Cream Blob at bottom-left */}
+              <div
+                className="absolute -bottom-6 -left-8 w-44 sm:w-52 h-44 sm:h-52 bg-[#EFEBE1] rounded-[55%_45%_40%_60%/50%_60%_40%_50%] -z-10"
+                aria-hidden="true"
+              />
+
+              {/* 3. Main Arched Skyscraper Image Frame matching exact reference */}
+              <div className="relative w-full h-[430px] sm:h-[490px] rounded-t-[190px] rounded-b-[32px] overflow-hidden shadow-float border-4 border-white bg-[#E8EFE9]">
+                <img
+                  src="/images/hero-skyscrapers.jpg"
+                  alt="Modern corporate glass skyscrapers reaching into the sky"
+                  className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
+                  loading="eager"
+                />
+
+                {/* Overlapping Floating Trust Card on bottom-right matching reference */}
+                <div className="absolute bottom-6 right-5 sm:right-6 bg-white/95 backdrop-blur-md px-5 py-3 rounded-2xl shadow-float border border-[#DEE8E0] flex items-center gap-3 z-20">
+                  <div className="w-9 h-9 rounded-xl bg-[#FAF1E8] flex items-center justify-center text-[#C87D55] shrink-0">
+                    <ShieldCheck className="w-5 h-5 text-[#C87D55]" />
                   </div>
-                  <div className="font-serif text-base font-bold text-[#162A1D] leading-tight">
-                    5,000+ Businesses
+                  <div>
+                    <div className="text-[10px] uppercase font-bold tracking-wider text-[#7E9081]">
+                      Trusted by
+                    </div>
+                    <div className="font-serif text-sm sm:text-base font-bold text-[#162A1D] leading-tight">
+                      5,000+ Businesses
+                    </div>
                   </div>
                 </div>
               </div>
@@ -111,4 +142,3 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenConsultation }) 
     </section>
   );
 };
-

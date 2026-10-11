@@ -32,9 +32,9 @@ export const ServicesGrid: React.FC = () => {
               className="group bg-white rounded-2xl p-6 border border-[#E8ECE8] hover:border-[#162A1D]/30 shadow-subtle hover:shadow-card transition-all duration-200 flex flex-col justify-between"
             >
               <div>
-                {/* Icon Container matching mock subtle terracotta/sage tint */}
-                <div className="w-12 h-12 rounded-xl bg-[#FAF1E8] group-hover:bg-[#E8EFE9] text-[#C87D55] group-hover:text-[#162A1D] flex items-center justify-center mb-5 transition-colors">
-                  <ServiceIcon name={service.iconName} className="w-6 h-6" />
+                {/* Icon Container matching mock subtle peach/terracotta tint */}
+                <div className="w-12 h-12 rounded-xl bg-[#FCF2EB] group-hover:bg-[#E8EFE9] text-[#C87D55] group-hover:text-[#162A1D] flex items-center justify-center mb-5 transition-colors">
+                  <ServiceIcon name={service.iconName} className="w-6 h-6 stroke-[1.8]" />
                 </div>
 
                 {/* Service Title */}
@@ -56,7 +56,7 @@ export const ServicesGrid: React.FC = () => {
           ))}
         </div>
 
-        {/* Bottom CTA to all services */}
+        {/* Bottom CTA to all services matching mock */}
         <div className="mt-12 text-center">
           <Link
             to="/services"
@@ -70,4 +70,3 @@ export const ServicesGrid: React.FC = () => {
     </section>
   );
 };
-

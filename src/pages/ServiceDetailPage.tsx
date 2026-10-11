@@ -9,7 +9,7 @@ import {
   FileText,
   ChevronDown,
   ArrowRight,
-  FileCheck,
+  Check,
 } from 'lucide-react';
 import { SEO } from '../components/common/SEO';
 import { getServiceBySlug, servicesData } from '../data/services';
@@ -26,6 +26,12 @@ export const ServiceDetailPage: React.FC = () => {
 
   // Related services
   const related = servicesData.filter((s) => s.slug !== service.slug).slice(0, 3);
+
+  // Determine hero image: use custom GST blocks image for GST, or workspace image for other services
+  const heroImageSrc =
+    service.slug.includes('gst')
+      ? '/images/gst-blocks.jpg'
+      : '/images/workspace-laptop.jpg';
 
   return (
     <>
@@ -68,15 +74,23 @@ export const ServiceDetailPage: React.FC = () => {
               </p>
             </div>
 
-            {/* Right Arched Visual matching mock */}
+            {/* Right Arched Visual & Organic Shape matching mock */}
             <div className="lg:col-span-5 relative flex justify-center lg:justify-end">
-              <div className="w-full max-w-sm h-56 sm:h-64 arch-mask-top overflow-hidden shadow-card border-4 border-white bg-slate-100">
-                <img
-                  src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=700&q=80"
-                  alt={`${service.name} paperwork and legal registration`}
-                  className="w-full h-full object-cover object-center"
-                  loading="eager"
+              <div className="relative w-full max-w-sm">
+                {/* Organic curved shape behind arch */}
+                <div
+                  className="absolute -top-4 -right-4 w-56 h-56 bg-[#E8EFE9] rounded-[48%_52%_55%_45%/45%_50%_50%_55%] -z-10 transform rotate-6"
+                  aria-hidden="true"
                 />
+
+                <div className="w-full h-56 sm:h-64 rounded-t-[140px] rounded-b-[28px] overflow-hidden shadow-float border-4 border-white bg-slate-100">
+                  <img
+                    src={heroImageSrc}
+                    alt={`${service.name} documentation and registration`}
+                    className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
+                    loading="eager"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -86,8 +100,8 @@ export const ServiceDetailPage: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 divide-y sm:divide-y-0 sm:divide-x divide-[#E3EAE4]">
               {/* Metric 1 */}
               <div className="flex items-center gap-3.5 sm:px-4">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF1E8] text-[#C87D55] flex items-center justify-center shrink-0">
-                  <Clock className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-xl bg-[#FCF2EB] text-[#C87D55] flex items-center justify-center shrink-0">
+                  <Clock className="w-5 h-5 stroke-[2]" />
                 </div>
                 <div>
                   <div className="font-serif text-base sm:text-lg font-bold text-[#162A1D]">
@@ -99,8 +113,8 @@ export const ServiceDetailPage: React.FC = () => {
 
               {/* Metric 2 */}
               <div className="flex items-center gap-3.5 pt-4 sm:pt-0 sm:px-4">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF1E8] text-[#C87D55] flex items-center justify-center shrink-0">
-                  <Coins className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-xl bg-[#FCF2EB] text-[#C87D55] flex items-center justify-center shrink-0">
+                  <Coins className="w-5 h-5 stroke-[2]" />
                 </div>
                 <div>
                   <div className="font-serif text-base sm:text-lg font-bold text-[#162A1D]">
@@ -112,8 +126,8 @@ export const ServiceDetailPage: React.FC = () => {
 
               {/* Metric 3 */}
               <div className="flex items-center gap-3.5 pt-4 sm:pt-0 sm:px-4">
-                <div className="w-10 h-10 rounded-xl bg-[#FAF1E8] text-[#C87D55] flex items-center justify-center shrink-0">
-                  <Headphones className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-xl bg-[#FCF2EB] text-[#C87D55] flex items-center justify-center shrink-0">
+                  <Headphones className="w-5 h-5 stroke-[2]" />
                 </div>
                 <div>
                   <div className="font-serif text-base sm:text-lg font-bold text-[#162A1D]">
@@ -147,7 +161,9 @@ export const ServiceDetailPage: React.FC = () => {
                 <div className="space-y-3">
                   {service.benefits.map((b, idx) => (
                     <div key={idx} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-[#2E6F40] shrink-0 mt-0.5" />
+                      <div className="w-5 h-5 rounded-full bg-[#E8EFE9] text-[#2E6F40] flex items-center justify-center shrink-0 mt-0.5">
+                        <Check className="w-3.5 h-3.5 stroke-[3]" />
+                      </div>
                       <span className="text-sm sm:text-base text-[#162A1D] font-medium leading-relaxed">
                         {b}
                       </span>
@@ -216,25 +232,30 @@ export const ServiceDetailPage: React.FC = () => {
                 </div>
               </section>
 
-              {/* Pricing Box Matching Bottom-Right Mock Artwork (Pale sage card with swirl & verified seal) */}
-              <div className="bg-[#EBF1ED] border border-[#D4E2D6] rounded-3xl p-8 relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6 shadow-card">
-                {/* Background decorative swirl */}
+              {/* Pricing Box Matching Bottom-Right Mock Artwork (Pale sage card with organic swirl & verified document seal) */}
+              <div className="bg-[#EBF1ED] border border-[#D4E2D6] rounded-[32px] p-8 sm:p-10 relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-8 shadow-card">
+                {/* Organic curved line doodle (wire loop) matching reference image */}
                 <svg
-                  className="absolute right-12 bottom-0 w-64 h-32 pointer-events-none opacity-40 text-[#BACFBE]"
-                  viewBox="0 0 200 100"
+                  className="absolute left-1/3 bottom-4 w-48 sm:w-64 h-24 pointer-events-none text-[#7E9081]/50"
+                  viewBox="0 0 200 80"
                   fill="none"
                 >
                   <path
-                    d="M 10 90 C 80 10, 120 120, 190 20"
+                    d="M 10 50 C 60 70, 70 10, 110 30 C 130 45, 140 65, 160 50 C 180 35, 190 20, 210 25"
                     stroke="currentColor"
-                    strokeWidth="3"
+                    strokeWidth="2"
                     strokeLinecap="round"
+                  />
+                  <path
+                    d="M 100 25 C 115 15, 125 35, 110 45 C 95 55, 90 35, 105 25"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
                   />
                 </svg>
 
-                {/* Left Price Details */}
+                {/* Left Price Details matching mock */}
                 <div className="text-center sm:text-left z-10">
-                  <div className="inline-block px-3 py-1 bg-white/70 rounded-full text-xs font-semibold text-[#7E9081] mb-2">
+                  <div className="inline-block px-3 py-1 bg-white/80 rounded-full text-xs font-semibold text-[#7E9081] mb-2 shadow-subtle">
                     Starting at
                   </div>
                   <div className="font-serif text-4xl sm:text-5xl font-bold text-[#162A1D] tracking-tight">
@@ -245,18 +266,25 @@ export const ServiceDetailPage: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Right Visual Certificate graphic with verified checkmark */}
-                <div className="relative z-10 flex items-center justify-center">
-                  <div className="w-24 h-32 bg-white rounded-xl shadow-card border border-[#D4E2D6] flex flex-col items-center justify-between p-3 rotate-3 hover:rotate-0 transition-transform">
-                    <div className="w-full flex justify-between items-center text-[8px] font-bold text-[#7E9081] uppercase">
-                      <span>{service.slug.slice(0, 3).toUpperCase()}</span>
-                      <FileCheck className="w-3.5 h-3.5 text-[#162A1D]" />
+                {/* Right Visual Certificate graphic with verified checkmark matching mock */}
+                <div className="relative z-10 flex items-center justify-center shrink-0">
+                  <div className="relative w-28 h-36 bg-white rounded-2xl shadow-float border border-[#D4E2D6] p-3.5 transform rotate-6 hover:rotate-0 transition-transform duration-300">
+                    {/* Header on paper: 'GST' or service short title */}
+                    <div className="font-serif font-bold text-sm text-[#162A1D] border-b border-[#E3EAE4] pb-1 mb-2">
+                      {service.slug.includes('gst') ? 'GST' : 'REG'}
                     </div>
-                    <div className="w-10 h-10 rounded-full bg-[#E8EFE9] flex items-center justify-center text-[#2E6F40]">
-                      <CheckCircle2 className="w-6 h-6 fill-current text-[#2E6F40]" />
+
+                    {/* Document simulated lines */}
+                    <div className="space-y-1.5 opacity-40">
+                      <div className="h-1 bg-[#162A1D] rounded w-full"></div>
+                      <div className="h-1 bg-[#162A1D] rounded w-5/6"></div>
+                      <div className="h-1 bg-[#162A1D] rounded w-4/6"></div>
+                      <div className="h-1 bg-[#162A1D] rounded w-full"></div>
                     </div>
-                    <div className="text-[9px] font-semibold text-[#162A1D] text-center">
-                      Verified
+
+                    {/* Green checkmark badge overlapping bottom-right corner */}
+                    <div className="absolute -bottom-3 -right-3 w-8 h-8 rounded-full bg-[#2E6F40] text-white flex items-center justify-center shadow-card border-2 border-white">
+                      <CheckCircle2 className="w-5 h-5 fill-current" />
                     </div>
                   </div>
                 </div>

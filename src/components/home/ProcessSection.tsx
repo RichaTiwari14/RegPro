@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageSquareText, UploadCloud, Cpu, CheckCircle } from 'lucide-react';
+import { MessageSquare, FileText, Cpu, Award } from 'lucide-react';
 
 export const ProcessSection: React.FC = () => {
   const steps = [
@@ -7,13 +7,13 @@ export const ProcessSection: React.FC = () => {
       num: '1',
       title: 'Share Your Details',
       desc: 'Tell us what you need.',
-      icon: MessageSquareText,
+      icon: MessageSquare,
     },
     {
       num: '2',
       title: 'Document Submission',
       desc: 'Upload required documents online.',
-      icon: UploadCloud,
+      icon: FileText,
     },
     {
       num: '3',
@@ -25,7 +25,7 @@ export const ProcessSection: React.FC = () => {
       num: '4',
       title: 'Get Your Registration',
       desc: 'Receive your certificate and start your business.',
-      icon: CheckCircle,
+      icon: Award,
     },
   ];
 
@@ -45,27 +45,36 @@ export const ProcessSection: React.FC = () => {
           </p>
         </div>
 
-        {/* 4 Steps with connecting line */}
+        {/* 4 Steps with exact dotted timeline connector matching mock */}
         <div className="relative">
-          {/* Dashed connector line for desktop */}
-          <div className="hidden lg:block absolute top-7 left-16 right-16 border-t-2 border-dashed border-[#D4E2D6] -z-0" />
+          {/* Dashed connector line with subtle arrows between nodes for desktop */}
+          <div className="hidden lg:flex items-center justify-between absolute top-7 left-24 right-24 pointer-events-none -z-0">
+            <div className="flex-1 border-t-2 border-dashed border-[#D4E2D6] relative">
+              <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#E8EFE9] border-2 border-[#BACFBE]"></span>
+            </div>
+            <div className="w-16"></div>
+            <div className="flex-1 border-t-2 border-dashed border-[#D4E2D6] relative">
+              <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#E8EFE9] border-2 border-[#BACFBE]"></span>
+            </div>
+            <div className="w-16"></div>
+            <div className="flex-1 border-t-2 border-dashed border-[#D4E2D6] relative">
+              <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#E8EFE9] border-2 border-[#BACFBE]"></span>
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 relative z-10">
             {steps.map((step, idx) => {
               const Icon = step.icon;
               return (
                 <div key={idx} className="flex flex-col items-center text-center">
-                  {/* Step Icon Badge */}
-                  <div className="w-14 h-14 rounded-2xl bg-[#FAF1E8] border border-[#F0DDCF] text-[#C87D55] flex items-center justify-center shadow-subtle mb-5 relative group">
-                    <Icon className="w-6 h-6" />
+                  {/* Step Icon Badge matching mock: Rounded square in warm peach tint with terracotta icon */}
+                  <div className="w-14 h-14 rounded-2xl bg-[#FCF2EB] border border-[#F4DEC9] text-[#C87D55] flex items-center justify-center shadow-subtle mb-5 relative group transition-transform hover:scale-105">
+                    <Icon className="w-6 h-6 stroke-[1.8]" />
                   </div>
 
-                  {/* Step Content */}
-                  <div className="text-xs font-bold text-[#C87D55] uppercase tracking-wider mb-1">
-                    Step {step.num}
-                  </div>
-                  <h3 className="font-bold text-base text-[#162A1D] mb-2">
-                    {step.title}
+                  {/* Step Title & Description */}
+                  <h3 className="font-bold text-sm sm:text-base text-[#162A1D] mb-1.5">
+                    {step.num}. {step.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-[#526056] leading-relaxed max-w-xs">
                     {step.desc}
@@ -79,4 +88,3 @@ export const ProcessSection: React.FC = () => {
     </section>
   );
 };
-

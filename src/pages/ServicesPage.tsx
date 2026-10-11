@@ -59,7 +59,9 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenConsultation }
               </div>
 
               <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#162A1D] leading-[1.15]">
-                Comprehensive Business Registration &amp; Compliance Services
+                Comprehensive <br className="hidden sm:inline" />
+                Business Registration <br className="hidden sm:inline" />
+                &amp; Compliance Services
               </h1>
 
               <p className="text-sm sm:text-base text-[#526056] leading-relaxed max-w-xl">
@@ -67,19 +69,29 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenConsultation }
               </p>
             </div>
 
-            {/* Right Arched Workspace Image with Sparkles (5 cols) matching mock */}
+            {/* Right Arched Workspace Image & Organic Shapes (5 cols) matching mock */}
             <div className="lg:col-span-5 relative flex justify-center lg:justify-end">
-              <div className="absolute -top-4 -left-4 text-[#C87D55]">
-                <Sparkles className="w-6 h-6 animate-pulse" />
-              </div>
+              <div className="relative w-full max-w-sm">
+                {/* 4-point sparkle star matching mock */}
+                <div className="absolute -top-3 -left-6 text-[#162A1D] z-10">
+                  <Sparkles className="w-6 h-6 fill-current text-[#162A1D] opacity-80" />
+                </div>
 
-              <div className="w-full max-w-sm h-64 sm:h-72 arch-mask-top overflow-hidden shadow-card border-4 border-white bg-slate-100 relative">
-                <img
-                  src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=700&q=80"
-                  alt="Modern workspace with laptop, plant and legal notebooks"
-                  className="w-full h-full object-cover object-center"
-                  loading="eager"
+                {/* Organic curved pale sage / sand swoosh behind the frame */}
+                <div
+                  className="absolute -top-6 -right-6 w-60 h-64 bg-[#E5EDE7] rounded-[50%_50%_40%_60%/40%_50%_50%_60%] -z-10 transform rotate-6"
+                  aria-hidden="true"
                 />
+
+                {/* Arched image container */}
+                <div className="w-full h-64 sm:h-72 rounded-t-[140px] rounded-b-[28px] overflow-hidden shadow-float border-4 border-white bg-slate-100">
+                  <img
+                    src="/images/workspace-laptop.jpg"
+                    alt="Modern workspace with open laptop and healthy potted plant"
+                    className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
+                    loading="eager"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -137,8 +149,8 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenConsultation }
               >
                 <div>
                   {/* Icon */}
-                  <div className="w-12 h-12 rounded-xl bg-[#FAF1E8] group-hover:bg-[#E8EFE9] text-[#C87D55] group-hover:text-[#162A1D] flex items-center justify-center mb-4 transition-colors">
-                    <ServiceIcon name={service.iconName} className="w-6 h-6" />
+                  <div className="w-12 h-12 rounded-xl bg-[#FCF2EB] group-hover:bg-[#E8EFE9] text-[#C87D55] group-hover:text-[#162A1D] flex items-center justify-center mb-4 transition-colors">
+                    <ServiceIcon name={service.iconName} className="w-6 h-6 stroke-[1.8]" />
                   </div>
 
                   {/* Title */}
@@ -166,11 +178,11 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenConsultation }
             {/* Custom card matching mock: "Need a different service? Talk to our experts ->" */}
             <div
               onClick={() => onOpenConsultation('Custom Business Requirement')}
-              className="bg-[#E8EFE9] rounded-2xl p-6 border border-[#D4E2D6] hover:border-[#162A1D] shadow-subtle hover:shadow-card transition-all duration-200 flex flex-col justify-between cursor-pointer group"
+              className="bg-[#FCF2EB] rounded-2xl p-6 border border-[#F4DEC9] hover:border-[#162A1D] shadow-subtle hover:shadow-card transition-all duration-200 flex flex-col justify-between cursor-pointer group"
             >
               <div>
-                <div className="w-12 h-12 rounded-xl bg-white text-[#162A1D] flex items-center justify-center mb-4 shadow-subtle">
-                  <MessageSquare className="w-6 h-6 text-[#2E6F40]" />
+                <div className="w-12 h-12 rounded-xl bg-white text-[#C87D55] flex items-center justify-center mb-4 shadow-subtle">
+                  <MessageSquare className="w-6 h-6 stroke-[1.8]" />
                 </div>
                 <h2 className="font-bold text-sm sm:text-base text-[#162A1D] leading-snug mb-2">
                   Need a different service?
@@ -180,7 +192,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenConsultation }
                 </p>
               </div>
 
-              <div className="flex items-center justify-between pt-3 border-t border-[#D4E2D6] mt-4">
+              <div className="flex items-center justify-between pt-3 border-t border-[#F0DDCF] mt-4">
                 <span className="text-xs font-semibold text-[#162A1D]">
                   Talk to our experts
                 </span>
