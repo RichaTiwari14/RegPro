@@ -150,7 +150,8 @@
       "file": "services/shop-establishment-registration.webp",
       "size": "1536x1024",
       "subject": "Shop owner",
-      "prompt": "A smiling Indian shop owner at the counter of a neat modern retail store"
+      "prompt": "A smiling Indian shop owner at the counter of a neat modern retail store",
+      "provided": true
     },
     {
       "file": "services/pan-tan.webp",

@@ -152,7 +152,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   'shop-establishment-registration': {
     image: img('shop-establishment-registration'),
-    imageAlt: 'A shop owner at the counter of a retail store',
+    imageAlt: 'A shop owner reviewing registration paperwork at the counter of her store',
     considerations: [
       'Registration is governed by each state’s Shops & Establishments Act — rules and timelines vary by state.',
       'Fees often depend on the number of employees.',
