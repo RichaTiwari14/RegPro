@@ -186,7 +186,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   'trademark-registration': {
     image: img('trademark-registration'),
-    imageAlt: 'A designer reviewing a brand identity board',
+    imageAlt: 'A business owner signing a trademark application',
     considerations: [
       'A trademark is filed in one or more classes that match your goods or services.',
       'The ™ symbol can be used after filing; ® can be used only after registration.',

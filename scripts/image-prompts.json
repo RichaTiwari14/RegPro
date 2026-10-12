@@ -174,7 +174,8 @@
       "file": "services/trademark-registration.webp",
       "size": "1536x1024",
       "subject": "Brand protection",
-      "prompt": "An Indian designer reviewing a brand identity board in a bright studio"
+      "prompt": "An Indian designer reviewing a brand identity board in a bright studio",
+      "provided": true
     },
     {
       "file": "resources/structure-guide.webp",
