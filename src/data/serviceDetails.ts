@@ -105,7 +105,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   'udyam-msme-registration': {
     image: img('udyam-msme-registration'),
-    imageAlt: 'A small manufacturer inspecting products',
+    imageAlt: 'A small business owner reviewing paperwork in his packaging workshop',
     considerations: [
       'Classification as micro, small or medium is based on investment in plant & machinery or equipment and on turnover.',
       'The Aadhaar of the proprietor, managing partner or authorised signatory is required, along with the PAN of the enterprise where applicable.',

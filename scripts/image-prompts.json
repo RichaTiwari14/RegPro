@@ -122,7 +122,8 @@
       "file": "services/udyam-msme-registration.webp",
       "size": "1536x1024",
       "subject": "Small manufacturer",
-      "prompt": "An Indian small manufacturer inspecting products in a clean modern workshop"
+      "prompt": "An Indian small manufacturer inspecting products in a clean modern workshop",
+      "provided": true
     },
     {
       "file": "services/dpiit-startup-india-recognition.webp",
