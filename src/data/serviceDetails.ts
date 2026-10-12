@@ -140,7 +140,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   'fssai-registration': {
     image: img('fssai-registration'),
-    imageAlt: 'A food business owner in a commercial kitchen',
+    imageAlt: 'A food safety professional checking product labels in a food production unit',
     considerations: [
       'Basic registration, a State licence or a Central licence applies depending on turnover, capacity and type of activity.',
       'Proof of premises, details of food categories and owner identity documents are required.',

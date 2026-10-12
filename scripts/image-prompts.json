@@ -143,7 +143,8 @@
       "file": "services/fssai-registration.webp",
       "size": "1536x1024",
       "subject": "Food business owner",
-      "prompt": "An Indian food business owner in a spotless modern commercial kitchen"
+      "prompt": "An Indian food business owner in a spotless modern commercial kitchen",
+      "provided": true
     },
     {
       "file": "services/shop-establishment-registration.webp",
