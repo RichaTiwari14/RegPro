@@ -59,26 +59,26 @@ export default function Resources() {
 
       {/* ───────── Hero ───────── */}
       <section className="relative overflow-hidden bg-ivory">
-        <Arcs className="absolute -left-40 top-6 hidden h-[420px] w-[420px] md:block" />
+        <Arcs className="absolute -left-40 -top-10 hidden h-[340px] w-[340px] md:block" />
         <motion.div
           className="absolute inset-y-0 right-0 hidden w-[58%] lg:block"
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.4, ease: EASE }}
         >
-          <img src="/assets/resources/resources-hero.webp" alt="" className="h-full w-full object-cover object-center" />
+          <img src="/assets/resources/resources-hero.webp" alt="" className="h-full w-full object-cover object-[center_22%]" />
           <div className="absolute inset-0 bg-gradient-to-r from-ivory via-ivory/50 to-transparent" />
         </motion.div>
-        <Container className="relative py-14 sm:py-20 lg:py-24">
-          <div className="max-w-xl">
+        <Container className="relative py-10 sm:py-12 lg:py-14">
+          <div className="max-w-[560px]">
             <motion.p className="eyebrow" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, ease: EASE }}>
               Resources
             </motion.p>
-            <h1 className="heading mt-5" style={{ fontSize: 'clamp(2.3rem,4.6vw,3.6rem)' }}>
+            <h1 className="heading mt-4" style={{ fontSize: 'clamp(2rem,3.4vw,2.9rem)' }}>
               <MaskedWords text="Guides, insights and updates for your business" delay={100} />
             </h1>
             <motion.p
-              className="mt-5 max-w-lg text-base leading-relaxed text-muted sm:text-[17px]"
+              className="mt-4 max-w-lg text-[15px] leading-relaxed text-muted sm:text-base"
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.35, ease: EASE }}
@@ -87,7 +87,7 @@ export default function Resources() {
             </motion.p>
           </div>
         </Container>
-        <img src="/assets/resources/resources-hero.webp" alt="" className="block aspect-[16/8] w-full object-cover lg:hidden" />
+        <img src="/assets/resources/resources-hero.webp" alt="" className="block aspect-[16/6] w-full object-cover lg:hidden" />
       </section>
 
       {/* ───────── Filters + grid ───────── */}
