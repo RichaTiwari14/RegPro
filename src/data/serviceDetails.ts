@@ -164,7 +164,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   'pan-tan': {
     image: img('pan-tan'),
-    imageAlt: 'A professional organising tax paperwork',
+    imageAlt: 'A professional reviewing PAN and TAN application paperwork at his desk',
     considerations: [
       'A PAN is needed for the business entity to open bank accounts and file taxes.',
       'A TAN is required by anyone who deducts or collects tax at source (TDS/TCS).',

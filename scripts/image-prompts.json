@@ -157,7 +157,8 @@
       "file": "services/pan-tan.webp",
       "size": "1536x1024",
       "subject": "Identity documents",
-      "prompt": "A professional organising identity and tax paperwork in a folder on a clean desk, documents unreadable"
+      "prompt": "A professional organising identity and tax paperwork in a folder on a clean desk, documents unreadable",
+      "provided": true
     },
     {
       "file": "services/digital-signature-certificate.webp",
