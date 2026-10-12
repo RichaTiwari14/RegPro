@@ -91,17 +91,17 @@ const existing: Omit<Article, 'status' | 'image' | 'imageAlt' | 'related'>[] = [
 const meta: Record<string, Pick<Article, 'image' | 'imageAlt' | 'related'>> = {
   'pvt-ltd-vs-llp-vs-opc': {
     image: '/assets/resources/structure-guide.webp',
-    imageAlt: 'Wooden blocks for Private Limited, LLP and OPC beside a structure comparison sheet',
+    imageAlt: 'A professional reviewing business documents at her desk',
     related: ['private-limited-company-registration', 'llp-registration', 'opc-registration'],
   },
   'gst-registration-threshold': {
     image: '/assets/resources/gst-guide.webp',
-    imageAlt: 'GST letter blocks, a calculator and tax papers on a desk',
+    imageAlt: 'A business owner working on the GST portal at his desk',
     related: ['gst-registration', 'gst-amendment'],
   },
   'benefits-of-udyam-registration': {
     image: '/assets/resources/udyam-guide.webp',
-    imageAlt: 'MSME letter blocks and a registration form on a desk',
+    imageAlt: 'A small online-business owner checking paperwork beside packed orders',
     related: ['udyam-msme-registration'],
   },
 };
@@ -115,7 +115,7 @@ const more: Article[] = [
     readTime: '4 min read',
     category: 'Startups',
     image: '/assets/resources/startup-india-guide.webp',
-    imageAlt: 'A laptop showing DPIIT Startup India recognition steps',
+    imageAlt: 'A startup team discussing their plans around a table',
     status: 'draft',
     related: ['dpiit-startup-india-recognition', 'private-limited-company-registration'],
     body: [
