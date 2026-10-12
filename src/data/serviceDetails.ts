@@ -129,7 +129,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   'iec-registration': {
     image: img('iec-registration'),
-    imageAlt: 'An exporter checking cartons in a warehouse',
+    imageAlt: 'An exporter reviewing trade documents at a desk overlooking a container port',
     considerations: [
       'An IEC is linked to the PAN of the business.',
       'A bank account in the name of the business is required.',

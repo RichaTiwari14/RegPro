@@ -136,7 +136,8 @@
       "file": "services/iec-registration.webp",
       "size": "1536x1024",
       "subject": "Import & export",
-      "prompt": "An Indian exporter checking cartons in a tidy warehouse, soft daylight"
+      "prompt": "An Indian exporter checking cartons in a tidy warehouse, soft daylight",
+      "provided": true
     },
     {
       "file": "services/fssai-registration.webp",
