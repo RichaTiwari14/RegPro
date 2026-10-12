@@ -118,7 +118,7 @@ src/lib/                  analytics, SEO, smooth scroll
 ## Deployment (Vercel)
 
 Framework preset: Vite. Build command `npm run build`, output `dist`.
-`vercel.json` sets clean URLs, long-term caching for `/assets`, and 301 redirects (`/blog` → `/resources`, old service slugs).
+`vercel.json` sets clean URLs, long-term caching for hashed JS/CSS (images revalidate, so replacing a photo at the same path shows up immediately), and 301 redirects (`/blog` → `/resources`, old service slugs).
 
 ## Information still needed from the client
 
