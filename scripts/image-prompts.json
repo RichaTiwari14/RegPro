@@ -1,5 +1,5 @@
 {
-  "style": "Realistic high-end commercial photography for a premium Indian business-registration and compliance firm. Natural warm daylight, realistic Indian professionals and modern Indian offices, sophisticated navy, cream and warm gold colour accents, clean editorial composition with negative space, shallow depth of field, authentic and candid. No text, no watermarks, no logos, no signage, no readable documents.",
+  "style": "Realistic high-end commercial photography for a premium Indian business-registration and compliance firm. Natural warm daylight, realistic Indian professionals and modern Indian offices, calm forest-green, sage and warm cream colour accents, clean editorial composition with negative space, shallow depth of field, authentic and candid. No text, no watermarks, no logos, no signage, no readable documents.",
   "images": [
     {
       "file": "regpro-hero.webp",
@@ -62,7 +62,8 @@
       "file": "cta-architecture.webp",
       "size": "1536x1024",
       "subject": "Architectural background",
-      "prompt": "Abstract architectural detail of a modern building facade with repeating vertical fins at dusk, deep navy tones with subtle warm gold light, minimal and dark, suitable as a background"
+      "prompt": "Abstract architectural detail of a modern building facade with repeating vertical fins at dusk, deep navy tones with subtle warm gold light, minimal and dark, suitable as a background",
+      "provided": true
     },
     {
       "file": "contact-office.webp",

@@ -92,7 +92,7 @@ Client-supplied photos are used for the corporate building, GST and office/works
 To generate the full library (32 images, prompts already art-directed):
 
 ```bash
-GEMINI_API_KEY=... node scripts/generate-images.mjs            # Google Imagen (preferred)
+GEMINI_API_KEY=... node scripts/generate-images.mjs            # Gemini image model (needs billing enabled on the key's project)
 OPENAI_API_KEY=sk-... node scripts/generate-images.mjs          # or OpenAI
 GEMINI_API_KEY=... node scripts/generate-images.mjs services   # filter by name
 ```

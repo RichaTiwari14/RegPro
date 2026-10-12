@@ -1,6 +1,6 @@
 // Generates the REGPRO image library with an AI image API and saves it to public/assets/ as WebP.
 //
-//   GEMINI_API_KEY=... node scripts/generate-images.mjs             # Google Imagen (preferred)
+//   GEMINI_API_KEY=... node scripts/generate-images.mjs             # Google Gemini image model (IMAGE_MODEL to override)
 //   OPENAI_API_KEY=... node scripts/generate-images.mjs             # or OpenAI
 //   node scripts/generate-images.mjs services                       # only files whose name contains "services"
 //   node scripts/generate-images.mjs --force                        # also regenerate client-provided photos
@@ -27,14 +27,21 @@ const ratio = (size) => {
 };
 
 async function viaGemini(prompt, size) {
-  const model = process.env.IMAGE_MODEL || 'imagen-4.0-generate-001';
-  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:predict`, {
+  const model = process.env.IMAGE_MODEL || 'gemini-2.5-flash-image';
+  const imagen = model.startsWith('imagen');
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:${imagen ? 'predict' : 'generateContent'}`;
+  const body = imagen
+    ? { instances: [{ prompt }], parameters: { sampleCount: 1, aspectRatio: ratio(size), personGeneration: 'allow_adult' } }
+    : { contents: [{ parts: [{ text: prompt }] }], generationConfig: { responseModalities: ['IMAGE'], imageConfig: { aspectRatio: ratio(size) } } };
+  const res = await fetch(url, {
     method: 'POST',
     headers: { 'x-goog-api-key': gemini, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ instances: [{ prompt }], parameters: { sampleCount: 1, aspectRatio: ratio(size), personGeneration: 'allow_adult' } }),
+    body: JSON.stringify(body),
   });
   const json = await res.json();
-  const b64 = json.predictions?.[0]?.bytesBase64Encoded;
+  const b64 = imagen
+    ? json.predictions?.[0]?.bytesBase64Encoded
+    : json.candidates?.[0]?.content?.parts?.find((p) => p.inlineData)?.inlineData.data;
   if (!res.ok || !b64) throw new Error(json.error?.message || `HTTP ${res.status} (no image returned)`);
   return Buffer.from(b64, 'base64');
 }
