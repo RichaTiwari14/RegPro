@@ -128,7 +128,8 @@
       "file": "services/dpiit-startup-india-recognition.webp",
       "size": "1536x1024",
       "subject": "Startup team brainstorming",
-      "prompt": "Young Indian startup team brainstorming with sticky notes on a glass wall"
+      "prompt": "Young Indian startup team brainstorming with sticky notes on a glass wall",
+      "provided": true
     },
     {
       "file": "services/iec-registration.webp",

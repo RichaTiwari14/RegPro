@@ -116,7 +116,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   'dpiit-startup-india-recognition': {
     image: img('dpiit-startup-india-recognition'),
-    imageAlt: 'A startup team brainstorming',
+    imageAlt: 'A startup founder presenting a growth plan to two colleagues',
     considerations: [
       'The entity must be a Private Limited Company, LLP or registered partnership firm.',
       'It must be no more than 10 years old from the date of incorporation.',
