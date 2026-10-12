@@ -21,7 +21,7 @@ const img = (slug: string) => `/assets/services/${slug}.webp`;
 export const serviceDetails: Record<string, ServiceDetail> = {
   'private-limited-company-registration': {
     image: img('private-limited-company-registration'),
-    imageAlt: 'A modern corporate office building',
+    imageAlt: 'A consultant walking two founders through their company registration documents',
     considerations: [
       'At least 2 directors and 2 shareholders are required (the same people can be both); a private company can have up to 200 members.',
       'At least one director must be resident in India.',
