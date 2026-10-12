@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
-import { ArrowRight, CheckCircle2, FileUp, MessageSquareQuote, Phone, ShieldCheck, Stamp, UserRoundPen } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Clock, FileUp, Headset, IndianRupee, Lock, MessageSquareQuote, Phone, ShieldCheck, Stamp, UserRoundPen, Users } from 'lucide-react';
 import { Seo, organizationLd, faqLd } from '@/lib/seo';
 import { site } from '@/config/site';
 import { getService, services, formatPrice } from '@/data/services';
@@ -168,51 +168,79 @@ function ServicesGrid() {
 
 // ───────────────────────── Why choose — curved green panel ─────────────────────────
 
-const reasons = ['Expert Guidance & Support', 'Transparent Pricing', 'Secure & Confidential Handling', 'Timely Updates', 'End-to-End Assistance'];
+const reasons = [
+  { icon: Users, label: 'Expert Guidance & Support' },
+  { icon: IndianRupee, label: 'Transparent Pricing' },
+  { icon: Lock, label: 'Secure & Confidential Handling' },
+  { icon: Clock, label: 'Timely Updates' },
+  { icon: Headset, label: 'End-to-End Assistance' },
+];
 
 function WhyChoose() {
   return (
-    <section className="relative py-10 lg:py-16">
+    <section className="relative overflow-hidden py-12 lg:py-20">
+      {/* quiet outline arcs outside the panel */}
+      <svg viewBox="0 0 300 600" className="pointer-events-none absolute -left-24 top-10 hidden h-[480px] w-60 lg:block" fill="none" aria-hidden="true">
+        <circle cx="0" cy="300" r="250" stroke="#D6DFCB" strokeWidth="1.2" />
+      </svg>
+      <Blob variant="c" color="#E3EAD9" className="absolute -right-20 bottom-0 hidden h-64 w-64 lg:block" float delay={0.6} />
       <Container>
         <div className="relative">
-          {/* Panel shape: rounded on the left, flowing curve on the right (desktop) */}
-          <svg viewBox="0 0 1000 520" preserveAspectRatio="none" className="absolute inset-0 hidden h-full w-full lg:block" aria-hidden="true">
-            <path d="M28 0H560C640 0 650 70 700 110C760 160 690 290 640 380C600 450 560 520 470 520H28C12 520 0 508 0 492V28C0 12 12 0 28 0Z" fill="#1C3F27" />
+          {/* Panel shape: rounded on the left, a long sweeping curve on the right (desktop) */}
+          <svg viewBox="0 0 1000 560" preserveAspectRatio="none" className="absolute inset-0 hidden h-full w-full drop-shadow-xl lg:block" aria-hidden="true">
+            <path d="M40 0H600C660 0 690 30 700 60C640 140 620 260 640 360C660 450 600 560 470 560H40C18 560 0 542 0 520V40C0 18 18 0 40 0Z" fill="#1C3F27" />
           </svg>
           <div className="absolute inset-0 rounded-[28px] bg-forest-800 lg:hidden" aria-hidden="true" />
 
-          <div className="relative grid items-center gap-10 p-8 sm:p-12 lg:grid-cols-[1fr_1fr] lg:gap-0 lg:p-14">
-            <motion.div className="text-white lg:pr-10" variants={stagger} {...inView}>
-              <motion.h2 variants={rise} className="font-display text-[30px] font-semibold leading-tight sm:text-4xl">
-                Why Choose Regpro?
+          <div className="relative grid items-center gap-10 p-7 sm:p-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-6 lg:py-14 lg:pl-20 lg:pr-0">
+            <motion.div className="text-white lg:pr-6" variants={stagger} {...inView}>
+              <motion.span variants={rise} className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[13px] text-white/85 ring-1 ring-white/10">
+                <Sparkle className="h-3.5 w-3.5" color="#A2B492" /> Why Choose Regpro
+              </motion.span>
+              <motion.h2 variants={rise} className="mt-5 font-display text-[34px] font-semibold leading-[1.08] sm:text-5xl">
+                Why Choose
+                <br />
+                <span className="text-sage-300">Regpro?</span>
               </motion.h2>
-              <motion.p variants={rise} className="mt-3 max-w-sm text-white/70">
-                Your trusted partner for business registration and compliance.
+              <motion.p variants={rise} className="mt-4 max-w-md text-[15.5px] leading-relaxed text-white/75 sm:text-[17px]">
+                Your trusted partner for business registration and compliance, so you can focus on what matters — growing your business.
               </motion.p>
-              <motion.ul variants={stagger} className="mt-8 space-y-3.5">
+              <motion.ul variants={stagger} className="mt-8 grid gap-x-6 gap-y-5 sm:grid-cols-2">
                 {reasons.map((r) => (
-                  <motion.li key={r} variants={rise} className="flex items-center gap-3 text-[15px] text-white/90">
-                    <CheckCircle2 className="h-5 w-5 shrink-0 fill-sage-300 text-forest-800" /> {r}
+                  <motion.li key={r.label} variants={rise} className="flex items-center gap-4 text-[14.5px] leading-snug text-white/90">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-sage-200 ring-1 ring-white/10">
+                      <r.icon className="h-5 w-5" strokeWidth={1.7} />
+                    </span>
+                    <span className="max-w-[170px]">{r.label}</span>
                   </motion.li>
                 ))}
               </motion.ul>
-              <motion.div variants={rise} className="mt-10">
-                <Link to="/contact#enquiry" className="btn !rounded-full bg-white px-6 text-forest-900 shadow-lg hover:-translate-y-0.5">
+              <motion.div variants={rise} className="mt-9">
+                <Link to="/contact#enquiry" className="btn !rounded-full bg-white px-8 text-forest-900 shadow-lg hover:-translate-y-0.5">
                   Get Started <ArrowRight className="h-4 w-4" />
                 </Link>
               </motion.div>
             </motion.div>
 
-            <div className="relative lg:-mr-16 lg:-mt-24">
-              <CurveLine className="absolute -left-24 -top-8 hidden h-40 w-96 lg:block" />
+            <div className="relative lg:-my-6 lg:-mr-6">
+              <CurveLine className="absolute -left-28 -top-6 hidden h-44 w-[420px] lg:block" />
+              {/* dotted grid under the image */}
+              <svg viewBox="0 0 120 70" className="pointer-events-none absolute -bottom-24 left-24 hidden h-16 w-28 lg:block" aria-hidden="true">
+                {Array.from({ length: 5 }).flatMap((_, r) => Array.from({ length: 8 }).map((_, c) => <circle key={`${r}-${c}`} cx={6 + c * 15} cy={6 + r * 14} r="1.6" fill="#BFCDB1" />))}
+              </svg>
               <motion.div
                 initial={{ opacity: 0, x: 40, borderRadius: '40px' }}
-                whileInView={{ opacity: 1, x: 0, borderRadius: '220px 28px 28px 28px' }}
+                whileInView={{ opacity: 1, x: 0, borderRadius: '260px 32px 32px 260px' }}
                 viewport={{ once: true, margin: '0px 0px -15% 0px' }}
                 transition={{ duration: 1.3, ease: EASE }}
-                className="relative aspect-[4/3] overflow-hidden border-[6px] border-ivory bg-sage-100 shadow-lift"
+                className="relative aspect-[4/3] overflow-hidden border-[6px] border-ivory bg-sage-100 shadow-lift lg:aspect-[11/10]"
               >
-                <img src="/assets/about-workspace.webp" alt="An office corner with document files and a plant" loading="lazy" className="h-full w-full object-cover" />
+                <img
+                  src="/assets/why-regpro.webp"
+                  alt="A desk with books on business registration, GST, government schemes and compliance beside a plant and laptop"
+                  loading="lazy"
+                  className="h-full w-full object-cover object-[35%_center]"
+                />
               </motion.div>
             </div>
           </div>
