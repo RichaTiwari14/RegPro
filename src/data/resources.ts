@@ -96,12 +96,12 @@ const meta: Record<string, Pick<Article, 'image' | 'imageAlt' | 'related'>> = {
   },
   'gst-registration-threshold': {
     image: '/assets/resources/gst-guide.webp',
-    imageAlt: 'Invoices and a calculator on a desk',
+    imageAlt: 'GST letter blocks, a calculator and tax papers on a desk',
     related: ['gst-registration', 'gst-amendment'],
   },
   'benefits-of-udyam-registration': {
     image: '/assets/resources/udyam-guide.webp',
-    imageAlt: 'A small-business owner packing products',
+    imageAlt: 'MSME letter blocks and a registration form on a desk',
     related: ['udyam-msme-registration'],
   },
 };
@@ -115,7 +115,7 @@ const more: Article[] = [
     readTime: '4 min read',
     category: 'Startups',
     image: '/assets/resources/startup-india-guide.webp',
-    imageAlt: 'Startup founders presenting on a laptop',
+    imageAlt: 'A laptop showing DPIIT Startup India recognition steps',
     status: 'draft',
     related: ['dpiit-startup-india-recognition', 'private-limited-company-registration'],
     body: [
@@ -144,7 +144,7 @@ const more: Article[] = [
     readTime: '4 min read',
     category: 'Licences',
     image: '/assets/resources/fssai-guide.webp',
-    imageAlt: 'Fresh ingredients in a commercial kitchen',
+    imageAlt: 'A laptop showing FSSAI registration steps beside fresh ingredients',
     status: 'draft',
     related: ['fssai-registration'],
     body: [
@@ -169,7 +169,7 @@ const more: Article[] = [
     readTime: '5 min read',
     category: 'Compliance',
     image: '/assets/resources/compliance-calendar.webp',
-    imageAlt: 'A desk calendar and laptop',
+    imageAlt: 'A compliance calendar, checklist and laptop on a desk',
     status: 'draft',
     related: ['private-limited-company-registration', 'gst-registration'],
     body: [

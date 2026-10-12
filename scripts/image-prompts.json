@@ -195,25 +195,29 @@
       "file": "resources/udyam-guide.webp",
       "size": "1536x1024",
       "subject": "MSME guide",
-      "prompt": "An Indian artisan entrepreneur packing products for dispatch in a bright small studio"
+      "prompt": "An Indian artisan entrepreneur packing products for dispatch in a bright small studio",
+      "provided": true
     },
     {
       "file": "resources/startup-india-guide.webp",
       "size": "1536x1024",
       "subject": "Startup India guide",
-      "prompt": "Young Indian founders presenting on a laptop in a modern meeting room"
+      "prompt": "Young Indian founders presenting on a laptop in a modern meeting room",
+      "provided": true
     },
     {
       "file": "resources/fssai-guide.webp",
       "size": "1536x1024",
       "subject": "Food licence guide",
-      "prompt": "Fresh ingredients and a chef's hands in a clean Indian cloud kitchen"
+      "prompt": "Fresh ingredients and a chef's hands in a clean Indian cloud kitchen",
+      "provided": true
     },
     {
       "file": "resources/compliance-calendar.webp",
       "size": "1536x1024",
       "subject": "Compliance calendar",
-      "prompt": "A desk calendar with a pen and a laptop, neatly organised, editorial calm light"
+      "prompt": "A desk calendar with a pen and a laptop, neatly organised, editorial calm light",
+      "provided": true
     }
   ]
 }
