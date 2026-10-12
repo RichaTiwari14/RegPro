@@ -91,7 +91,7 @@ const existing: Omit<Article, 'status' | 'image' | 'imageAlt' | 'related'>[] = [
 const meta: Record<string, Pick<Article, 'image' | 'imageAlt' | 'related'>> = {
   'pvt-ltd-vs-llp-vs-opc': {
     image: '/assets/resources/structure-guide.webp',
-    imageAlt: 'Notebook and documents for choosing a business structure',
+    imageAlt: 'Wooden blocks for Private Limited, LLP and OPC beside a structure comparison sheet',
     related: ['private-limited-company-registration', 'llp-registration', 'opc-registration'],
   },
   'gst-registration-threshold': {

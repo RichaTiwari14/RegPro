@@ -182,7 +182,8 @@
       "file": "resources/structure-guide.webp",
       "size": "1536x1024",
       "subject": "Choosing a business structure",
-      "prompt": "Notebook, pen and laptop on a desk with three neat stacks of papers, editorial flat-lay, cream and navy"
+      "prompt": "Notebook, pen and laptop on a desk with three neat stacks of papers, editorial flat-lay, cream and navy",
+      "provided": true
     },
     {
       "file": "resources/gst-guide.webp",
