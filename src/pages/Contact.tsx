@@ -36,7 +36,7 @@ export default function Contact() {
         text="Have a question or need expert guidance? Call, WhatsApp or send us an enquiry and our team will get back to you."
         crumbs={crumbs}
         image="/assets/contact-office.webp"
-        imageAlt="A friendly client-support professional"
+        imageAlt="Regpro office reception desk"
       />
 
       <section id="enquiry" className="scroll-mt-24 py-16 sm:py-24">

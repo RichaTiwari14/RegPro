@@ -52,7 +52,7 @@ export default function About() {
 
       <section className="py-20 lg:py-28">
         <Container className="grid items-center gap-14 lg:grid-cols-2">
-          <ImageFrame src="/assets/business-documents.webp" alt="Professionals reviewing registration documents" aspect="aspect-[5/4]" />
+          <ImageFrame src="/assets/business-documents.webp" alt="Regpro meeting room with green chairs" aspect="aspect-[5/4]" />
           <div>
             <SectionHeading eyebrow="Our story" title="Why Regpro exists" />
             <Reveal delay={120}>

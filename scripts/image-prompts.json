@@ -5,13 +5,15 @@
       "file": "regpro-hero.webp",
       "size": "1536x1024",
       "subject": "Business consultation",
-      "prompt": "A friendly Indian business consultant in a navy blazer explaining a registration document to a young Indian entrepreneur across a light oak desk with a laptop, in a bright premium office with large windows and a potted plant"
+      "prompt": "A friendly Indian business consultant in a navy blazer explaining a registration document to a young Indian entrepreneur across a light oak desk with a laptop, in a bright premium office with large windows and a potted plant",
+      "provided": true
     },
     {
       "file": "business-documents.webp",
       "size": "1536x1024",
       "subject": "Reviewing registration documents",
-      "prompt": "Two Indian business professionals reviewing neatly organised registration documents and a tablet at a meeting table, hands and paperwork in focus, cream and navy palette"
+      "prompt": "Two Indian business professionals reviewing neatly organised registration documents and a tablet at a meeting table, hands and paperwork in focus, cream and navy palette",
+      "provided": true
     },
     {
       "file": "company-registration.webp",
@@ -69,7 +71,8 @@
       "file": "contact-office.webp",
       "size": "1024x1536",
       "subject": "Friendly support",
-      "prompt": "A friendly Indian client-support professional with a headset smiling at a laptop in a bright, premium office"
+      "prompt": "A friendly Indian client-support professional with a headset smiling at a laptop in a bright, premium office",
+      "provided": true
     },
     {
       "file": "services/private-limited-company-registration.webp",
