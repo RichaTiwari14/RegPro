@@ -92,7 +92,8 @@
       "file": "services/opc-registration.webp",
       "size": "1536x1024",
       "subject": "Solo founder",
-      "prompt": "A focused young Indian solo founder working on a laptop in a home office with warm light"
+      "prompt": "A focused young Indian solo founder working on a laptop in a home office with warm light",
+      "provided": true
     },
     {
       "file": "services/partnership-firm-registration.webp",

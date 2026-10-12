@@ -47,7 +47,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   'opc-registration': {
     image: img('opc-registration'),
-    imageAlt: 'A solo founder working on a laptop',
+    imageAlt: 'A solo founder planning her one person company at her desk',
     considerations: [
       'Only a natural person who is an Indian citizen can incorporate an OPC.',
       'A nominee must be named, who takes over if the member is unable to continue.',
