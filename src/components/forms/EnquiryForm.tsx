@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { AlertCircle, ArrowRight, CheckCircle2, Loader2, Phone, ShieldCheck } from 'lucide-react';
+import { AlertCircle, ArrowRight, CheckCircle2, ChevronDown, Loader2, Lock, Phone, ShieldCheck } from 'lucide-react';
 import { categories, servicesByCategory } from '@/data/services';
 import { site, whatsappLink } from '@/config/site';
 import { submitEnquiry, enquiryWhatsappMessage } from '@/services/enquiries';
@@ -37,12 +37,17 @@ export function EnquiryForm({
   title = 'Send us an enquiry',
   subtitle = 'Share your details and an expert will get back to you within working hours.',
   compact = false,
+  boxed = false,
+  submitLabel = 'Submit enquiry',
   className = '',
 }: {
   defaultService?: string;
   title?: string;
   subtitle?: string;
   compact?: boolean;
+  /** Labels sit inside white boxes, no outer card (Contact page). */
+  boxed?: boolean;
+  submitLabel?: string;
   className?: string;
 }) {
   const uid = useId();
@@ -85,6 +90,25 @@ export function EnquiryForm({
     'w-full rounded-lg border bg-white px-4 py-3 text-[15px] text-ink placeholder:text-subtle outline-none transition focus:border-forest-800 focus:ring-4 focus:ring-forest-800/10';
   const border = (bad?: unknown) => (bad ? 'border-red-400' : 'border-line');
   const label = 'mb-1.5 block text-[13px] font-medium text-ink';
+  const box = (bad?: unknown) =>
+    `block cursor-text rounded-xl bg-white px-4 pb-2.5 pt-3 ring-1 transition focus-within:ring-2 ${bad ? 'ring-red-400' : 'ring-line focus-within:ring-forest-800/30'}`;
+  const boxLabel = 'block text-[12.5px] font-medium text-ink';
+  const boxInput = 'mt-1 w-full min-w-0 bg-transparent text-[14px] text-ink outline-none placeholder:text-subtle';
+  const serviceOptions = (
+    <>
+      <option value="">Select a service</option>
+      {categories.map((c) => (
+        <optgroup key={c.id} label={c.title}>
+          {servicesByCategory(c.id).map((s) => (
+            <option key={s.slug} value={s.name}>
+              {s.name}
+            </option>
+          ))}
+        </optgroup>
+      ))}
+      <option value="Not sure — need guidance">Not sure — need guidance</option>
+    </>
+  );
   const err = (m?: string) => (m ? <p className="mt-1.5 text-xs text-red-600">{m}</p> : null);
 
   if (status.kind === 'success') {
@@ -114,11 +138,79 @@ export function EnquiryForm({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className={`rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8 ${className}`} aria-busy={isSubmitting}>
-      <h3 className="font-display text-2xl text-ink">{title}</h3>
-      {subtitle && <p className="mt-1.5 text-sm text-muted">{subtitle}</p>}
-      <span className="mt-4 block h-px w-12 bg-forest-800" aria-hidden="true" />
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className={`${boxed ? '' : 'rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8'} ${className}`}
+      aria-busy={isSubmitting}
+    >
+      {title && <h3 className="font-display text-2xl text-ink">{title}</h3>}
+      {title && subtitle && <p className="mt-1.5 text-sm text-muted">{subtitle}</p>}
+      {title && <span className="mt-4 block h-px w-12 bg-forest-800" aria-hidden="true" />}
 
+      {boxed ? (
+        <div className="grid gap-3.5 sm:grid-cols-2">
+          <div className="sm:col-span-2">
+            <label htmlFor={id('name')} className={box(errors.full_name)}>
+              <span className={boxLabel}>
+                Full Name <span className="text-red-500">*</span>
+              </span>
+              <input id={id('name')} autoComplete="name" placeholder="Enter your full name" aria-invalid={!!errors.full_name} className={boxInput} {...register('full_name')} />
+            </label>
+            {err(errors.full_name?.message)}
+          </div>
+          <div>
+            <label htmlFor={id('mobile')} className={box(errors.mobile)}>
+              <span className={boxLabel}>
+                Phone Number <span className="text-red-500">*</span>
+              </span>
+              <span className="flex items-baseline gap-1.5">
+                <span className="text-[14px] text-muted">+91</span>
+                <input
+                  id={id('mobile')}
+                  type="tel"
+                  inputMode="numeric"
+                  autoComplete="tel-national"
+                  placeholder="Enter your phone number"
+                  aria-invalid={!!errors.mobile}
+                  className={boxInput}
+                  {...register('mobile')}
+                />
+              </span>
+            </label>
+            {err(errors.mobile?.message)}
+          </div>
+          <div>
+            <label htmlFor={id('email')} className={box(errors.email)}>
+              <span className={boxLabel}>
+                Email Address <span className="text-red-500">*</span>
+              </span>
+              <input id={id('email')} type="email" autoComplete="email" placeholder="Enter your email address" aria-invalid={!!errors.email} className={boxInput} {...register('email')} />
+            </label>
+            {err(errors.email?.message)}
+          </div>
+          <div className="sm:col-span-2">
+            <label htmlFor={id('service')} className={`${box(errors.service)} relative`}>
+              <span className={boxLabel}>
+                Select Service <span className="text-red-500">*</span>
+              </span>
+              <select id={id('service')} aria-invalid={!!errors.service} className={`${boxInput} appearance-none pr-8`} {...register('service')}>
+                {serviceOptions}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+            </label>
+            {err(errors.service?.message)}
+          </div>
+          <div className="sm:col-span-2">
+            <label htmlFor={id('message')} className={box(errors.message)}>
+              <span className={boxLabel}>Message (Optional)</span>
+              <textarea id={id('message')} rows={3} placeholder="Tell us about your requirement" className={`${boxInput} resize-none`} {...register('message')} />
+            </label>
+            {err(errors.message?.message)}
+          </div>
+          <input type="text" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" {...register('company')} />
+        </div>
+      ) : (
       <div className={`mt-6 grid gap-4 ${compact ? '' : 'sm:grid-cols-2'}`}>
         <div>
           <label htmlFor={id('name')} className={label}>
@@ -158,17 +250,7 @@ export function EnquiryForm({
             Service required <span className="text-forest-600">*</span>
           </label>
           <select id={id('service')} aria-invalid={!!errors.service} className={`${field} ${border(errors.service)} appearance-none bg-[length:16px] bg-[right_1rem_center] bg-no-repeat pr-10`} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2368717D' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")" }} {...register('service')}>
-            <option value="">Select a service</option>
-            {categories.map((c) => (
-              <optgroup key={c.id} label={c.title}>
-                {servicesByCategory(c.id).map((s) => (
-                  <option key={s.slug} value={s.name}>
-                    {s.name}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-            <option value="Not sure — need guidance">Not sure — need guidance</option>
+            {serviceOptions}
           </select>
           {err(errors.service?.message)}
         </div>
@@ -191,6 +273,7 @@ export function EnquiryForm({
         )}
         <input type="text" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" {...register('company')} />
       </div>
+      )}
 
       <label className="mt-5 flex cursor-pointer items-start gap-3 text-sm text-muted">
         <input type="checkbox" className="mt-0.5 h-4 w-4 shrink-0 rounded border-line accent-forest-800" aria-invalid={!!errors.consent} {...register('consent')} />
@@ -227,12 +310,12 @@ export function EnquiryForm({
           </>
         ) : (
           <>
-            Submit enquiry <ArrowRight className="h-4 w-4" />
+            {submitLabel} <ArrowRight className="h-4 w-4" />
           </>
         )}
       </button>
       <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-subtle">
-        <ShieldCheck className="h-3.5 w-3.5" /> Your details are used only to respond to your enquiry.
+        {boxed ? <Lock className="h-3.5 w-3.5" /> : <ShieldCheck className="h-3.5 w-3.5" />} Your details are used only to respond to your enquiry.
       </p>
     </form>
   );
