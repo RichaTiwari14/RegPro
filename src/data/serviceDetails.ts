@@ -59,7 +59,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   'partnership-firm-registration': {
     image: img('partnership-firm-registration'),
-    imageAlt: 'Two business partners shaking hands',
+    imageAlt: 'Three partners reviewing their partnership deed together',
     considerations: [
       'A partnership needs at least 2 partners and a partnership deed on stamp paper.',
       'Registration with the Registrar of Firms is optional, but an unregistered firm cannot sue third parties to enforce contractual rights.',

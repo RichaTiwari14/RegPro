@@ -99,7 +99,8 @@
       "file": "services/partnership-firm-registration.webp",
       "size": "1536x1024",
       "subject": "Partners shaking hands",
-      "prompt": "Two Indian business partners shaking hands across a desk in a bright office"
+      "prompt": "Two Indian business partners shaking hands across a desk in a bright office",
+      "provided": true
     },
     {
       "file": "services/gst-registration.webp",
