@@ -35,7 +35,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   'llp-registration': {
     image: img('llp-registration'),
-    imageAlt: 'Two business partners discussing an LLP agreement',
+    imageAlt: 'Two business partners reviewing their LLP agreement',
     considerations: [
       'At least 2 designated partners are required, and at least one must be resident in India.',
       'Designated partners need a Digital Signature Certificate and a DIN/DPIN.',

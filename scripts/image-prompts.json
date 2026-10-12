@@ -85,7 +85,8 @@
       "file": "services/llp-registration.webp",
       "size": "1536x1024",
       "subject": "Partners in a meeting",
-      "prompt": "Two Indian professional partners discussing an agreement in a modern office"
+      "prompt": "Two Indian professional partners discussing an agreement in a modern office",
+      "provided": true
     },
     {
       "file": "services/opc-registration.webp",
