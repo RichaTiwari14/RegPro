@@ -154,7 +154,7 @@ export default function About() {
               </Link>
             </Reveal>
           </div>
-          <ImageFrame src="/assets/startup-founders.webp" alt="Founders collaborating" aspect="aspect-[5/4]" />
+          <ImageFrame src="/assets/startup-founders.webp" alt="A consultant guiding a founder through his business registration plan" aspect="aspect-[5/4]" />
         </Container>
       </section>
 
