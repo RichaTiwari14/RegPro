@@ -164,7 +164,8 @@
       "file": "services/digital-signature-certificate.webp",
       "size": "1536x1024",
       "subject": "Digital signing",
-      "prompt": "A professional using a USB token with a laptop to sign a document digitally, close-up, warm light"
+      "prompt": "A professional using a USB token with a laptop to sign a document digitally, close-up, warm light",
+      "provided": true
     },
     {
       "file": "services/trademark-registration.webp",

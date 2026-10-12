@@ -175,7 +175,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   },
   'digital-signature-certificate': {
     image: img('digital-signature-certificate'),
-    imageAlt: 'Signing a document digitally with a USB token',
+    imageAlt: 'A professional signing a document digitally on her laptop',
     considerations: [
       'Class 3 DSCs are issued by licensed Certifying Authorities.',
       'The applicant must complete identity verification, typically with an Aadhaar-based or video process.',
